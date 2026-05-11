@@ -18,11 +18,26 @@ theme:
         icon: material/brightness-7
         name: Switch to dark mode
   features:
-    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.indexes
-    - toc.integrate
+    # - toc.integrate
     - search.suggest
     - search.highlight
+    - navigation.footer
+    - content.code.annotate
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences
+  - def_list
 
 nav:
   - Home: index.md
@@ -55,3 +70,6 @@ nav:
     - Grammar: reference/grammar.md
     - Keywords: reference/keywords.md
     - Error Codes: reference/error_codes.md
+
+extra_css:
+  - stylesheets/extra.css
