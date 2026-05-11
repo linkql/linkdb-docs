@@ -1,0 +1,57 @@
+site_name: LinkQL Documentation
+site_description: Reference documentation for the LinkDBMS and LinkQL query language.
+site_url: https://linkql.github.io/linkdb-docs
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: green
+      accent: light-green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: green
+      accent: light-green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - LinkDB:
+    - linkdb/index.md
+    - Installation: linkdb/installation.md
+    - CLI:
+      - linkdb/cli/index.md
+      - Commands: linkdb/cli/commands.md
+    - Python API:
+      - linkdb/api/index.md
+      - Connection: linkdb/api/connection.md
+      - Query Execution: linkdb/api/query_execution.md
+      - Results: linkdb/api/results.md
+  - Language:
+    - language/index.md
+    - Data Types: language/data_types.md
+    - DDL:
+      - CREATE: language/ddl/create.md
+      - ALTER: language/ddl/alter.md
+      - DROP: language/ddl/drop.md
+    - DML:
+      - SELECT: language/dml/select.md
+      - INSERT: language/dml/insert.md
+      - UPDATE: language/dml/update.md
+      - DELETE: language/dml/delete.md
+    - Transactions: language/transactions.md
+    - Functions: language/functions.md
+  - Reference:
+    - Grammar: reference/grammar.md
+    - Keywords: reference/keywords.md
+    - Error Codes: reference/error_codes.md
