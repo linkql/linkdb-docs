@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://linkql.github.io/linkdb-docs/language/json/">
       
       
-        <link rel="prev" href="../dml/delete/">
+        <link rel="prev" href="../dml/for/">
       
       
         <link rel="next" href="../transactions/">
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#json" class="md-skip">
+        <a href="#json-querying" class="md-skip">
           Skip to content
         </a>
       
@@ -1007,6 +1007,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -1162,6 +1166,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dml/let/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dml/for/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FOR Loops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1186,6 +1246,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON Querying
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1202,6 +1280,180 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bracket-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bracket Notation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bracket Notation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#null-and-missing-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NULL and MISSING Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#has" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KEYS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VALUES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MERGE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CONTAINS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unpack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UNPACK
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1440,6 +1692,169 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bracket-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bracket Notation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bracket Notation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#null-and-missing-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NULL and MISSING Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#has" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KEYS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VALUES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MERGE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CONTAINS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unpack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UNPACK
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1455,7 +1870,207 @@
 
 
 
-<h1 id="json">Json</h1>
+<h1 id="json-querying">JSON Querying</h1>
+<p>Querying and manipulating JSON and JSONB values in LinkQL.</p>
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>json_access     ::= expr &#39;[&#39; string_literal &#39;]&#39; ( &#39;[&#39; string_literal &#39;]&#39; )*
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>json_function   ::= HAS &#39;(&#39; expr &#39;,&#39; string_literal &#39;)&#39;
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                  | KEYS &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                  | VALUES &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                  | MERGE &#39;(&#39; expr &#39;,&#39; expr ( &#39;,&#39; ( LEFT | RIGHT ) )? &#39;)&#39;
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                  | CONTAINS &#39;(&#39; expr &#39;,&#39; expr &#39;)&#39;
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                  | UNPACK &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                  | UNPACK &#39;(&#39; &#39;)&#39;
+</span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>LinkQL provides bracket notation and a set of functions for querying and manipulating
+JSON and JSONB values. Bracket notation works on both <code>JSON</code> and <code>JSONB</code> columns and
+fields — the syntax is identical, the difference is purely storage and performance.
+See <a href="../data_types/">Data Types</a> for the distinction between <code>JSON</code> and <code>JSONB</code>.</p>
+<p>Bracket notation and JSON functions work on both table columns and collection fields:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- Table column</span>
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;preferences&#39;</span><span class="p">][</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span>
+</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">-- Collection field</span>
+</span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">posts</span><span class="p">::</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span>
+</span></code></pre></div>
+<h2 id="bracket-notation">Bracket Notation</h2>
+<p>Bracket notation navigates into a JSON value by key. Keys are string literals.
+Notation can be chained to navigate nested objects.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Single key</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">-- Nested keys</span>
+</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;preferences&#39;</span><span class="p">][</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span>
+</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="True-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1">-- On a collection field</span>
+</span><span id="True-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">posts</span><span class="p">::</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;preferences&#39;</span><span class="p">][</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span>
+</span></code></pre></div>
+<h3 id="null-and-missing-behavior">NULL and MISSING Behavior</h3>
+<ul>
+<li>If a key exists but its value is <code>null</code>, bracket notation returns <code>NULL</code>.</li>
+<li>If a key does not exist at any point in the path, bracket notation returns <code>MISSING</code>.</li>
+</ul>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Key exists, value is null → NULL</span>
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span><span class="w">  </span><span class="c1">-- { &quot;theme&quot;: null } → NULL</span>
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">-- Key does not exist → MISSING</span>
+</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span><span class="w">  </span><span class="c1">-- { &quot;preferences&quot;: {} } → MISSING</span>
+</span></code></pre></div>
+<h2 id="json-functions">JSON Functions</h2>
+<h3 id="has">HAS</h3>
+<p>Returns <code>true</code> if the specified key path exists in the JSON value, <code>false</code> otherwise.
+Dot notation in the path checks the full depth — all keys in the path must exist for
+<code>HAS</code> to return <code>true</code>.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- Top level key</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">HAS</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ip&#39;</span><span class="p">)</span>
+</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1">-- Nested path — true only if preferences exists AND theme exists within it</span>
+</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">HAS</span><span class="p">(</span><span class="n">profile_data</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;preferences.theme&#39;</span><span class="p">)</span>
+</span><span id="True-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="True-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">-- On a collection field</span>
+</span><span id="True-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">HAS</span><span class="p">(</span><span class="n">posts</span><span class="p">::</span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ip&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="keys">KEYS</h3>
+<p>Returns all top level keys of a JSON object as an <code>ARRAY(TEXT)</code>.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">KEYS</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">)</span>
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">-- On a collection field</span>
+</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">KEYS</span><span class="p">(</span><span class="n">posts</span><span class="p">::</span><span class="n">metadata</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="values">VALUES</h3>
+<p>Returns all top level values of a JSON object as an <code>ARRAY(JSON)</code>.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">VALUES</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">)</span>
+</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="True-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">-- On a collection field</span>
+</span><span id="True-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">VALUES</span><span class="p">(</span><span class="n">posts</span><span class="p">::</span><span class="n">metadata</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="merge">MERGE</h3>
+<p>Merges two JSON objects together. If both objects share a key, the direction determines
+which value is kept. Defaults to <code>RIGHT</code> — the second object's value wins on conflict.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Right wins by default</span>
+</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">MERGE</span><span class="p">(</span><span class="n">json1</span><span class="p">,</span><span class="w"> </span><span class="n">json2</span><span class="p">)</span>
+</span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="True-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1">-- Explicit left — json1 wins on conflict</span>
+</span><span id="True-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">MERGE</span><span class="p">(</span><span class="n">json1</span><span class="p">,</span><span class="w"> </span><span class="n">json2</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="p">)</span>
+</span><span id="True-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="True-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1">-- Explicit right — json2 wins on conflict</span>
+</span><span id="True-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">MERGE</span><span class="p">(</span><span class="n">json1</span><span class="p">,</span><span class="w"> </span><span class="n">json2</span><span class="p">,</span><span class="w"> </span><span class="k">RIGHT</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="contains">CONTAINS</h3>
+<p>Returns <code>true</code> if a JSON array contains the specified value, <code>false</code> otherwise.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- Check if an array contains a value</span>
+</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">CONTAINS</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="p">)</span>
+</span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="True-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1">-- On a collection field</span>
+</span><span id="True-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">CONTAINS</span><span class="p">(</span><span class="n">posts</span><span class="p">::</span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;featured&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="unpack">UNPACK</h3>
+<p>Unpacks a JSON object into free fields. Each key in the JSON object becomes a free
+field. The engine resolves a type for each value:</p>
+<table>
+<thead>
+<tr>
+<th>JSON type</th>
+<th>Resolved type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td><code>TEXT</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td><code>INT</code></td>
+</tr>
+<tr>
+<td>Decimal</td>
+<td><code>FLOAT</code></td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td><code>BOOLEAN</code></td>
+</tr>
+<tr>
+<td>Array</td>
+<td><code>ARRAY</code> of resolved type</td>
+</tr>
+<tr>
+<td>Object</td>
+<td><code>JSONB</code></td>
+</tr>
+<tr>
+<td>null</td>
+<td><code>NULL</code></td>
+</tr>
+</tbody>
+</table>
+<p>If the engine cannot resolve a type, an error is returned.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">-- JSON literal</span>
+</span><span id="True-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">UNPACK</span><span class="p">(</span><span class="s1">&#39;{&quot;mood&quot;: &quot;happy&quot;, &quot;weather&quot;: &quot;sunny&quot;}&#39;</span><span class="p">)</span>
+</span><span id="True-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="True-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1">-- Column reference</span>
+</span><span id="True-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">UNPACK</span><span class="p">(</span><span class="k">source</span><span class="p">.</span><span class="n">metadata</span><span class="p">)</span>
+</span></code></pre></div>
+<p><code>UNPACK()</code> with no arguments is INSERT only — it takes the last value in the <code>VALUES</code>
+list as the JSON object to unpack. See <a href="../dml/insert/">INSERT</a> for details.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Bracket notation syntax is identical for <code>JSON</code> and <code>JSONB</code>. The difference is
+  storage and performance only.</li>
+<li>A key that does not exist returns <code>MISSING</code>, not <code>NULL</code>. A key that exists with a
+  null value returns <code>NULL</code>.</li>
+<li><code>HAS</code> with a dot path checks the full depth — all keys in the path must exist.</li>
+<li><code>MERGE</code> defaults to <code>RIGHT</code> — the second object's value wins on conflict.</li>
+<li><code>KEYS</code> and <code>VALUES</code> only return top level keys and values.</li>
+<li><code>UNPACK()</code> with no arguments is INSERT only.</li>
+<li>JSON functions work on both table columns and collection fields.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<div class="language-sql highlight"><span class="filename">Bracket notation in SELECT</span><pre><span></span><code><span id="True-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">SELECT</span>
+</span><span id="True-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+</span><span id="True-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;preferences&#39;</span><span class="p">][</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">preferred_theme</span>
+</span><span id="True-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">Bracket notation in WHERE</span><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;preferences&#39;</span><span class="p">][</span><span class="s1">&#39;theme&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dark&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">HAS in a CASE expression</span><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SELECT</span>
+</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">CASE</span>
+</span><span id="True-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">        </span><span class="k">WHEN</span><span class="w"> </span><span class="n">HAS</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ip&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span>
+</span><span id="True-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">        </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;n/a&#39;</span>
+</span><span id="True-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ip_address</span>
+</span><span id="True-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">HAS with nested path</span><pre><span></span><code><span id="True-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">HAS</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;preferences.theme&#39;</span><span class="p">);</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">KEYS and VALUES</span><pre><span></span><code><span id="True-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">SELECT</span>
+</span><span id="True-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="n">KEYS</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">profile_keys</span><span class="p">,</span>
+</span><span id="True-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="k">VALUES</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">profile_values</span>
+</span><span id="True-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">MERGE two JSON objects</span><pre><span></span><code><span id="True-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">MERGE</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">metadata</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">combined</span>
+</span><span id="True-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">MERGE with explicit direction</span><pre><span></span><code><span id="True-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">MERGE</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">combined</span>
+</span><span id="True-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">CONTAINS on a JSON array</span><pre><span></span><code><span id="True-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">CONTAINS</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="p">);</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">UNPACK in INSERT</span><pre><span></span><code><span id="True-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">FREE</span><span class="w"> </span><span class="n">UNPACK</span><span class="p">(</span><span class="s1">&#39;{&quot;mood&quot;: &quot;happy&quot;, &quot;weather&quot;: &quot;sunny&quot;}&#39;</span><span class="p">)</span>
+</span><span id="True-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello world&#39;</span><span class="p">);</span>
+</span></code></pre></div>
+<h2 id="see-also">See Also</h2>
+<p><a href="../data_types/">Data Types</a>, <a href="../dml/insert/">INSERT</a>, <a href="../functions/">Functions</a></p>
+<hr />
+<p><a href="../">← Back to Language</a></p>
 
 
 
@@ -1485,7 +2100,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../dml/delete/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DELETE">
+          <a href="../dml/for/" class="md-footer__link md-footer__link--prev" aria-label="Previous: FOR Loops">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1495,7 +2110,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                DELETE
+                FOR Loops
               </div>
             </div>
           </a>

@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://linkql.github.io/linkdb-docs/language/dml/delete/">
+        <link rel="canonical" href="https://linkql.github.io/linkdb-docs/language/dml/for/">
       
       
-        <link rel="prev" href="../update/">
+        <link rel="prev" href="../let/">
       
       
-        <link rel="next" href="../let/">
+        <link rel="next" href="../../json/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>DELETE - LinkQL Documentation</title>
+        <title>FOR Loops - LinkQL Documentation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#delete" class="md-skip">
+        <a href="#for" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              DELETE
+              FOR Loops
             
           </span>
         </div>
@@ -1144,6 +1144,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../delete/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../let/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1163,7 +1219,7 @@
   <span class="md-ellipsis">
     
   
-    DELETE
+    FOR Loops
   
 
     
@@ -1181,7 +1237,7 @@
   <span class="md-ellipsis">
     
   
-    DELETE
+    FOR Loops
   
 
     
@@ -1229,10 +1285,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#database-settings" class="md-nav__link">
+  <a href="#transactions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Database Settings
+        Transactions
       
     </span>
   </a>
@@ -1276,62 +1332,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../let/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    LET
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../for/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FOR Loops
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1634,10 +1634,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#database-settings" class="md-nav__link">
+  <a href="#transactions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Database Settings
+        Transactions
       
     </span>
   </a>
@@ -1694,92 +1694,103 @@
 
 
 
-<h1 id="delete">DELETE</h1>
-<p>Removes rows or documents from a table or collection.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>delete_stmt     ::= DELETE FROM identifier
-</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                    ( FROM from_clause )?
-</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                    ( WHERE expr )?
-</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                    ( CONFIRM string_literal )?
+<h1 id="for">FOR</h1>
+<p>Iterates over a result set and applies DML statements to each row or document.</p>
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>for_stmt        ::= FOR identifier IN for_source
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                    DO
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                      for_statement+
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                    END
 </span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>from_clause     ::= from_item ( &#39;,&#39; join_clause )*
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>from_item       ::= identifier ( AS? identifier )?
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                  | &#39;(&#39; select_stmt &#39;)&#39; AS identifier
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>for_source      ::= identifier
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                  | &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>for_statement   ::= insert_stmt &#39;;&#39;
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                  | update_stmt &#39;;&#39;
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                  | delete_stmt &#39;;&#39;
 </span></code></pre></div>
 <h2 id="description">Description</h2>
-<p><code>DELETE FROM</code> removes one or more rows or documents from a table or collection. Rows
-can be filtered with a <code>WHERE</code> clause. If no <code>WHERE</code> clause is provided, all rows or
-documents in the table or collection are deleted.</p>
-<p>A <code>FROM</code> clause can be used to join against other tables or collections when determining
-which rows to delete.</p>
-<p>For collections, deleting a document removes it entirely including all defined and free
-fields.</p>
+<p><code>FOR</code> iterates over a result set and applies one or more DML statements to each row
+or document. It is useful for performing row level operations that would otherwise
+require multiple queries.</p>
+<p>The <code>FOR</code> loop always iterates over a snapshot of the result set taken at the start
+of the loop. Modifications made inside the loop do not affect the snapshot — subsequent
+iterations always see the original data.</p>
+<p><code>FOR</code> loops are implicitly transactional. All iterations succeed as a whole or all
+roll back. If a <code>FOR</code> loop is inside a block transaction, its atomicity is absorbed
+into the block.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><code>identifier</code></dt>
-<dd>The name of the table or collection to delete from.</dd>
-<dt><code>FROM from_clause</code></dt>
-<dd>Joins against one or more tables or collections when determining which rows to
-delete. Follows the same syntax as the <a href="../select/from/"><code>FROM</code></a> clause in <code>SELECT</code>.</dd>
-<dt><code>WHERE expr</code></dt>
-<dd>Filters which rows or documents are deleted. If omitted, all rows or documents in
-the table or collection are deleted.</dd>
-<dt><code>CONFIRM string_literal</code></dt>
-<dd>A confirmation string that must match the name of the table or collection being
-deleted from. Required when <code>CONFIRM_BULK_OPERATIONS</code> is enabled on the database
-and no <code>WHERE</code> clause is provided.</dd>
+<dd>The loop variable. Represents the current row or document on each iteration.
+Table columns are accessed with dot notation — <code>user.column</code>. Collection fields
+are accessed with double colon notation — <code>user::field</code>.</dd>
+<dt><code>for_source</code></dt>
+<dd>The result set to iterate over. Can be a table or collection identifier, a LET
+binding name, or a subquery.</dd>
+<dt><code>for_statement</code></dt>
+<dd>A DML statement to apply on each iteration. Each statement must end with a
+semicolon. Only <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> are valid inside a <code>FOR</code> loop.
+DDL statements and nested <code>FOR</code> loops are not permitted.</dd>
 </dl>
-<h2 id="database-settings">Database Settings</h2>
-<dl>
-<dt><code>CONFIRM_BULK_OPERATIONS</code></dt>
-<dd>When enabled, requires a <code>CONFIRM</code> clause on any <code>DELETE</code> or <code>UPDATE</code> statement
-with no <code>WHERE</code> clause. Disabled by default.</dd>
-</dl>
+<h2 id="transactions">Transactions</h2>
+<p><code>FOR</code> loops are implicitly transactional — all iterations are treated as a single
+unit of work. If any iteration fails, all changes made by the loop are rolled back.</p>
+<p>If a <code>FOR</code> loop is used inside a block transaction, the loop's atomicity is absorbed
+into the block. A failure inside the loop causes the entire block to roll back.</p>
 <h2 id="notes">Notes</h2>
 <ul>
-<li>If no <code>WHERE</code> clause is provided, all rows or documents are deleted.</li>
-<li>Deleting a document from a collection removes it entirely including all defined and
-  free fields.</li>
-<li><code>FROM</code> follows the same syntax as the <code>SELECT</code> <code>FROM</code> clause including shorthand
-  and traditional join syntax.</li>
-<li>Foreign key constraints are validated at commit time. If a deleted row is referenced
-  by another table or collection, the transaction will fail unless the reference action
-  allows it.</li>
-<li>Use <a href="../../ddl/drop/drop-table/"><code>DROP TABLE</code></a> or
-  <a href="../../ddl/drop/drop-collection/"><code>DROP COLLECTION</code></a> to remove the table or collection
-  itself rather than just its data.</li>
-<li>Use <a href="../../ddl/drop/drop-table/"><code>TRUNCATE</code></a> to delete all rows without a <code>WHERE</code>
-  clause more efficiently than <code>DELETE</code>.</li>
+<li>The loop always iterates over a snapshot. Modifications inside the loop do not
+  affect subsequent iterations.</li>
+<li>Only <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> are valid inside a <code>FOR</code> loop. <code>SELECT</code>
+  and DDL statements are not permitted.</li>
+<li>Nested <code>FOR</code> loops are not supported.</li>
+<li><code>FOR</code> loops are implicitly transactional. All iterations succeed or all roll back.</li>
+<li>A <code>FOR</code> loop inside a block transaction is absorbed into the block's atomicity.</li>
+<li>Use <code>LET</code> to define a named subquery before the loop and reference it by name
+  as the source.</li>
 </ul>
 <h2 id="examples">Examples</h2>
-<div class="language-sql highlight"><span class="filename">Basic delete</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Basic FOR loop</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">FOR</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">inactive_users</span>
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">DO</span>
+</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
+</span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
+</span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">END</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Delete a single row</span><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">FOR loop with a subquery source</span><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">FOR</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
+</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">)</span>
+</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">DO</span>
+</span><span id="True-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
+</span><span id="True-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
+</span><span id="True-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">END</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Delete all rows</span><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">FOR loop with a LET binding</span><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">LET</span><span class="w"> </span><span class="n">inactive_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
+</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">),</span>
+</span><span id="True-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">FOR</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">inactive_users</span>
+</span><span id="True-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">DO</span>
+</span><span id="True-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
+</span><span id="True-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
+</span><span id="True-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">END</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Delete all rows with confirmation</span><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">CONFIRM</span><span class="w"> </span><span class="s1">&#39;users&#39;</span><span class="p">;</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Delete from a collection</span><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
-</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Delete with FROM clause</span><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span>
-</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">sessions</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">AND</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span><span class="p">;</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Delete with JOIN in FROM</span><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span>
-</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">sessions</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">AND</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;deleted&#39;</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">FOR loop over a collection</span><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">FOR</span><span class="w"> </span><span class="n">post</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span>
+</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
+</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">created_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
+</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">)</span>
+</span><span id="True-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">DO</span>
+</span><span id="True-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">comments</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">post_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">post</span><span class="p">::</span><span class="n">post_id</span><span class="p">;</span>
+</span><span id="True-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">post_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">post</span><span class="p">::</span><span class="n">post_id</span><span class="p">;</span>
+</span><span id="True-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">END</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
-<p><a href="../insert/">INSERT</a>, <a href="../update/">UPDATE</a>, <a href="../select/">SELECT</a>, <a href="../../ddl/drop/drop-table/">DROP TABLE</a>, <a href="../../ddl/drop/drop-collection/">DROP COLLECTION</a></p>
+<p><a href="../let/">LET</a>, <a href="../update/">UPDATE</a>, <a href="../delete/">DELETE</a>, <a href="../insert/">INSERT</a>, <a href="../../transactions/">Transactions</a></p>
 <hr />
-<p><a href="../../">← Back to DML</a></p>
+<p><a href="../select.md">← Back to SELECT</a></p>
 
 
 
@@ -1809,7 +1820,7 @@ with no <code>WHERE</code> clause. Disabled by default.</dd>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../update/" class="md-footer__link md-footer__link--prev" aria-label="Previous: UPDATE">
+          <a href="../let/" class="md-footer__link md-footer__link--prev" aria-label="Previous: LET">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1819,20 +1830,20 @@ with no <code>WHERE</code> clause. Disabled by default.</dd>
                 Previous
               </span>
               <div class="md-ellipsis">
-                UPDATE
+                LET
               </div>
             </div>
           </a>
         
         
           
-          <a href="../let/" class="md-footer__link md-footer__link--next" aria-label="Next: LET">
+          <a href="../../json/" class="md-footer__link md-footer__link--next" aria-label="Next: JSON Querying">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                LET
+                JSON Querying
               </div>
             </div>
             <div class="md-footer__button md-icon">
