@@ -64,8 +64,8 @@ with double colon notation — `collection::field`.
 - [WHERE](select/where.md) — filters rows based on a condition
 - [GROUP BY / HAVING](select/grouping.md) — groups rows and filters groups
 - [ORDER BY / LIMIT](select/order-and-limit.md) — sorts and paginates results
-- [LET](select/let.md) — defines named subqueries for use in the statement
-- [FOR](select/for.md) — applies statements to each row in a result set
+- [LET](let.md) — defines named subqueries for use in the statement
+- [FOR](for.md) — applies statements to each row in a result set
 - [CASE](select/case.md) — conditional expressions, standard and shorthand
 
 ## Examples
