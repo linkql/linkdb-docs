@@ -64,6 +64,7 @@ nav:
       - INSERT: language/dml/insert.md
       - UPDATE: language/dml/update.md
       - DELETE: language/dml/delete.md
+    - JSON Querying: language/json.md
     - Transactions: language/transactions.md
     - Functions: language/functions.md
   - Reference:
