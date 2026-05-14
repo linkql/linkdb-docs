@@ -97,6 +97,10 @@ SELECT REPLACE(users.phone, '-', '') AS phone FROM users;
 `CONCAT(str, ...)`
 :   Concatenates two or more strings together.
 
+`SUBSTRING(str, start, length)`
+:   Returns a specified portion of a string from `start` location to the `length`.
+
+
 ```sql
 SELECT CONCAT(users.first_name, ' ', users.last_name) AS full_name FROM users;
 ```
