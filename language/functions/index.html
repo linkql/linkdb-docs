@@ -1793,6 +1793,8 @@ resolved type. See <a href="../json/">JSON Querying</a> for full details.</dd>
 <dl>
 <dt><code>CONCAT(str, ...)</code></dt>
 <dd>Concatenates two or more strings together.</dd>
+<dt><code>SUBSTRING(str, start, length)</code></dt>
+<dd>Returns a specified portion of a string from <code>start</code> location to the <code>length</code>.</dd>
 </dl>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">full_name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </span></code></pre></div>
