@@ -225,15 +225,15 @@ SELECT COALESCE(users.phone, users.mobile, 'n/a') AS contact FROM users;
 SELECT NULLIF(orders.total, 0) AS total FROM orders;
 ```
 
-`gen_uuid()`
+`GEN_UUID()`
 :   Generates a new UUID value. Used automatically as the default for `_id` fields.
 
 ```sql
-SELECT gen_uuid() AS new_id;
+SELECT GEN_UUID() AS new_id;
 
 -- Used as a default
 CREATE TABLE users (
-    _id UUID DEFAULT gen_uuid()
+    _id UUID DEFAULT GEN_UUID()
 );
 ```
 
