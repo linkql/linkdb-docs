@@ -87,6 +87,13 @@ SELECT TRIM(users.username) AS username FROM users;
 SELECT LENGTH(users.username) AS username_length FROM users;
 ```
 
+`SUBSTRING(str, start, length?)`
+:   Returns a substring of `str` starting at position `start` (1-based). If `length` is provided, returns at most `length` characters; otherwise, returns the rest of the string.
+
+```sql
+SELECT SUBSTRING(users.username, 2, 3) AS username_part FROM users;
+```
+
 `REPLACE(str, from, to)`
 :   Returns `str` with all occurrences of `from` replaced with `to`.
 
@@ -96,10 +103,6 @@ SELECT REPLACE(users.phone, '-', '') AS phone FROM users;
 
 `CONCAT(str, ...)`
 :   Concatenates two or more strings together.
-
-`SUBSTRING(str, start, length)`
-:   Returns a specified portion of a string from `start` location to the `length`.
-
 
 ```sql
 SELECT CONCAT(users.first_name, ' ', users.last_name) AS full_name FROM users;
