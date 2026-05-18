@@ -94,7 +94,7 @@ SELECT
     users.username,
     CASE
         users.age > 65 ? 'senior',
-        users.age > 18 ? 'adult',
+        users.age > 18 ? 'adult'
         ELSE 'minor'
     END AS age_group
 FROM users;
@@ -140,7 +140,7 @@ SELECT
     posts::content,
     CASE
         posts::status = 'published' ? 'live',
-        posts::status = 'draft' ? 'in progress',
+        posts::status = 'draft' ? 'in progress'
         ELSE 'unknown'
     END AS post_status
 FROM posts;
