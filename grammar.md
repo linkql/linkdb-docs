@@ -177,13 +177,10 @@ order_item  ::= expr ( ASC | DESC )?
 ## FROM
 
 ```
-from_clause       ::= from_item ( ',' join_clause )*
+from_clause      ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 
 from_item         ::= identifier ( AS? identifier )?
-                    | '(' select_stmt ')' AS identifier
-
-join_clause       ::= traditional_join
-                    | shorthand_join
+                    | '(' select_stmt ')' AS? identifier
 
 traditional_join  ::= join_type? JOIN from_item join_condition
 

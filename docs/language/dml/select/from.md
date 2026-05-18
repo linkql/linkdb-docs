@@ -2,13 +2,10 @@
 Specifies the source tables and collections for a `SELECT` statement.
 
 ```grammar title="Grammar"
-from_clause     ::= from_item ( ',' join_clause )*
+from_clause     ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 
 from_item       ::= identifier ( AS? identifier )?
-                  | '(' select_stmt ')' AS identifier
-
-join_clause     ::= traditional_join
-                  | shorthand_join
+                  | '(' select_stmt ')' AS? identifier
 ```
 
 ## Description

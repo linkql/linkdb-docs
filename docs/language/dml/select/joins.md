@@ -2,9 +2,6 @@
 Combines rows from multiple tables and collections in a single query.
 
 ```grammar title="Grammar"
-join_clause         ::= traditional_join
-                      | shorthand_join
-
 traditional_join    ::= join_type? JOIN from_item join_condition
 
 shorthand_join      ::= identifier
