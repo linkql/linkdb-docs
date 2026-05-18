@@ -1622,10 +1622,10 @@ and returns a value if the condition is true.</p>
 </span></code></pre></div>
 <h2 id="shorthand-case">Shorthand CASE</h2>
 <p>The shorthand form uses <code>?</code> instead of <code>WHEN</code> and <code>THEN</code>. Conditions and values are
-comma separated. The trailing comma on the last clause is optional.</p>
+comma separated. No trailing commas allowed.</p>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">CASE</span>
 </span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;senior&#39;</span><span class="p">,</span>
-</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;adult&#39;</span><span class="p">,</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;adult&#39;</span>
 </span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;minor&#39;</span>
 </span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">END</span>
 </span></code></pre></div>
