@@ -39,12 +39,12 @@ END
 
 ## Shorthand CASE
 The shorthand form uses `?` instead of `WHEN` and `THEN`. Conditions and values are
-comma separated. The trailing comma on the last clause is optional.
+comma separated. No trailing commas allowed.
 
 ```sql
 CASE
     users.age > 65 ? 'senior',
-    users.age > 18 ? 'adult',
+    users.age > 18 ? 'adult'
     ELSE 'minor'
 END
 ```
