@@ -12,16 +12,16 @@ and_expr        ::= not_expr ( AND not_expr )*
 
 not_expr        ::= NOT not_expr | comparison
 
-comparison      ::= additive ( operator additive )?
-                  | additive IS NOT? NULL
-                  | additive IS NOT? MISSING
-                  | additive IS NOT? NULL OR MISSING
-                  | additive NOT? BETWEEN additive AND additive
-                  | additive NOT? IN '(' expr (',' expr)* ')'
-                  | additive NOT? IN '(' select_stmt ')'
-                  | additive NOT? LIKE string_literal
-                  | additive NOT? ILIKE string_literal
-                  | EXISTS '(' select_stmt ')'
+comparison      comparison ::= additive ( operator additive )?
+                             | additive IS NOT? NULL
+                             | additive IS NOT? MISSING
+                             | additive IS NOT? NULL OR MISSING
+                             | additive NOT? BETWEEN additive AND additive
+                             | additive NOT? IN '(' expr (',' expr)* ')'
+                             | additive NOT? IN '(' select_stmt ')'
+                             | additive NOT? LIKE string_literal
+                             | additive NOT? ILIKE string_literal
+                             | EXISTS '(' select_stmt ')'
 
 operator        ::= '=' | '!=' | '<' | '<=' | '>' | '>='
 ```
