@@ -8,9 +8,9 @@ standard_case       ::= CASE when_clause+ ( ELSE expr )? END
 
 when_clause         ::= WHEN expr THEN expr
 
-shorthand_case      ::= CASE shorthand_clause+ ( ELSE expr )? END
+shorthand_case      ::= CASE shorthand_clause ( ',' shorthand_clause )* ( ELSE expr )? END
 
-shorthand_clause    ::= expr '?' expr ','?
+shorthand_clause    ::= expr '?' expr
 ```
 
 ## Description
