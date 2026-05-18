@@ -82,7 +82,7 @@ SELECT
     posts::content,
     posts::created_at
 FROM posts
-LEFT JOIN users ON users.user_id = posts.user_id
+LEFT JOIN users ON users.user_id = posts::user_id
 WHERE posts::created_at > '2024-01-01';
 ```
 
@@ -91,7 +91,7 @@ SELECT DISTINCT
     users.username,
     COUNT(posts::content) AS post_count
 FROM posts
-LEFT JOIN users ON users.user_id = posts.user_id
+LEFT JOIN users ON users.user_id = posts::user_id
 WHERE posts::created_at > '2024-01-01'
 GROUP BY users.username
 HAVING post_count > 5
