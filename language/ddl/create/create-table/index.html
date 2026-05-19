@@ -1576,7 +1576,7 @@
 
 <h1 id="create-table">CREATE TABLE</h1>
 <p>Creates a new table for relational data.</p>
-<div class="language-ebnf highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">create_table_stmt       </span><span class="err">::</span><span class="o">=</span> <span class="k">CREATE TABLE identifier </span><span class="s1">&#39;(&#39;</span> <span class="k">table_item </span><span class="p">(</span><span class="s1">&#39;,&#39;</span> <span class="k">table_item</span><span class="p">)</span><span class="err">*</span> <span class="s1">&#39;)&#39;</span>
+<div class="language-ebnf highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">create_table_stmt       </span><span class="err">::</span><span class="o">=</span> <span class="k">CREATE TABLE </span><span class="p">(</span> <span class="k">IF NOT EXISTS </span><span class="p">)</span> <span class="k">identifier </span><span class="s1">&#39;(&#39;</span> <span class="k">table_item </span><span class="p">(</span><span class="s1">&#39;,&#39;</span> <span class="k">table_item</span><span class="p">)</span><span class="err">*</span> <span class="s1">&#39;)&#39;</span>
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">table_item              </span><span class="err">::=</span> <span class="k">field_def</span>
 </span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          <span class="p">|</span> <span class="k">table_constraint</span>
@@ -1619,6 +1619,9 @@
 <p><code>CREATE TABLE</code> creates a new relational table in the current database. All columns and their types must be defined at creation time. Tables are best suited for data with a consistent, well-known shape</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
+<dt><code>IF NOT EXISTS</code></dt>
+<dd>If specified, does not throw an error if a table with the same name already exists.
+A notice is issued instead.</dd>
 <dt><code>identifier</code></dt>
 <dd>The name of the table to create. Must be unique within the database — no table or
 collection may share the same name.</dd>

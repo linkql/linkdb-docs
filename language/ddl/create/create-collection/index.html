@@ -1576,7 +1576,7 @@
 
 <h1 id="create-collection">CREATE COLLECTION</h1>
 <p>Creates a new document collection.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>create_collection_stmt  ::= CREATE COLLECTION identifier
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>create_collection_stmt  ::= CREATE COLLECTION ( IF NOT EXISTS ) identifier
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                              ( &#39;(&#39; collection_item (&#39;,&#39; collection_item)* &#39;,&#39;? &#39;)&#39; )?
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>collection_item         ::= field_def
@@ -1630,6 +1630,9 @@ flexible. A collection created with no fields at all is entirely schemaless.</p>
 current database.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
+<dt><code>IF NOT EXISTS</code></dt>
+<dd>If specified, does not throw an error if a collection with the same name already exists.
+A notice is issued instead.</dd>
 <dt><code>identifier</code></dt>
 <dd>The name of the collection to create. Must be unique within the database — no table
 or collection may share the same name.</dd>
