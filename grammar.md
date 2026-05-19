@@ -202,13 +202,30 @@ join_type         ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
 
 ```
 insert_stmt     ::= INSERT INTO identifier ( '(' identifier ( ',' identifier )* ')' )?
+                      ( with_free )?
                     insert_source
+                    ( ON CONFLICT conflict_target conflict_action )?
 
 insert_source   ::= select_stmt
+                  | '(' select_stmt ')'
                   | VALUES '(' insert_value ( ',' insert_value )* ')'
                         ( ',' '(' insert_value ( ',' insert_value )* ')' )*
 
 insert_value    ::= expr | DEFAULT
+
+with_free       ::= WITH FREE free_source
+
+free_source     ::= '(' identifier ( ',' identifier )* ')'
+                  | UNPACK '(' expr ')'
+                  | UNPACK '(' ')'
+
+conflict_target ::= '(' identifier ( ',' identifier )* ')'
+
+conflict_action ::= DO NOTHING
+                  | DO UPDATE SET conflict_set ( ',' conflict_set )*
+
+conflict_set    ::= identifier '=' expr
+                  | identifier '=' EXCLUDED '.' identifier
 ```
 
 ---
