@@ -52,9 +52,9 @@ dml_stmt        ::= select_stmt
 ```
 create_database_stmt    ::= CREATE DATABASE ( IF NOT EXISTS )? identifier
 
-create_table_stmt       ::= CREATE TABLE identifier '(' table_item (',' table_item)* ','? ')'
+create_table_stmt   ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' table_item (',' table_item)* ','? ')'
 
-create_collection_stmt  ::= CREATE COLLECTION identifier
+create_collection_stmt  ::= CREATE COLLECTION identifier ( IF NOT EXISTS )?
                               ( '(' collection_item (',' collection_item)* ','? ')' )?
 
 table_item              ::= field_def
@@ -195,7 +195,7 @@ group_clause    ::= GROUP BY expr (',' expr)*
 
 order_item      ::= expr ( ASC | DESC )?
 
-from_clause     ::= from_item ( ',' shorthand_join | traditional_join )*
+from_clause      ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 
 from_item       ::= identifier ( AS? identifier )?
                   | '(' select_stmt ')' AS? identifier
@@ -228,6 +228,7 @@ insert_stmt     ::= INSERT INTO identifier ( '(' identifier ( ',' identifier )* 
                     ( ON CONFLICT conflict_target conflict_action )?
 
 insert_source   ::= select_stmt
+                  | '(' select_stmt ')'
                   | VALUES '(' insert_value ( ',' insert_value )* ')'
                         ( ',' '(' insert_value ( ',' insert_value )* ')' )*
 
@@ -368,9 +369,9 @@ standard_case   ::= CASE when_clause+ ( ELSE expr )? END
 
 when_clause     ::= WHEN expr THEN expr
 
-shorthand_case  ::= CASE shorthand_clause+ ( ELSE expr )? END
+shorthand_case    ::= CASE shorthand_clause ( ',' shorthand_clause )* ( ELSE expr )? END
 
-shorthand_clause ::= expr '?' expr ','?
+shorthand_clause  ::= expr '?' expr
 
 exists_expr     ::= EXISTS '(' select_stmt ')'
 
