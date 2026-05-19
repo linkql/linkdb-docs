@@ -2,7 +2,7 @@
 Creates a new document collection.
 
 ``` title="Grammar"
-create_collection_stmt  ::= CREATE COLLECTION identifier
+create_collection_stmt  ::= CREATE COLLECTION ( IF NOT EXISTS ) identifier
                               ( '(' collection_item (',' collection_item)* ','? ')' )?
 
 collection_item         ::= field_def
@@ -59,6 +59,9 @@ To create a collection you must be a **superuser** or have the `CREATE` privileg
 current database.
 
 ## Parameters
+`IF NOT EXISTS`
+:   If specified, does not throw an error if a collection with the same name already exists.
+    A notice is issued instead.
 
 `identifier`
 :   The name of the collection to create. Must be unique within the database — no table

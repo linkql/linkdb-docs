@@ -50,7 +50,7 @@ for_stmt    ::= FOR identifier IN identifier
 ## CREATE TABLE
 
 ```
-create_table_stmt   ::= CREATE TABLE identifier '(' table_item (',' table_item)* ','? ')'
+create_table_stmt   ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' table_item (',' table_item)* ','? ')'
 
 table_item          ::= field_def
                       | table_constraint
@@ -61,7 +61,7 @@ table_item          ::= field_def
 ## CREATE COLLECTION
 
 ```
-create_collection_stmt  ::= CREATE COLLECTION identifier ( '(' collection_item (',' collection_item)* ','? ')' )?
+create_collection_stmt  ::= CREATE COLLECTION ( IF NOT EXISTS ) identifier ( '(' collection_item (',' collection_item)* ','? ')' )?
 
 collection_item         ::= field_def
                           | table_constraint

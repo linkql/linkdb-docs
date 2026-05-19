@@ -2,7 +2,7 @@
 Creates a new table for relational data.
 
 ```ebnf title="Grammar"
-create_table_stmt       ::= CREATE TABLE identifier '(' table_item (',' table_item)* ')'
+create_table_stmt       ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' table_item (',' table_item)* ')'
 
 table_item              ::= field_def
                           | table_constraint
@@ -46,6 +46,9 @@ reference_action        ::= CASCADE
 `CREATE TABLE` creates a new relational table in the current database. All columns and their types must be defined at creation time. Tables are best suited for data with a consistent, well-known shape
 
 ## Parameters
+`IF NOT EXISTS`
+:   If specified, does not throw an error if a table with the same name already exists.
+    A notice is issued instead.
 
 `identifier`
 :   The name of the table to create. Must be unique within the database — no table or
