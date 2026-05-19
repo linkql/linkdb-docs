@@ -4,7 +4,7 @@ Removes an existing collection or truncates all data within it.
 ```grammar title="Grammar"
 drop_collection_stmt        ::= DROP COLLECTION ( IF EXISTS )? identifier ( cascade_clause )?
 
-truncate_collection_stmt    ::= TRUNCATE COLLECTION identifier ( RESTART IDENTITY )?
+truncate_collection_stmt    ::= TRUNCATE COLLECTION ( IF EXISTS )? identifier ( RESTART IDENTITY )?
 
 cascade_clause              ::= CASCADE ( cascade_depth )? ( cascade_override )?
 

@@ -4,7 +4,7 @@ Removes an existing table or truncates all data within it.
 ```grammar title="Grammar"
 drop_table_stmt     ::= DROP TABLE ( IF EXISTS )? identifier ( cascade_clause )?
 
-truncate_table_stmt ::= TRUNCATE TABLE identifier ( RESTART IDENTITY )?
+truncate_table_stmt ::= TRUNCATE TABLE ( IF EXISTS )? identifier ( RESTART IDENTITY )?
 
 cascade_clause      ::= CASCADE ( cascade_depth )? ( cascade_override )?
 

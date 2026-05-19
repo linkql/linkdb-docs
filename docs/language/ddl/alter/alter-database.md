@@ -2,7 +2,9 @@
 Modifies an existing database.
 
 ```grammar title="Grammar"
-alter_database_stmt ::= ALTER DATABASE identifier RENAME TO identifier
+alter_database_stmt ::= ALTER DATABASE identifier alter_database_cmd
+
+alter_database_cmd  ::= RENAME TO identifier
 ```
 
 ## Description
