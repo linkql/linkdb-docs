@@ -1559,7 +1559,9 @@
 
 <h1 id="alter-database">ALTER DATABASE</h1>
 <p>Modifies an existing database.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>alter_database_stmt ::= ALTER DATABASE identifier RENAME TO identifier
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>alter_database_stmt ::= ALTER DATABASE identifier alter_database_cmd
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>alter_database_cmd  ::= RENAME TO identifier
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p><code>ALTER DATABASE</code> modifies an existing database. In order to alter a database, you must be a <strong>superuser</strong>.</p>
