@@ -74,9 +74,7 @@ collection_item         ::= field_def
 ```
 field_def   ::= identifier data_type column_constraint*
 
-column_constraint       ::= constraint_name? column_constraint_type
-
-column_constraint_type  ::= NOT NULL
+column_constraint  ::= NOT NULL
                           | NULL
                           | UNIQUE
                           | PRIMARY KEY
