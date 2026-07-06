@@ -375,7 +375,7 @@ shorthand_clause  ::= expr '?' expr
 
 exists_expr     ::= EXISTS '(' select_stmt ')'
 
-function_call   ::= identifier '(' ( expr (',' expr)* )? ')'
+function_call ::= identifier '(' ( expr ( ',' expr )* )? ( AS data_type )? ')'
 
 column_ref      ::= identifier ( ( '.' | '::' ) identifier )*
                     ( '[' string_literal ']' )*
