@@ -166,7 +166,7 @@ RENAME TO user_data;
 
 ```sql title="Add a named constraint"
 ALTER TABLE users
-ADD CONSTRAINT CHK_username UNIQUE;
+ADD CONSTRAINT CHK_username UNIQUE(username);
 ```
 
 ```sql title="Drop a constraint"
@@ -176,7 +176,7 @@ DROP CONSTRAINT CHK_username;
 
 ```sql title="Modify a constraint"
 ALTER TABLE users
-MODIFY CONSTRAINT CHK_username UNIQUE NOT NULL;
+MODIFY CONSTRAINT CHK_username UNIQUE(id, username);
 ```
 
 ## See Also
