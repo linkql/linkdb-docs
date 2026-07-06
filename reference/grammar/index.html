@@ -2246,7 +2246,7 @@
 </span><span id="True-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46" href="#__codelineno-10-46"></a>
 </span><span id="True-10-47"><a id="__codelineno-10-47" name="__codelineno-10-47" href="#__codelineno-10-47"></a>exists_expr     ::= EXISTS &#39;(&#39; select_stmt &#39;)&#39;
 </span><span id="True-10-48"><a id="__codelineno-10-48" name="__codelineno-10-48" href="#__codelineno-10-48"></a>
-</span><span id="True-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a>function_call   ::= identifier &#39;(&#39; ( expr (&#39;,&#39; expr)* )? &#39;)&#39;
+</span><span id="True-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a>function_call ::= identifier &#39;(&#39; ( expr ( &#39;,&#39; expr )* )? ( AS data_type )? &#39;)&#39;
 </span><span id="True-10-50"><a id="__codelineno-10-50" name="__codelineno-10-50" href="#__codelineno-10-50"></a>
 </span><span id="True-10-51"><a id="__codelineno-10-51" name="__codelineno-10-51" href="#__codelineno-10-51"></a>column_ref      ::= identifier ( ( &#39;.&#39; | &#39;::&#39; ) identifier )*
 </span><span id="True-10-52"><a id="__codelineno-10-52" name="__codelineno-10-52" href="#__codelineno-10-52"></a>                    ( &#39;[&#39; string_literal &#39;]&#39; )*
