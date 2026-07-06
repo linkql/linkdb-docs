@@ -10,8 +10,8 @@ alter_table_cmd         ::= ADD COLUMN field_def
                           | RENAME COLUMN identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
+                          | MODIFY table_constraint
                           | DROP CONSTRAINT identifier
-                          | MODIFY CONSTRAINT identifier table_constraint_type
 
 field_def               ::= '_id'
                           | identifier data_type column_constraint*

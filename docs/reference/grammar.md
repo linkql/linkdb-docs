@@ -116,8 +116,8 @@ alter_table_cmd         ::= ADD COLUMN field_def
                           | RENAME COLUMN identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
+                          | MODIFY table_constraint
                           | DROP CONSTRAINT identifier
-                          | MODIFY CONSTRAINT identifier table_constraint_type
 
 alter_collection_stmt   ::= ALTER COLLECTION identifier alter_collection_cmd
 
@@ -128,8 +128,8 @@ alter_collection_cmd    ::= ADD FIELD field_def
                           | RENAME FIELD identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
+                          | MODIFY table_constraint
                           | DROP CONSTRAINT identifier
-                          | MODIFY CONSTRAINT identifier table_constraint_type
 ```
 
 ---
