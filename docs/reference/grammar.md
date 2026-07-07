@@ -64,23 +64,29 @@ collection_item         ::= field_def
                           | table_constraint
 
 field_def               ::= '_id'
-                          | identifier data_type column_constraint*
+                          | identifier data_type field_constraint*
 
-column_constraint       ::= constraint_name? column_constraint_type
+field_constraint        ::= named_field_constraint
+                          | field_property
 
-column_constraint_type  ::= NOT NULL
-                          | NULL
-                          | UNIQUE
+named_field_constraint  ::= constraint_name? named_constraint_type
+
+named_constraint_type   ::= UNIQUE
                           | PRIMARY KEY
                           | SECONDARY KEY
-                          | AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+                          | CHECK '(' expr ')'
+                          | REFERENCES reference_target
+
+reference_target        ::= identifier ( '(' identifier ')' )?
+                              ( ON DELETE reference_action )?
+                              ( ON UPDATE reference_action )?
+
+column_property         ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
                           | AUTONOW
                           | AUTO
                           | DEFAULT expr
-                          | CHECK '(' expr ')'
-                          | REFERENCES identifier ( '(' identifier ')' )?
-                              ( ON DELETE reference_action )?
-                              ( ON UPDATE reference_action )?
+                          | NOT NULL
+                          | NULL
 
 table_constraint        ::= constraint_name? table_constraint_type
 
@@ -116,7 +122,7 @@ alter_table_cmd         ::= ADD COLUMN field_def
                           | RENAME COLUMN identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY table_constraint
+                          | MODIFY CONSTRAINT identifier table_constraint_type
                           | DROP CONSTRAINT identifier
 
 alter_collection_stmt   ::= ALTER COLLECTION identifier alter_collection_cmd
@@ -128,7 +134,7 @@ alter_collection_cmd    ::= ADD FIELD field_def
                           | RENAME FIELD identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY table_constraint
+                          | MODIFY CONSTRAINT identifier table_constraint_type
                           | DROP CONSTRAINT identifier
 ```
 

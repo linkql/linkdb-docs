@@ -15,30 +15,36 @@ alter_collection_cmd    ::= ADD FIELD field_def
                           | DROP CONSTRAINT identifier
 
 field_def               ::= '_id'
-                          | identifier data_type column_constraint*
+                          | identifier data_type field_constraint*
 
-column_constraint       ::= constraint_name? column_constraint_type
+field_constraint        ::= named_field_constraint
+                          | field_property
 
-column_constraint_type  ::= NOT NULL
-                          | NULL
-                          | UNIQUE
+named_field_constraint  ::= constraint_name? named_constraint_type
+
+named_constraint_type   ::= UNIQUE
                           | PRIMARY KEY
                           | SECONDARY KEY
-                          | AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
-                          | AUTONOW
-                          | AUTO
-                          | DEFAULT expression
-                          | CHECK '(' expression ')'
-                          | REFERENCES identifier ( '(' identifier ')' )?
+                          | CHECK '(' expr ')'
+                          | REFERENCES reference_target
+
+reference_target        ::= identifier ( '(' identifier ')' )?
                               ( ON DELETE reference_action )?
                               ( ON UPDATE reference_action )?
+
+column_property         ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+                          | AUTONOW
+                          | AUTO
+                          | DEFAULT expr
+                          | NOT NULL
+                          | NULL
 
 table_constraint        ::= constraint_name? table_constraint_type
 
 table_constraint_type   ::= PRIMARY KEY '(' identifier (',' identifier)* ')'
                           | SECONDARY KEY '(' identifier (',' identifier)* ')'
                           | UNIQUE '(' identifier (',' identifier)* ')'
-                          | CHECK '(' expression ')'
+                          | CHECK '(' expr ')'
                           | FOREIGN KEY '(' identifier ')' REFERENCES identifier ( '(' identifier ')' )?
                               ( ON DELETE reference_action )?
                               ( ON UPDATE reference_action )?
