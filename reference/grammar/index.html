@@ -1971,41 +1971,47 @@
 </span><span id="True-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                          | table_constraint
 </span><span id="True-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
 </span><span id="True-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>field_def               ::= &#39;_id&#39;
-</span><span id="True-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                          | identifier data_type column_constraint*
+</span><span id="True-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                          | identifier data_type field_constraint*
 </span><span id="True-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-</span><span id="True-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>column_constraint       ::= constraint_name? column_constraint_type
-</span><span id="True-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-</span><span id="True-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>column_constraint_type  ::= NOT NULL
-</span><span id="True-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>                          | NULL
-</span><span id="True-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>                          | UNIQUE
-</span><span id="True-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>                          | PRIMARY KEY
-</span><span id="True-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                          | SECONDARY KEY
-</span><span id="True-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>                          | AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
-</span><span id="True-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>                          | AUTONOW
-</span><span id="True-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                          | AUTO
-</span><span id="True-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>                          | DEFAULT expr
-</span><span id="True-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>                          | CHECK &#39;(&#39; expr &#39;)&#39;
-</span><span id="True-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>                          | REFERENCES identifier ( &#39;(&#39; identifier &#39;)&#39; )?
-</span><span id="True-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>                              ( ON DELETE reference_action )?
-</span><span id="True-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>                              ( ON UPDATE reference_action )?
-</span><span id="True-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>
-</span><span id="True-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>table_constraint        ::= constraint_name? table_constraint_type
-</span><span id="True-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
-</span><span id="True-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>table_constraint_type   ::= PRIMARY KEY &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>                          | SECONDARY KEY &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>                          | UNIQUE &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>                          | CHECK &#39;(&#39; expr &#39;)&#39;
-</span><span id="True-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>                          | FOREIGN KEY &#39;(&#39; identifier &#39;)&#39; REFERENCES identifier ( &#39;(&#39; identifier &#39;)&#39; )?
-</span><span id="True-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>                              ( ON DELETE reference_action )?
-</span><span id="True-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>                              ( ON UPDATE reference_action )?
-</span><span id="True-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>
-</span><span id="True-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>constraint_name         ::= CONSTRAINT identifier
-</span><span id="True-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>
-</span><span id="True-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>reference_action        ::= CASCADE
-</span><span id="True-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>                          | SET NULL
-</span><span id="True-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>                          | SET DEFAULT
-</span><span id="True-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>                          | RESTRICT
-</span><span id="True-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>                          | NO ACTION
+</span><span id="True-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>field_constraint        ::= named_field_constraint
+</span><span id="True-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>                          | field_property
+</span><span id="True-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+</span><span id="True-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>named_field_constraint  ::= constraint_name? named_constraint_type
+</span><span id="True-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+</span><span id="True-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>named_constraint_type   ::= UNIQUE
+</span><span id="True-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                          | PRIMARY KEY
+</span><span id="True-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>                          | SECONDARY KEY
+</span><span id="True-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>                          | CHECK &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                          | REFERENCES reference_target
+</span><span id="True-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>
+</span><span id="True-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>reference_target        ::= identifier ( &#39;(&#39; identifier &#39;)&#39; )?
+</span><span id="True-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>                              ( ON DELETE reference_action )?
+</span><span id="True-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>                              ( ON UPDATE reference_action )?
+</span><span id="True-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+</span><span id="True-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>column_property         ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>                          | AUTONOW
+</span><span id="True-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>                          | AUTO
+</span><span id="True-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>                          | DEFAULT expr
+</span><span id="True-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>                          | NOT NULL
+</span><span id="True-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>                          | NULL
+</span><span id="True-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
+</span><span id="True-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>table_constraint        ::= constraint_name? table_constraint_type
+</span><span id="True-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>
+</span><span id="True-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>table_constraint_type   ::= PRIMARY KEY &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
+</span><span id="True-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>                          | SECONDARY KEY &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
+</span><span id="True-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>                          | UNIQUE &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
+</span><span id="True-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>                          | CHECK &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>                          | FOREIGN KEY &#39;(&#39; identifier &#39;)&#39; REFERENCES identifier ( &#39;(&#39; identifier &#39;)&#39; )?
+</span><span id="True-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>                              ( ON DELETE reference_action )?
+</span><span id="True-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>                              ( ON UPDATE reference_action )?
+</span><span id="True-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>
+</span><span id="True-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>constraint_name         ::= CONSTRAINT identifier
+</span><span id="True-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>
+</span><span id="True-1-51"><a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>reference_action        ::= CASCADE
+</span><span id="True-1-52"><a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>                          | SET NULL
+</span><span id="True-1-53"><a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>                          | SET DEFAULT
+</span><span id="True-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>                          | RESTRICT
+</span><span id="True-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>                          | NO ACTION
 </span></code></pre></div>
 <hr />
 <h2 id="ddl-alter">DDL — ALTER</h2>
@@ -2019,7 +2025,7 @@
 </span><span id="True-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>                          | RENAME COLUMN identifier TO identifier
 </span><span id="True-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>                          | RENAME TO identifier
 </span><span id="True-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>                          | ADD table_constraint
-</span><span id="True-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>                          | MODIFY table_constraint
+</span><span id="True-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>                          | MODIFY CONSTRAINT identifier table_constraint_type
 </span><span id="True-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                          | DROP CONSTRAINT identifier
 </span><span id="True-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
 </span><span id="True-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>alter_collection_stmt   ::= ALTER COLLECTION identifier alter_collection_cmd
@@ -2031,7 +2037,7 @@
 </span><span id="True-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>                          | RENAME FIELD identifier TO identifier
 </span><span id="True-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>                          | RENAME TO identifier
 </span><span id="True-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>                          | ADD table_constraint
-</span><span id="True-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>                          | MODIFY table_constraint
+</span><span id="True-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>                          | MODIFY CONSTRAINT identifier table_constraint_type
 </span><span id="True-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>                          | DROP CONSTRAINT identifier
 </span></code></pre></div>
 <hr />
