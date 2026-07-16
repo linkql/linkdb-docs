@@ -205,8 +205,8 @@ CREATE COLLECTION posts (
 ```sql title="Collection with multiple secondary keys"
 -- No PRIMARY KEY, so it will be _id + order_id + event_type
 CREATE COLLECTION order_events (
-    order_id SECONDARY KEY,
-    event_type SECONDARY KEY,
+    order_id UUID SECONDARY KEY,
+    event_type VARCHAR(50) SECONDARY KEY,
     payload JSON
 );
 ```
