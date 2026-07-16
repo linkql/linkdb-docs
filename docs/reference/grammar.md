@@ -1,6 +1,12 @@
 # Grammar
 Complete grammar reference for LinkQL.
 
+# TODO Implementations
+- views
+- window functions
+- EXPLAIN/ANALYZE/INFO
+- index statements
+
 ## Notation
 - `::=` Definition
 - `|` Alternation
@@ -50,61 +56,63 @@ dml_stmt        ::= select_stmt
 ## DDL — CREATE
 
 ```
-create_database_stmt    ::= CREATE DATABASE ( IF NOT EXISTS )? identifier
+create_database_stmt        ::= CREATE DATABASE ( IF NOT EXISTS )? identifier
 
-create_table_stmt   ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' table_item (',' table_item)* ','? ')'
+create_table_stmt           ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' table_item (',' table_item)* ','? ')'
 
-create_collection_stmt  ::= CREATE COLLECTION identifier ( IF NOT EXISTS )?
-                              ( '(' collection_item (',' collection_item)* ','? ')' )?
+create_collection_stmt      ::= CREATE COLLECTION identifier ( IF NOT EXISTS )?
+                                  ( '(' collection_item (',' collection_item)* ','? ')' )?
 
-table_item              ::= field_def
-                          | table_constraint
+table_item                  ::= field_def
+                              | table_constraint
 
-collection_item         ::= field_def
-                          | table_constraint
+collection_item             ::= field_def
+                              | table_constraint
 
-field_def               ::= '_id'
-                          | identifier data_type field_constraint*
+field_def                   ::= '_id'
+                              | identifier data_type field_constraint*
 
-field_constraint        ::= named_field_constraint
-                          | field_property
+field_constraint            ::= named_field_constraint
+                              | field_property
 
-named_field_constraint  ::= constraint_name? named_constraint_type
+named_field_constraint      ::= constraint_name? named_constraint_type
 
-named_constraint_type   ::= UNIQUE
-                          | PRIMARY KEY
-                          | SECONDARY KEY
-                          | CHECK '(' expr ')'
-                          | REFERENCES reference_target
+named_constraint_type       ::= UNIQUE
+                              | PRIMARY KEY
+                              | SECONDARY KEY
+                              | CHECK '(' expr ')'
+                              | REFERENCES reference_target
 
-reference_target        ::= identifier ( '(' identifier ')' )?
-                              ( ON DELETE reference_action )?
-                              ( ON UPDATE reference_action )?
+reference_target            ::= identifier ( '(' identifier ')' )?
+                                  ( ON DELETE reference_action )?
+                                  ( ON UPDATE reference_action )?
 
-column_property         ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
-                          | AUTONOW
-                          | AUTO
-                          | DEFAULT expr
-                          | NOT NULL
-                          | NULL
+column_property             ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+                              | AUTONOW
+                              | AUTO
+                              | DEFAULT expr
+                              | NOT NULL
+                              | NULL
 
-table_constraint        ::= constraint_name? table_constraint_type
+table_constraint            ::= constraint_name? table_constraint_type
 
-table_constraint_type   ::= PRIMARY KEY '(' identifier (',' identifier)* ')'
-                          | SECONDARY KEY '(' identifier (',' identifier)* ')'
-                          | UNIQUE '(' identifier (',' identifier)* ')'
-                          | CHECK '(' expr ')'
-                          | FOREIGN KEY '(' identifier ')' REFERENCES identifier ( '(' identifier ')' )?
-                              ( ON DELETE reference_action )?
-                              ( ON UPDATE reference_action )?
+table_constraint_type       ::= PRIMARY KEY '(' identifier (',' identifier)* ')'
+                              | SECONDARY KEY '(' identifier (',' identifier)* ')'
+                              | UNIQUE '(' identifier (',' identifier)* ')'
+                              | CHECK '(' expr ')'
+                              | FOREIGN KEY '(' identifier ')' REFERENCES identifier ( '(' identifier ')' )?
+                                  ( ON DELETE reference_action )?
+                                  ( ON UPDATE reference_action )?
 
-constraint_name         ::= CONSTRAINT identifier
+constraint_name             ::= CONSTRAINT ( IF NOT EXISTS)? identifier
 
-reference_action        ::= CASCADE
-                          | SET NULL
-                          | SET DEFAULT
-                          | RESTRICT
-                          | NO ACTION
+existing_constraint_name    ::= CONSTRAINT ( IF EXISTS )? identifier
+
+reference_action            ::= CASCADE
+                              | SET NULL
+                              | SET DEFAULT
+                              | RESTRICT
+                              | NO ACTION
 ```
 
 ---
@@ -112,30 +120,36 @@ reference_action        ::= CASCADE
 ## DDL — ALTER
 
 ```
-alter_database_stmt     ::= ALTER DATABASE identifier RENAME TO identifier
+alter_database_stmt     ::= ALTER DATABASE identifier alter_database_cmd ( ',' alter_database_cmd )*
 
-alter_table_stmt        ::= ALTER TABLE identifier alter_table_cmd
+alter_database_cmd      ::= RENAME TO identifier
 
-alter_table_cmd         ::= ADD COLUMN field_def
-                          | DROP COLUMN identifier
-                          | MODIFY COLUMN field_def ( USING expr )?
-                          | RENAME COLUMN identifier TO identifier
+alter_table_stmt        ::= ALTER TABLE identifier alter_table_cmd ( ',' alter_table_cmd )*
+
+alter_table_cmd         ::= ADD COLUMN ( IF NOT EXISTS )? field_def
+                          | DROP COLUMN ( IF EXISTS )? identifier
+                          | MODIFY COLUMN ( IF EXISTS )? field_def ( USING expr )?
+                          | RENAME COLUMN ( IF EXISTS )? identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY CONSTRAINT identifier table_constraint_type
-                          | DROP CONSTRAINT identifier
+                          | MODIFY CONSTRAINT existing_constraint_name table_constraint_type
+                          | DROP CONSTRAINT existing_constraint_name
 
-alter_collection_stmt   ::= ALTER COLLECTION identifier alter_collection_cmd
+alter_collection_stmt   ::= ALTER COLLECTION identifier alter_collection_cmd ( ',' alter_collection_cmd )*
 
-alter_collection_cmd    ::= ADD FIELD field_def
-                          | DROP FIELD identifier ( KEEP )?
-                          | DROP FREE FIELD identifier
-                          | MODIFY FIELD field_def ( USING expr )?
-                          | RENAME FIELD identifier TO identifier
+alter_collection_cmd    ::= ADD FIELD ( IF NOT EXISTS )? field_def
+                          | DROP FIELD ( IF EXISTS )? identifier ( KEEP )?
+                          | DROP FREE FIELD ( IF EXISTS )? identifier
+                          | MODIFY FIELD ( IF EXISTS )? field_def ( USING expr )?
+                          | RENAME FIELD ( IF EXISTS )? identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY CONSTRAINT identifier table_constraint_type
-                          | DROP CONSTRAINT identifier
+                          | MODIFY CONSTRAINT existing_constraint_name table_constraint_type
+                          | DROP CONSTRAINT existing_constraint_name
+
+alter_index_stmt        ::= ALTER INDEX identifier alter_index_cmd
+
+alter_index_cmd         ::= RENAME TO identifier
 ```
 
 ---
@@ -143,35 +157,35 @@ alter_collection_cmd    ::= ADD FIELD field_def
 ## DDL — DROP
 
 ```
-drop_stmt               ::= drop_database_stmt
-                          | drop_table_stmt
-                          | drop_collection_stmt
+drop_stmt                   ::= drop_database_stmt
+                              | drop_table_stmt
+                              | drop_collection_stmt
 
-drop_database_stmt      ::= DROP DATABASE ( IF EXISTS )? identifier CONFIRM string_literal
+drop_database_stmt          ::= DROP DATABASE ( IF EXISTS )? identifier CONFIRM string_literal
 
-drop_table_stmt         ::= DROP TABLE ( IF EXISTS )? identifier ( cascade_clause )?
+drop_table_stmt             ::= DROP TABLE ( IF EXISTS )? identifier ( cascade_clause )?
 
-drop_collection_stmt    ::= DROP COLLECTION ( IF EXISTS )? identifier ( cascade_clause )?
+drop_collection_stmt        ::= DROP COLLECTION ( IF EXISTS )? identifier ( cascade_clause )?
 
-cascade_clause          ::= CASCADE ( cascade_depth )? ( cascade_override )?
+cascade_clause              ::= CASCADE ( cascade_depth )? ( cascade_override )?
 
-cascade_depth           ::= integer_literal
-                          | INFINITY
+cascade_depth               ::= integer_literal
+                              | INFINITY
 
-cascade_override        ::= SET NULL
-                          | SET DEFAULT
-                          | DROP
+cascade_override            ::= SET NULL
+                              | SET DEFAULT
+                              | DROP
 
-truncate_stmt           ::= truncate_database_stmt
-                          | truncate_table_stmt
-                          | truncate_collection_stmt
+truncate_stmt               ::= truncate_database_stmt
+                              | truncate_table_stmt
+                              | truncate_collection_stmt
 
-truncate_database_stmt  ::= TRUNCATE DATABASE ( IF EXISTS )? identifier CONFIRM string_literal
-                              ( RESTART IDENTITY )?
+truncate_database_stmt      ::= TRUNCATE DATABASE ( IF EXISTS )? identifier CONFIRM string_literal
+                                  ( RESTART IDENTITY )?
 
-truncate_table_stmt     ::= TRUNCATE TABLE identifier ( RESTART IDENTITY )?
+truncate_table_stmt         ::= TRUNCATE TABLE identifier ( RESTART IDENTITY )?
 
-truncate_collection_stmt ::= TRUNCATE COLLECTION identifier ( RESTART IDENTITY )?
+truncate_collection_stmt    ::= TRUNCATE COLLECTION identifier ( RESTART IDENTITY )?
 ```
 
 ---
@@ -179,32 +193,32 @@ truncate_collection_stmt ::= TRUNCATE COLLECTION identifier ( RESTART IDENTITY )
 ## DML — SELECT
 
 ```
-select_stmt     ::= SELECT DISTINCT? select_item (',' select_item)*
-                    FROM from_clause
-                    ( WHERE expr )?
-                    ( group_clause )?
-                    ( ORDER BY order_item (',' order_item)* )?
-                    ( LIMIT integer_literal ( OFFSET integer_literal )? )?
+select_stmt         ::= SELECT DISTINCT? select_item (',' select_item)*
+                        FROM from_clause
+                        ( WHERE expr )?
+                        ( group_clause )?
+                        ( ORDER BY order_item (',' order_item)* )?
+                        ( LIMIT integer_literal ( OFFSET integer_literal )? )?
 
-select_item     ::= '*'
-                  | table_star
-                  | collection_star
-                  | expr ( AS identifier )?
-                  | function_call AS identifier
+select_item         ::= '*'
+                      | table_star
+                      | collection_star
+                      | expr ( AS identifier )?
+                      | function_call AS identifier
 
-table_star      ::= identifier '.' '*'
+table_star          ::= identifier '.' '*'
 
-collection_star ::= identifier '::' '*'
+collection_star     ::= identifier '::' '*'
 
-group_clause    ::= GROUP BY expr (',' expr)*
-                      ( HAVING expr )?
+group_clause        ::= GROUP BY expr (',' expr)*
+                          ( HAVING expr )?
 
-order_item      ::= expr ( ASC | DESC )?
+order_item          ::= expr ( ASC | DESC )?
 
-from_clause      ::= from_item ( ',' shorthand_join )* ( traditional_join )*
+from_clause         ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 
-from_item       ::= identifier ( AS? identifier )?
-                  | '(' select_stmt ')' AS? identifier
+from_item           ::= identifier ( AS? identifier )?
+                      | '(' select_stmt ')' AS? identifier
 
 traditional_join    ::= join_type? JOIN from_item join_condition
 
@@ -217,10 +231,10 @@ shorthand_join      ::= identifier
 shorthand_condition ::= identifier '(' identifier ')'
                       | expr
 
-join_condition  ::= ON expr
-                  | USING '(' identifier ( ',' identifier )* ')'
+join_condition      ::= ON expr
+                      | USING '(' identifier ( ',' identifier )* ')'
 
-join_type       ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
+join_type           ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
 ```
 
 ---
@@ -333,58 +347,58 @@ rollback_stmt           ::= ROLLBACK ( TO identifier )?
 ## Expressions
 
 ```
-expr            ::= or_expr
+expr                ::= or_expr
 
-or_expr         ::= and_expr ( OR and_expr )*
+or_expr             ::= and_expr ( OR and_expr )*
 
-and_expr        ::= not_expr ( AND not_expr )*
+and_expr            ::= not_expr ( AND not_expr )*
 
-not_expr        ::= NOT not_expr | comparison
+not_expr            ::= NOT not_expr | comparison
 
-comparison      ::= additive ( operator additive )?
-                  | additive IS NOT? NULL
-                  | additive IS NOT? MISSING
-                  | additive IS NOT? NULL OR MISSING
-                  | additive NOT? BETWEEN additive AND additive
-                  | additive NOT? IN '(' expr (',' expr)* ')'
-                  | additive NOT? IN '(' select_stmt ')'
-                  | additive NOT? LIKE string_literal
-                  | additive NOT? ILIKE string_literal
-                  | EXISTS '(' select_stmt ')'
+comparison          ::= additive ( operator additive )?
+                      | additive IS NOT? NULL
+                      | additive IS NOT? MISSING
+                      | additive IS NOT? NULL OR MISSING
+                      | additive NOT? BETWEEN additive AND additive
+                      | additive NOT? IN '(' expr (',' expr)* ')'
+                      | additive NOT? IN '(' select_stmt ')'
+                      | additive NOT? LIKE string_literal
+                      | additive NOT? ILIKE string_literal
+                      | EXISTS '(' select_stmt ')'
 
-operator        ::= '=' | '!=' | '<' | '<=' | '>' | '>='
+operator            ::= '=' | '!=' | '<' | '<=' | '>' | '>='
 
-additive        ::= multiplicative ( ( '+' | '-' ) multiplicative )*
+additive            ::= multiplicative ( ( '+' | '-' ) multiplicative )*
 
-multiplicative  ::= unary ( ( '*' | '/' | '%' ) unary )*
+multiplicative      ::= unary ( ( '*' | '/' | '%' ) unary )*
 
-unary           ::= ( '-' | '+' ) unary
-                  | primary
+unary               ::= ( '-' | '+' ) unary
+                      | primary
 
-primary         ::= literal
-                  | function_call
-                  | column_ref
-                  | exists_expr
-                  | '(' select_stmt ')'
-                  | '(' expr ')'
-                  | case_expr
+primary             ::= literal
+                      | function_call
+                      | column_ref
+                      | exists_expr
+                      | '(' select_stmt ')'
+                      | '(' expr ')'
+                      | case_expr
 
-case_expr       ::= standard_case | shorthand_case
+case_expr           ::= standard_case | shorthand_case
 
-standard_case   ::= CASE when_clause+ ( ELSE expr )? END
+standard_case       ::= CASE when_clause+ ( ELSE expr )? END
 
-when_clause     ::= WHEN expr THEN expr
+when_clause         ::= WHEN expr THEN expr
 
-shorthand_case    ::= CASE shorthand_clause ( ',' shorthand_clause )* ( ELSE expr )? END
+shorthand_case      ::= CASE shorthand_clause ( ',' shorthand_clause )* ( ELSE expr )? END
 
-shorthand_clause  ::= expr '?' expr
+shorthand_clause    ::= expr '?' expr
 
-exists_expr     ::= EXISTS '(' select_stmt ')'
+exists_expr         ::= EXISTS '(' select_stmt ')'
 
-function_call ::= identifier '(' ( expr ( ',' expr )* )? ( AS data_type )? ')'
+function_call       ::= identifier '(' ( expr ( ',' expr )* )? ( AS data_type )? ')'
 
-column_ref      ::= identifier ( ( '.' | '::' ) identifier )*
-                    ( '[' string_literal ']' )*
+column_ref          ::= identifier ( ( '.' | '::' ) identifier )*
+                        ( '[' string_literal ']' )*
 ```
 
 ---
