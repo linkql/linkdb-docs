@@ -395,10 +395,25 @@ shorthand_clause    ::= expr '?' expr
 
 exists_expr         ::= EXISTS '(' select_stmt ')'
 
-function_call       ::= identifier '(' ( expr ( ',' expr )* )? ( AS data_type )? ')'
+function_call       ::= identifier '(' ( expr ( ',' expr )* )? ')'
+                      | special_function
 
 column_ref          ::= identifier ( ( '.' | '::' ) identifier )*
                         ( '[' string_literal ']' )*
+```
+
+---
+
+## Functions
+```
+special_function    ::= cast_func
+                      | merge_func
+
+cast_func           ::= CAST '(' expr AS data_type ')'
+
+merge_func          ::= MERGE '(' expr ',' expr ( ',' ( LEFT | RIGHT ) )? ')'
+
+unpack_func         ::= UNPACK '(' expr? ')'
 ```
 
 ---
