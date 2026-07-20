@@ -69,7 +69,7 @@ FOR user IN inactive_users
 DO
     DELETE FROM sessions WHERE user_id = user.user_id;
     UPDATE users SET status = 'inactive' WHERE user_id = user.user_id;
-END
+END;
 ```
 
 ```sql title="FOR loop with a subquery source"
@@ -81,7 +81,7 @@ FOR user IN (
 DO
     UPDATE users SET status = 'inactive' WHERE user_id = user.user_id;
     DELETE FROM sessions WHERE user_id = user.user_id;
-END
+END;
 ```
 
 ```sql title="FOR loop with a LET binding"
@@ -94,7 +94,7 @@ FOR user IN inactive_users
 DO
     UPDATE users SET status = 'inactive' WHERE user_id = user.user_id;
     DELETE FROM sessions WHERE user_id = user.user_id;
-END
+END;
 ```
 
 ```sql title="FOR loop over a collection"
@@ -106,7 +106,7 @@ FOR post IN (
 DO
     DELETE FROM comments WHERE post_id = post::post_id;
     DELETE FROM posts WHERE post_id = post::post_id;
-END
+END;
 ```
 
 ## See Also
