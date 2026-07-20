@@ -173,7 +173,7 @@ SELECT
     COUNT_ARRAY(comments::likes) AS num_likes
 FROM
     users,
-    LEFT posts(user_id),
+    LEFT posts(user_id)
     LEFT JOIN comments ON comments.post_id = posts::post_id;
 ```
 
