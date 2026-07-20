@@ -1870,62 +1870,74 @@
 </span><span id="True-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46" href="#__codelineno-10-46"></a>
 </span><span id="True-10-47"><a id="__codelineno-10-47" name="__codelineno-10-47" href="#__codelineno-10-47"></a>exists_expr         ::= EXISTS &#39;(&#39; select_stmt &#39;)&#39;
 </span><span id="True-10-48"><a id="__codelineno-10-48" name="__codelineno-10-48" href="#__codelineno-10-48"></a>
-</span><span id="True-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a>function_call       ::= identifier &#39;(&#39; ( expr ( &#39;,&#39; expr )* )? ( AS data_type )? &#39;)&#39;
-</span><span id="True-10-50"><a id="__codelineno-10-50" name="__codelineno-10-50" href="#__codelineno-10-50"></a>
-</span><span id="True-10-51"><a id="__codelineno-10-51" name="__codelineno-10-51" href="#__codelineno-10-51"></a>column_ref          ::= identifier ( ( &#39;.&#39; | &#39;::&#39; ) identifier )*
-</span><span id="True-10-52"><a id="__codelineno-10-52" name="__codelineno-10-52" href="#__codelineno-10-52"></a>                        ( &#39;[&#39; string_literal &#39;]&#39; )*
+</span><span id="True-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a>function_call       ::= identifier &#39;(&#39; ( expr ( &#39;,&#39; expr )* )? &#39;)&#39;
+</span><span id="True-10-50"><a id="__codelineno-10-50" name="__codelineno-10-50" href="#__codelineno-10-50"></a>                      | special_function
+</span><span id="True-10-51"><a id="__codelineno-10-51" name="__codelineno-10-51" href="#__codelineno-10-51"></a>
+</span><span id="True-10-52"><a id="__codelineno-10-52" name="__codelineno-10-52" href="#__codelineno-10-52"></a>column_ref          ::= identifier ( ( &#39;.&#39; | &#39;::&#39; ) identifier )*
+</span><span id="True-10-53"><a id="__codelineno-10-53" name="__codelineno-10-53" href="#__codelineno-10-53"></a>                        ( &#39;[&#39; string_literal &#39;]&#39; )*
+</span></code></pre></div>
+<hr />
+<h2 id="functions">Functions</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>special_function    ::= cast_func
+</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>                      | merge_func
+</span><span id="True-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="True-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>cast_func           ::= CAST &#39;(&#39; expr AS data_type &#39;)&#39;
+</span><span id="True-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="True-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>merge_func          ::= MERGE &#39;(&#39; expr &#39;,&#39; expr ( &#39;,&#39; ( LEFT | RIGHT ) )? &#39;)&#39;
+</span><span id="True-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+</span><span id="True-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>unpack_func         ::= UNPACK &#39;(&#39; expr? &#39;)&#39;
 </span></code></pre></div>
 <hr />
 <h2 id="json-access">JSON Access</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>json_access     ::= expr &#39;[&#39; string_literal &#39;]&#39; ( &#39;[&#39; string_literal &#39;]&#39; )*
-</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-</span><span id="True-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>json_function   ::= HAS &#39;(&#39; expr &#39;,&#39; string_literal &#39;)&#39;
-</span><span id="True-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>                  | KEYS &#39;(&#39; expr &#39;)&#39;
-</span><span id="True-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>                  | VALUES &#39;(&#39; expr &#39;)&#39;
-</span><span id="True-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>                  | MERGE &#39;(&#39; expr &#39;,&#39; expr ( &#39;,&#39; ( LEFT | RIGHT ) )? &#39;)&#39;
-</span><span id="True-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>                  | CONTAINS &#39;(&#39; expr &#39;,&#39; expr &#39;)&#39;
-</span><span id="True-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>                  | UNPACK &#39;(&#39; expr &#39;)&#39;
-</span><span id="True-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>                  | UNPACK &#39;(&#39; &#39;)&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>json_access     ::= expr &#39;[&#39; string_literal &#39;]&#39; ( &#39;[&#39; string_literal &#39;]&#39; )*
+</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>json_function   ::= HAS &#39;(&#39; expr &#39;,&#39; string_literal &#39;)&#39;
+</span><span id="True-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>                  | KEYS &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>                  | VALUES &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>                  | MERGE &#39;(&#39; expr &#39;,&#39; expr ( &#39;,&#39; ( LEFT | RIGHT ) )? &#39;)&#39;
+</span><span id="True-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>                  | CONTAINS &#39;(&#39; expr &#39;,&#39; expr &#39;)&#39;
+</span><span id="True-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>                  | UNPACK &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>                  | UNPACK &#39;(&#39; &#39;)&#39;
 </span></code></pre></div>
 <hr />
 <h2 id="data-types">Data Types</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>data_type       ::= INT
-</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>                  | BIGINT
-</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>                  | FLOAT
-</span><span id="True-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>                  | DECIMAL ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
-</span><span id="True-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>                  | BOOLEAN
-</span><span id="True-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>                  | VARCHAR ( &#39;(&#39; integer_literal &#39;)&#39; )?
-</span><span id="True-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>                  | TEXT
-</span><span id="True-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>                  | DATE
-</span><span id="True-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>                  | TIME
-</span><span id="True-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>                  | DATETIME
-</span><span id="True-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>                  | UUID
-</span><span id="True-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>                  | JSON
-</span><span id="True-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>                  | JSONB
-</span><span id="True-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>                  | ARRAY &#39;(&#39; data_type &#39;)&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="True-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>data_type       ::= INT
+</span><span id="True-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>                  | BIGINT
+</span><span id="True-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>                  | FLOAT
+</span><span id="True-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>                  | DECIMAL ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>                  | BOOLEAN
+</span><span id="True-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>                  | VARCHAR ( &#39;(&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>                  | TEXT
+</span><span id="True-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>                  | DATE
+</span><span id="True-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>                  | TIME
+</span><span id="True-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>                  | DATETIME
+</span><span id="True-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>                  | UUID
+</span><span id="True-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>                  | JSON
+</span><span id="True-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>                  | JSONB
+</span><span id="True-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>                  | ARRAY &#39;(&#39; data_type &#39;)&#39;
 </span></code></pre></div>
 <hr />
 <h2 id="literals-and-primitives">Literals and Primitives</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="True-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>literal         ::= integer_literal
-</span><span id="True-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>                  | float_literal
-</span><span id="True-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>                  | string_literal
-</span><span id="True-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>                  | boolean_literal
-</span><span id="True-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>                  | NULL
-</span><span id="True-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>                  | MISSING
-</span><span id="True-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
-</span><span id="True-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>integer_literal ::= digit+
-</span><span id="True-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
-</span><span id="True-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>float_literal   ::= digit+ &#39;.&#39; digit+
-</span><span id="True-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
-</span><span id="True-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>string_literal  ::= &quot;&#39;&quot; any_char* &quot;&#39;&quot;
-</span><span id="True-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
-</span><span id="True-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>boolean_literal ::= TRUE | FALSE
-</span><span id="True-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
-</span><span id="True-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>identifier      ::= letter ( letter | digit | &#39;_&#39; )*
-</span><span id="True-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
-</span><span id="True-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>letter          ::= &#39;a&#39;..&#39;z&#39; | &#39;A&#39;..&#39;Z&#39; | &#39;_&#39;
-</span><span id="True-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>
-</span><span id="True-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>digit           ::= &#39;0&#39;..&#39;9&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="True-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>literal         ::= integer_literal
+</span><span id="True-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>                  | float_literal
+</span><span id="True-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>                  | string_literal
+</span><span id="True-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>                  | boolean_literal
+</span><span id="True-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>                  | NULL
+</span><span id="True-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>                  | MISSING
+</span><span id="True-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+</span><span id="True-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>integer_literal ::= digit+
+</span><span id="True-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="True-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>float_literal   ::= digit+ &#39;.&#39; digit+
+</span><span id="True-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+</span><span id="True-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>string_literal  ::= &quot;&#39;&quot; any_char* &quot;&#39;&quot;
+</span><span id="True-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+</span><span id="True-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>boolean_literal ::= TRUE | FALSE
+</span><span id="True-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+</span><span id="True-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>identifier      ::= letter ( letter | digit | &#39;_&#39; )*
+</span><span id="True-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+</span><span id="True-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>letter          ::= &#39;a&#39;..&#39;z&#39; | &#39;A&#39;..&#39;Z&#39; | &#39;_&#39;
+</span><span id="True-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+</span><span id="True-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>digit           ::= &#39;0&#39;..&#39;9&#39;
 </span></code></pre></div>
 <hr />
 <h2 id="see-also">See Also</h2>
