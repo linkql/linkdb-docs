@@ -2,14 +2,14 @@
 Defines named subqueries for use within a statement.
 
 ```grammar title="Grammar"
-let_block   ::= let_binding+ dml_stmt
+let_block       ::= LET let_binding (',' let_binding)* dml_stmt
 
-let_binding ::= LET identifier '=' '(' select_stmt ')' ','
+let_binding     ::= identifier '=' '(' select_stmt ')'
 
-dml_stmt    ::= select_stmt
-              | insert_stmt
-              | update_stmt
-              | delete_stmt
+dml_stmt        ::= select_stmt
+                  | insert_stmt
+                  | update_stmt
+                  | delete_stmt
 ```
 
 ## Description
@@ -45,11 +45,11 @@ LET inactive_users = (
     SELECT users.user_id, users.username
     FROM users
     WHERE users.last_login < '2020-01-01'
-),
-LET inactive_sessions = (
+) inactive_sessions = (
     SELECT sessions.session_id
     FROM sessions, inactive_users(user_id)
-),
+)
+
 SELECT
     inactive_users.username,
     inactive_sessions.session_id
@@ -73,7 +73,8 @@ LET inactive_users = (
     SELECT users.user_id, users.username
     FROM users
     WHERE users.last_login < '2020-01-01'
-),
+)
+
 SELECT
     inactive_users.username,
     sessions.last_active
@@ -85,11 +86,11 @@ LET inactive_users = (
     SELECT users.user_id, users.username
     FROM users
     WHERE users.last_login < '2020-01-01'
-),
-LET inactive_sessions = (
+) inactive_sessions = (
     SELECT sessions.session_id, sessions.user_id
     FROM sessions, inactive_users(user_id)
-),
+)
+
 SELECT
     inactive_users.username,
     inactive_sessions.session_id
@@ -101,7 +102,8 @@ LET inactive_users = (
     SELECT users.user_id
     FROM users
     WHERE users.last_login < '2020-01-01'
-),
+)
+
 DELETE FROM sessions
 WHERE user_id IN (
     SELECT inactive_users.user_id FROM inactive_users
@@ -113,7 +115,8 @@ LET inactive_users = (
     SELECT users.user_id
     FROM users
     WHERE users.last_login < '2020-01-01'
-),
+)
+
 UPDATE users
 SET status = 'inactive'
 WHERE user_id IN (

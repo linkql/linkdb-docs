@@ -41,9 +41,9 @@ statement       ::= select_stmt ';'
                   | for_stmt ';'
                   | let_block ';'
 
-let_block       ::= let_binding+ dml_stmt
+let_block       ::= LET let_binding (',' let_binding)* dml_stmt
 
-let_binding     ::= LET identifier '=' '(' select_stmt ')' ','
+let_binding     ::= identifier '=' '(' select_stmt ')'
 
 dml_stmt        ::= select_stmt
                   | insert_stmt
@@ -220,7 +220,7 @@ from_clause         ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 from_item           ::= identifier ( AS? identifier )?
                       | '(' select_stmt ')' AS? identifier
 
-traditional_join    ::= join_type? JOIN from_item join_condition
+traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
 
 shorthand_join      ::= identifier
                       | join_type identifier

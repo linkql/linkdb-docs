@@ -89,7 +89,8 @@ LET inactive_users = (
     SELECT users.user_id
     FROM users
     WHERE users.last_login < '2020-01-01'
-),
+)
+
 FOR user IN inactive_users
 DO
     UPDATE users SET status = 'inactive' WHERE user_id = user.user_id;
