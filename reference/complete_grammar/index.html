@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://linkql.github.io/linkdb-docs/reference/grammar/">
+        <link rel="canonical" href="https://linkql.github.io/linkdb-docs/reference/complete_grammar/">
       
       
-        <link rel="prev" href="../../language/functions/">
-      
-      
-        <link rel="next" href="../keywords/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>Grammar - LinkQL Documentation</title>
+        <title>Complete Grammar - LinkQL Documentation</title>
       
     
     
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#grammar" class="md-skip">
+        <a href="#complete-grammar" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Grammar
+              Complete Grammar
             
           </span>
         </div>
@@ -272,13 +268,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../grammar/" class="md-tabs__link">
           
   
   
@@ -1320,10 +1314,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1337,20 +1329,17 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -1368,7 +1357,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1383,37 +1372,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Grammar
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../grammar/" class="md-nav__link">
         
   
   
@@ -1429,257 +1391,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#notation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ddl-create" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DDL — CREATE
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ddl-alter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DDL — ALTER
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ddl-drop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DDL — DROP
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#drop_stmt-drop_database_stmt-drop_table_stmt-drop_collection_stmt-drop_view_stmt-drop_index_stmt-drop_database_stmt-drop-database-if-exists-identifier-confirm-string_literal-drop_table_stmt-drop-table-if-exists-identifier-cascade_clause-drop_collection_stmt-drop-collection-if-exists-identifier-cascade_clause-drop_view_stmt-drop-materialized-view-if-exists-identifier-drop_index_stmt-drop-index-if-exists-identifier-cascade_clause-cascade-cascade_depth-cascade_override-cascade_depth-integer_literal-infinity-cascade_override-set-null-set-default-drop-truncate_stmt-truncate_database_stmt-truncate_table_stmt-truncate_collection_stmt-truncate_database_stmt-truncate-database-if-exists-identifier-confirm-string_literal-restart-identity-truncate_table_stmt-truncate-table-identifier-restart-identity-truncate_collection_stmt-truncate-collection-identifier-restart-identity" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        drop_stmt ::= drop_database_stmt | drop_table_stmt | drop_collection_stmt | drop_view_stmt | drop_index_stmt drop_database_stmt ::= DROP DATABASE ( IF EXISTS )? identifier CONFIRM string_literal drop_table_stmt ::= DROP TABLE ( IF EXISTS )? identifier ( cascade_clause )? drop_collection_stmt ::= DROP COLLECTION ( IF EXISTS )? identifier ( cascade_clause )? drop_view_stmt ::= DROP MATERIALIZED? VIEW ( IF EXISTS )? identifier drop_index_stmt ::= DROP INDEX ( IF EXISTS )? identifier cascade_clause ::= CASCADE ( cascade_depth )? ( cascade_override )? cascade_depth ::= integer_literal | INFINITY cascade_override ::= SET NULL | SET DEFAULT | DROP truncate_stmt ::= truncate_database_stmt | truncate_table_stmt | truncate_collection_stmt truncate_database_stmt ::= TRUNCATE DATABASE ( IF EXISTS )? identifier CONFIRM string_literal ( RESTART IDENTITY )? truncate_table_stmt ::= TRUNCATE TABLE identifier ( RESTART IDENTITY )? truncate_collection_stmt ::= TRUNCATE COLLECTION identifier ( RESTART IDENTITY )?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#utility-statements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Utility Statements
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dml-select" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DML — SELECT
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#select_stmt-select-distinct-select_item-select_item-from-from_clause-where-expr-group_clause-window-window_definition-window_definition-order-by-order_item-order_item-limit-integer_literal-offset-integer_literal-select_item-table_star-collection_star-expr-as-identifier-function_call-as-identifier-table_star-identifier-collection_star-identifier-group_clause-group-by-expr-expr-having-expr-order_item-expr-asc-desc-from_clause-from_item-shorthand_join-traditional_join-from_item-identifier-as-identifier-select_stmt-as-identifier-traditional_join-natural-join_type-join-from_item-join_condition-shorthand_join-identifier-join_type-identifier-join_type-identifier-identifier-identifier-join_type-identifier-identifier-identifier-on-shorthand_condition-shorthand_condition-identifier-identifier-expr-join_condition-on-expr-using-identifier-identifier-join_type-inner-left-right-full-outer-cross-outer-window_definition-identifier-as-window_spec" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        select_stmt ::= SELECT DISTINCT? select_item (&#39;,&#39; select_item)* FROM from_clause ( WHERE expr )? ( group_clause )? ( WINDOW window_definition ( &#39;,&#39; window_definition)* )? ( ORDER BY order_item (&#39;,&#39; order_item)* )? ( LIMIT integer_literal ( OFFSET integer_literal )? )? select_item ::= &#39;*&#39; | table_star | collection_star | expr ( AS identifier )? | function_call AS identifier table_star ::= identifier &#39;.&#39; &#39;*&#39; collection_star ::= identifier &#39;::&#39; &#39;*&#39; group_clause ::= GROUP BY expr (&#39;,&#39; expr)* ( HAVING expr )? order_item ::= expr ( ASC | DESC )? from_clause ::= from_item ( &#39;,&#39; shorthand_join )* ( traditional_join )* from_item ::= identifier ( AS? identifier )? | &#39;(&#39; select_stmt &#39;)&#39; AS? identifier traditional_join ::= NATURAL? join_type? JOIN from_item join_condition shorthand_join ::= identifier | join_type identifier | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; ON shorthand_condition shorthand_condition ::= identifier &#39;(&#39; identifier &#39;)&#39; | expr join_condition ::= ON expr | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39; join_type ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER window_definition ::= identifier AS &#39;(&#39; window_spec &#39;)&#39;
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#window-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Window Functions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dml-insert" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DML — INSERT
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dml-update" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DML — UPDATE
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dml-delete" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DML — DELETE
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#for" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FOR
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transactions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Transactions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#expressions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Expressions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Functions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#json-access" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        JSON Access
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Types
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#literals-and-primitives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Literals and Primitives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1863,10 +1574,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#select_stmt-select-distinct-select_item-select_item-from-from_clause-where-expr-group_clause-window-window_definition-window_definition-order-by-order_item-order_item-limit-integer_literal-offset-integer_literal-select_item-table_star-collection_star-expr-as-identifier-function_call-as-identifier-table_star-identifier-collection_star-identifier-group_clause-group-by-expr-expr-having-expr-order_item-expr-asc-desc-from_clause-from_item-shorthand_join-traditional_join-from_item-identifier-as-identifier-select_stmt-as-identifier-traditional_join-natural-join_type-join-from_item-join_condition-shorthand_join-identifier-join_type-identifier-join_type-identifier-identifier-identifier-join_type-identifier-identifier-identifier-on-shorthand_condition-shorthand_condition-identifier-identifier-expr-join_condition-on-expr-using-identifier-identifier-join_type-inner-left-right-full-outer-cross-outer-window_definition-identifier-as-window_spec" class="md-nav__link">
+  <a href="#select_stmt-intersect_stmt-union-except-all-intersect_stmt-order-by-order_item-order_item-limit_clause-intersect_stmt-select_core-intersect-all-select_core-select_core-select_stmt-select-distinct-select_item-select_item-from-from_clause-where-expr-group_clause-window-window_definition-window_definition-select_item-table_star-collection_star-expr-as-identifier-function_call-as-identifier-table_star-identifier-collection_star-identifier-group_clause-group-by-expr-expr-having-expr-order_item-expr-asc-desc-from_clause-from_item-shorthand_join-traditional_join-from_item-identifier-as-identifier-select_stmt-as-identifier-traditional_join-natural-join_type-join-from_item-join_condition-shorthand_join-identifier-join_type-identifier-join_type-identifier-identifier-identifier-join_type-identifier-identifier-identifier-on-shorthand_condition-shorthand_condition-identifier-identifier-expr-join_condition-on-expr-using-identifier-identifier-join_type-inner-left-right-full-outer-cross-outer-window_definition-identifier-as-window_spec-limit_clause-limit-expr-offset-expr-offset-expr-row-rows-fetch-first-expr-row-rows-only-with-ties-fetch-first-expr-row-rows-only-with-ties" class="md-nav__link">
     <span class="md-ellipsis">
       
-        select_stmt ::= SELECT DISTINCT? select_item (&#39;,&#39; select_item)* FROM from_clause ( WHERE expr )? ( group_clause )? ( WINDOW window_definition ( &#39;,&#39; window_definition)* )? ( ORDER BY order_item (&#39;,&#39; order_item)* )? ( LIMIT integer_literal ( OFFSET integer_literal )? )? select_item ::= &#39;*&#39; | table_star | collection_star | expr ( AS identifier )? | function_call AS identifier table_star ::= identifier &#39;.&#39; &#39;*&#39; collection_star ::= identifier &#39;::&#39; &#39;*&#39; group_clause ::= GROUP BY expr (&#39;,&#39; expr)* ( HAVING expr )? order_item ::= expr ( ASC | DESC )? from_clause ::= from_item ( &#39;,&#39; shorthand_join )* ( traditional_join )* from_item ::= identifier ( AS? identifier )? | &#39;(&#39; select_stmt &#39;)&#39; AS? identifier traditional_join ::= NATURAL? join_type? JOIN from_item join_condition shorthand_join ::= identifier | join_type identifier | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; ON shorthand_condition shorthand_condition ::= identifier &#39;(&#39; identifier &#39;)&#39; | expr join_condition ::= ON expr | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39; join_type ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER window_definition ::= identifier AS &#39;(&#39; window_spec &#39;)&#39;
+        select_stmt ::= intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )* ( ORDER BY order_item ( &#39;,&#39; order_item )* )? limit_clause? intersect_stmt ::= select_core ( INTERSECT ALL? select_core )* select_core ::= &#39;(&#39; select_stmt &#39;)&#39; | SELECT DISTINCT? select_item (&#39;,&#39; select_item)* FROM from_clause ( WHERE expr )? ( group_clause )? ( WINDOW window_definition ( &#39;,&#39; window_definition)* )? select_item ::= &#39;*&#39; | table_star | collection_star | expr ( AS identifier )? | function_call AS identifier table_star ::= identifier &#39;.&#39; &#39;*&#39; collection_star ::= identifier &#39;::&#39; &#39;*&#39; group_clause ::= GROUP BY expr (&#39;,&#39; expr)* ( HAVING expr )? order_item ::= expr ( ASC | DESC )? from_clause ::= from_item ( &#39;,&#39; shorthand_join )* ( traditional_join )* from_item ::= identifier ( AS? identifier )? | &#39;(&#39; select_stmt &#39;)&#39; AS? identifier traditional_join ::= NATURAL? join_type? JOIN from_item join_condition shorthand_join ::= identifier | join_type identifier | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; ON shorthand_condition shorthand_condition ::= identifier &#39;(&#39; identifier &#39;)&#39; | expr join_condition ::= ON expr | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39; join_type ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER window_definition ::= identifier AS &#39;(&#39; window_spec &#39;)&#39; limit_clause ::= LIMIT expr ( OFFSET expr )? | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )? | FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )?
       
     </span>
   </a>
@@ -2022,8 +1733,8 @@
 
 
 
-<h1 id="grammar">Grammar</h1>
-<p>Currently implemented grammar reference for LinkQL.</p>
+<h1 id="complete-grammar">Complete Grammar</h1>
+<p>Complete grammar reference for LinkQL including anything yet to be implemented.</p>
 <h2 id="notation">Notation</h2>
 <ul>
 <li><code>::=</code> Definition</li>
@@ -2076,12 +1787,21 @@
 </span><span id="True-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>let_block       ::= LET let_binding (&#39;,&#39; let_binding)* dml_stmt
 </span><span id="True-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
 </span><span id="True-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>let_binding     ::= identifier &#39;=&#39; &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>                  | recursive_let
+</span><span id="True-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>
+</span><span id="True-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>recursive_let   ::= RECURSIVE identifier &#39;=&#39; &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>                      UNION ALL &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>                      ( cycle_clause )*
+</span><span id="True-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>                      ( SEARCH ( DEPTH | BREADTH ) FIRST BY identifier SET identifier )?
+</span><span id="True-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+</span><span id="True-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>cycle_clause    ::= CYCLE ON identifier ( &#39;,&#39; identifier )* SET identifier
+</span><span id="True-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>                  | MAX ITERATIONS integer_literal
 </span></code></pre></div>
 <hr />
 <h2 id="ddl-create">DDL — CREATE</h2>
 <div class="language-text highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>create_database_stmt        ::= CREATE DATABASE ( IF NOT EXISTS )? identifier
 </span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>create_table_stmt           ::= CREATE TABLE ( IF NOT EXISTS ) identifier &#39;(&#39; table_item (&#39;,&#39; table_item)* &#39;,&#39;? &#39;)&#39;
+</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>create_table_stmt           ::= CREATE TABLE ( IF NOT EXISTS )? identifier &#39;(&#39; table_item (&#39;,&#39; table_item)* &#39;,&#39;? &#39;)&#39;
 </span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 </span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>create_collection_stmt      ::= CREATE COLLECTION identifier ( IF NOT EXISTS )?
 </span><span id="True-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                                  ( &#39;(&#39; collection_item (&#39;,&#39; collection_item)* &#39;,&#39;? &#39;)&#39; )?
@@ -2117,7 +1837,7 @@
 </span><span id="True-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>                                  ( ON DELETE reference_action )?
 </span><span id="True-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>                                  ( ON UPDATE reference_action )?
 </span><span id="True-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
-</span><span id="True-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>column_property             ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>field_property             ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
 </span><span id="True-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>                              | AUTONOW
 </span><span id="True-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>                              | AUTO
 </span><span id="True-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>                              | DEFAULT expr
@@ -2240,51 +1960,59 @@
 </span></code></pre></div>
 <hr />
 <h2 id="dml-select">DML — SELECT</h2>
-<h2 id="select_stmt-select-distinct-select_item-select_item-from-from_clause-where-expr-group_clause-window-window_definition-window_definition-order-by-order_item-order_item-limit-integer_literal-offset-integer_literal-select_item-table_star-collection_star-expr-as-identifier-function_call-as-identifier-table_star-identifier-collection_star-identifier-group_clause-group-by-expr-expr-having-expr-order_item-expr-asc-desc-from_clause-from_item-shorthand_join-traditional_join-from_item-identifier-as-identifier-select_stmt-as-identifier-traditional_join-natural-join_type-join-from_item-join_condition-shorthand_join-identifier-join_type-identifier-join_type-identifier-identifier-identifier-join_type-identifier-identifier-identifier-on-shorthand_condition-shorthand_condition-identifier-identifier-expr-join_condition-on-expr-using-identifier-identifier-join_type-inner-left-right-full-outer-cross-outer-window_definition-identifier-as-window_spec"><div class="language-text highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>select_stmt         ::= SELECT DISTINCT? select_item (&#39;,&#39; select_item)*
-</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>                        FROM from_clause
-</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>                        ( WHERE expr )?
-</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>                        ( group_clause )?
-</span><span id="True-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                        ( WINDOW window_definition ( &#39;,&#39; window_definition)* )?
-</span><span id="True-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>                        ( ORDER BY order_item (&#39;,&#39; order_item)* )?
-</span><span id="True-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>                        ( LIMIT integer_literal ( OFFSET integer_literal )? )?
-</span><span id="True-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-</span><span id="True-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>select_item         ::= &#39;*&#39;
-</span><span id="True-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>                      | table_star
-</span><span id="True-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                      | collection_star
-</span><span id="True-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                      | expr ( AS identifier )?
-</span><span id="True-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                      | function_call AS identifier
-</span><span id="True-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
-</span><span id="True-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>table_star          ::= identifier &#39;.&#39; &#39;*&#39;
-</span><span id="True-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
-</span><span id="True-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>collection_star     ::= identifier &#39;::&#39; &#39;*&#39;
-</span><span id="True-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
-</span><span id="True-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>group_clause        ::= GROUP BY expr (&#39;,&#39; expr)*
-</span><span id="True-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>                          ( HAVING expr )?
+<h2 id="select_stmt-intersect_stmt-union-except-all-intersect_stmt-order-by-order_item-order_item-limit_clause-intersect_stmt-select_core-intersect-all-select_core-select_core-select_stmt-select-distinct-select_item-select_item-from-from_clause-where-expr-group_clause-window-window_definition-window_definition-select_item-table_star-collection_star-expr-as-identifier-function_call-as-identifier-table_star-identifier-collection_star-identifier-group_clause-group-by-expr-expr-having-expr-order_item-expr-asc-desc-from_clause-from_item-shorthand_join-traditional_join-from_item-identifier-as-identifier-select_stmt-as-identifier-traditional_join-natural-join_type-join-from_item-join_condition-shorthand_join-identifier-join_type-identifier-join_type-identifier-identifier-identifier-join_type-identifier-identifier-identifier-on-shorthand_condition-shorthand_condition-identifier-identifier-expr-join_condition-on-expr-using-identifier-identifier-join_type-inner-left-right-full-outer-cross-outer-window_definition-identifier-as-window_spec-limit_clause-limit-expr-offset-expr-offset-expr-row-rows-fetch-first-expr-row-rows-only-with-ties-fetch-first-expr-row-rows-only-with-ties"><div class="language-text highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>select_stmt         ::= intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )*
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>                          ( ORDER BY order_item ( &#39;,&#39; order_item )* )?
+</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>                          limit_clause?
+</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="True-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>intersect_stmt      ::= select_core ( INTERSECT ALL? select_core )*
+</span><span id="True-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="True-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>select_core         ::= &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                      | SELECT DISTINCT? select_item (&#39;,&#39; select_item)*
+</span><span id="True-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                          FROM from_clause
+</span><span id="True-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>                          ( WHERE expr )?
+</span><span id="True-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                          ( group_clause )?
+</span><span id="True-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                          ( WINDOW window_definition ( &#39;,&#39; window_definition)* )?
+</span><span id="True-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="True-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>select_item         ::= &#39;*&#39;
+</span><span id="True-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                      | table_star
+</span><span id="True-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>                      | collection_star
+</span><span id="True-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>                      | expr ( AS identifier )?
+</span><span id="True-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>                      | function_call AS identifier
+</span><span id="True-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
+</span><span id="True-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>table_star          ::= identifier &#39;.&#39; &#39;*&#39;
 </span><span id="True-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
-</span><span id="True-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>order_item          ::= expr ( ASC | DESC )?
+</span><span id="True-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>collection_star     ::= identifier &#39;::&#39; &#39;*&#39;
 </span><span id="True-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
-</span><span id="True-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>from_clause         ::= from_item ( &#39;,&#39; shorthand_join )* ( traditional_join )*
-</span><span id="True-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>
-</span><span id="True-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>from_item           ::= identifier ( AS? identifier )?
-</span><span id="True-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>                      | &#39;(&#39; select_stmt &#39;)&#39; AS? identifier
+</span><span id="True-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>group_clause        ::= GROUP BY expr (&#39;,&#39; expr)*
+</span><span id="True-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>                          ( HAVING expr )?
+</span><span id="True-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>
+</span><span id="True-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>order_item          ::= expr ( ASC | DESC )?
 </span><span id="True-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
-</span><span id="True-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
+</span><span id="True-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>from_clause         ::= from_item ( &#39;,&#39; shorthand_join )* ( traditional_join )*
 </span><span id="True-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
-</span><span id="True-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>shorthand_join      ::= identifier
-</span><span id="True-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>                      | join_type identifier
-</span><span id="True-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>                            ON shorthand_condition
-</span><span id="True-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>
-</span><span id="True-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>shorthand_condition ::= identifier &#39;(&#39; identifier &#39;)&#39;
-</span><span id="True-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>                      | expr
-</span><span id="True-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>
-</span><span id="True-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>join_condition      ::= ON expr
-</span><span id="True-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>                      | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
-</span><span id="True-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>
-</span><span id="True-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>join_type           ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
-</span><span id="True-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>
-</span><span id="True-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>window_definition    ::= identifier AS &#39;(&#39; window_spec &#39;)&#39;
+</span><span id="True-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>from_item           ::= identifier ( AS? identifier )?
+</span><span id="True-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>                      | &#39;(&#39; select_stmt &#39;)&#39; AS? identifier
+</span><span id="True-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>
+</span><span id="True-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
+</span><span id="True-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>
+</span><span id="True-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>shorthand_join      ::= identifier
+</span><span id="True-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>                      | join_type identifier
+</span><span id="True-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
+</span><span id="True-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; ON shorthand_condition
+</span><span id="True-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>
+</span><span id="True-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>shorthand_condition ::= identifier &#39;(&#39; identifier &#39;)&#39;
+</span><span id="True-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>                      | expr
+</span><span id="True-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>
+</span><span id="True-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>join_condition      ::= ON expr
+</span><span id="True-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>                      | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
+</span><span id="True-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>
+</span><span id="True-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>join_type           ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
+</span><span id="True-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>
+</span><span id="True-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>window_definition    ::= identifier AS &#39;(&#39; window_spec &#39;)&#39;
+</span><span id="True-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a>
+</span><span id="True-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a>limit_clause        ::= LIMIT expr ( OFFSET expr )?
+</span><span id="True-5-52"><a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a>                      | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )?
+</span><span id="True-5-53"><a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a>                      | FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )?
 </span></code></pre></div></h2>
 <h2 id="window-functions">Window Functions</h2>
 <div class="language-text highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>window_function_call    ::= function_call OVER ( identifier | &#39;(&#39; window_spec &#39;)&#39; )
@@ -2308,27 +2036,31 @@
 </span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>                      ( with_free )?
 </span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>                    insert_source
 </span><span id="True-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>                    ( ON CONFLICT conflict_target conflict_action )?
-</span><span id="True-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-</span><span id="True-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>insert_source   ::= select_stmt
-</span><span id="True-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>                  | &#39;(&#39; select_stmt &#39;)&#39;
-</span><span id="True-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>                  | VALUES &#39;(&#39; insert_value ( &#39;,&#39; insert_value )* &#39;)&#39;
-</span><span id="True-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>                        ( &#39;,&#39; &#39;(&#39; insert_value ( &#39;,&#39; insert_value )* &#39;)&#39; )*
-</span><span id="True-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-</span><span id="True-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>insert_value    ::= expr | DEFAULT
-</span><span id="True-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
-</span><span id="True-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>with_free       ::= WITH FREE free_source
-</span><span id="True-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-</span><span id="True-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>free_source     ::= &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
-</span><span id="True-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>                  | UNPACK &#39;(&#39; expr &#39;)&#39;
-</span><span id="True-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>                  | UNPACK &#39;(&#39; &#39;)&#39;
-</span><span id="True-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
-</span><span id="True-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>conflict_target ::= &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
-</span><span id="True-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
-</span><span id="True-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>conflict_action ::= DO NOTHING
-</span><span id="True-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>                  | DO UPDATE SET conflict_set ( &#39;,&#39; conflict_set )*
-</span><span id="True-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
-</span><span id="True-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>conflict_set    ::= identifier &#39;=&#39; expr
-</span><span id="True-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>                  | identifier &#39;=&#39; EXCLUDED &#39;.&#39; identifier
+</span><span id="True-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>                    ( RETURNING return_item ( &#39;,&#39; return_item )* )?
+</span><span id="True-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="True-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>insert_source   ::= select_stmt
+</span><span id="True-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>                  | &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>                  | VALUES &#39;(&#39; insert_value ( &#39;,&#39; insert_value )* &#39;)&#39;
+</span><span id="True-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>                        ( &#39;,&#39; &#39;(&#39; insert_value ( &#39;,&#39; insert_value )* &#39;)&#39; )*
+</span><span id="True-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+</span><span id="True-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>insert_value    ::= expr | DEFAULT
+</span><span id="True-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+</span><span id="True-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>with_free       ::= WITH FREE free_source
+</span><span id="True-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+</span><span id="True-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>free_source     ::= &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
+</span><span id="True-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>                  | UNPACK &#39;(&#39; expr &#39;)&#39;
+</span><span id="True-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>                  | UNPACK &#39;(&#39; &#39;)&#39;
+</span><span id="True-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+</span><span id="True-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>conflict_target ::= &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
+</span><span id="True-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+</span><span id="True-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>conflict_action ::= DO NOTHING
+</span><span id="True-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>                  | DO UPDATE SET conflict_set ( &#39;,&#39; conflict_set )*
+</span><span id="True-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
+</span><span id="True-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>conflict_set    ::= identifier &#39;=&#39; expr
+</span><span id="True-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>                  | identifier &#39;=&#39; EXCLUDED &#39;.&#39; identifier
+</span><span id="True-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>
+</span><span id="True-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>return_item     ::= &#39;*&#39;
+</span><span id="True-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>                  | expr ( AS identifier )?
 </span></code></pre></div>
 <hr />
 <h2 id="dml-update">DML — UPDATE</h2>
@@ -2338,11 +2070,11 @@
 </span><span id="True-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>                    ( FROM from_clause )?
 </span><span id="True-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>                    ( WHERE expr )?
 </span><span id="True-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>                    ( CONFIRM string_literal )?
-</span><span id="True-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-</span><span id="True-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>set_values      ::= set_expr ( &#39;,&#39; set_expr )*
-</span><span id="True-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-</span><span id="True-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>set_expr        ::= identifier &#39;=&#39; expr
-</span><span id="True-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>                  | identifier &#39;=&#39; EXCLUDED &#39;.&#39; identifier
+</span><span id="True-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>                    ( RETURNING return_item ( &#39;,&#39; return_item )* )?
+</span><span id="True-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="True-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>set_values      ::= set_expr ( &#39;,&#39; set_expr )*
+</span><span id="True-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+</span><span id="True-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>set_expr        ::= identifier &#39;=&#39; expr
 </span></code></pre></div>
 <hr />
 <h2 id="dml-delete">DML — DELETE</h2>
@@ -2350,6 +2082,7 @@
 </span><span id="True-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>                    ( FROM from_clause )?
 </span><span id="True-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>                    ( WHERE expr )?
 </span><span id="True-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>                    ( CONFIRM string_literal )?
+</span><span id="True-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>                    ( RETURNING return_item ( &#39;,&#39; return_item )* )?
 </span></code></pre></div>
 <hr />
 <h2 id="for">FOR</h2>
@@ -2406,7 +2139,7 @@
 </span><span id="True-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>                      | additive NOT? IN &#39;(&#39; select_stmt &#39;)&#39;
 </span><span id="True-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>                      | additive NOT? LIKE string_literal
 </span><span id="True-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>                      | additive NOT? ILIKE string_literal
-</span><span id="True-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>                      | EXISTS &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>                      | exists_expr
 </span><span id="True-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>
 </span><span id="True-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>operator            ::= &#39;=&#39; | &#39;!=&#39; | &#39;&lt;&#39; | &#39;&lt;=&#39; | &#39;&gt;&#39; | &#39;&gt;=&#39;
 </span><span id="True-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
@@ -2534,44 +2267,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../../language/functions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Functions">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                Functions
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../keywords/" class="md-footer__link md-footer__link--next" aria-label="Next: Keywords">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Keywords
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
