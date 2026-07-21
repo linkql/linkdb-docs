@@ -1,5 +1,5 @@
-# Grammar
-Currently implemented grammar reference for LinkQL.
+# Complete Grammar
+Complete grammar reference for LinkQL including anything yet to be implemented.
 
 ## Notation
 - `::=` Definition
@@ -55,6 +55,15 @@ utility_stmt    ::= refresh_view_stmt
 let_block       ::= LET let_binding (',' let_binding)* dml_stmt
 
 let_binding     ::= identifier '=' '(' select_stmt ')'
+                  | recursive_let
+
+recursive_let   ::= RECURSIVE identifier '=' '(' select_stmt ')'
+                      UNION ALL '(' select_stmt ')'
+                      ( cycle_clause )*
+                      ( SEARCH ( DEPTH | BREADTH ) FIRST BY identifier SET identifier )?
+
+cycle_clause    ::= CYCLE ON identifier ( ',' identifier )* SET identifier
+                  | MAX ITERATIONS integer_literal
 ```
 
 ---
@@ -64,7 +73,7 @@ let_binding     ::= identifier '=' '(' select_stmt ')'
 ```
 create_database_stmt        ::= CREATE DATABASE ( IF NOT EXISTS )? identifier
 
-create_table_stmt           ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' table_item (',' table_item)* ','? ')'
+create_table_stmt           ::= CREATE TABLE ( IF NOT EXISTS )? identifier '(' table_item (',' table_item)* ','? ')'
 
 create_collection_stmt      ::= CREATE COLLECTION identifier ( IF NOT EXISTS )?
                                   ( '(' collection_item (',' collection_item)* ','? ')' )?
@@ -100,7 +109,7 @@ reference_target            ::= identifier ( '(' identifier ')' )?
                                   ( ON DELETE reference_action )?
                                   ( ON UPDATE reference_action )?
 
-column_property             ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+field_property             ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
                               | AUTONOW
                               | AUTO
                               | DEFAULT expr
@@ -239,13 +248,18 @@ info_target             ::= TABLE identifier
 ## DML — SELECT
 
 ```
-select_stmt         ::= SELECT DISTINCT? select_item (',' select_item)*
-                        FROM from_clause
-                        ( WHERE expr )?
-                        ( group_clause )?
-                        ( WINDOW window_definition ( ',' window_definition)* )?
-                        ( ORDER BY order_item (',' order_item)* )?
-                        ( LIMIT integer_literal ( OFFSET integer_literal )? )?
+select_stmt         ::= intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )*
+                          ( ORDER BY order_item ( ',' order_item )* )?
+                          limit_clause?
+
+intersect_stmt      ::= select_core ( INTERSECT ALL? select_core )*
+
+select_core         ::= '(' select_stmt ')'
+                      | SELECT DISTINCT? select_item (',' select_item)*
+                          FROM from_clause
+                          ( WHERE expr )?
+                          ( group_clause )?
+                          ( WINDOW window_definition ( ',' window_definition)* )?
 
 select_item         ::= '*'
                       | table_star
@@ -272,8 +286,7 @@ traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
 shorthand_join      ::= identifier
                       | join_type identifier
                       | join_type identifier '(' identifier (',' identifier)* ')'
-                      | join_type identifier '(' identifier (',' identifier)* ')'
-                            ON shorthand_condition
+                      | join_type identifier '(' identifier (',' identifier)* ')' ON shorthand_condition
 
 shorthand_condition ::= identifier '(' identifier ')'
                       | expr
@@ -284,6 +297,10 @@ join_condition      ::= ON expr
 join_type           ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
 
 window_definition    ::= identifier AS '(' window_spec ')'
+
+limit_clause        ::= LIMIT expr ( OFFSET expr )?
+                      | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )?
+                      | FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )?
 ```
 ---
 
@@ -314,6 +331,7 @@ insert_stmt     ::= INSERT INTO identifier ( '(' identifier ( ',' identifier )* 
                       ( with_free )?
                     insert_source
                     ( ON CONFLICT conflict_target conflict_action )?
+                    ( RETURNING return_item ( ',' return_item )* )?
 
 insert_source   ::= select_stmt
                   | '(' select_stmt ')'
@@ -335,6 +353,9 @@ conflict_action ::= DO NOTHING
 
 conflict_set    ::= identifier '=' expr
                   | identifier '=' EXCLUDED '.' identifier
+
+return_item     ::= '*'
+                  | expr ( AS identifier )?
 ```
 
 ---
@@ -348,11 +369,11 @@ update_stmt     ::= UPDATE identifier
                     ( FROM from_clause )?
                     ( WHERE expr )?
                     ( CONFIRM string_literal )?
+                    ( RETURNING return_item ( ',' return_item )* )?
 
 set_values      ::= set_expr ( ',' set_expr )*
 
 set_expr        ::= identifier '=' expr
-                  | identifier '=' EXCLUDED '.' identifier
 ```
 
 ---
@@ -364,6 +385,7 @@ delete_stmt     ::= DELETE FROM identifier
                     ( FROM from_clause )?
                     ( WHERE expr )?
                     ( CONFIRM string_literal )?
+                    ( RETURNING return_item ( ',' return_item )* )?
 ```
 
 ---
@@ -432,7 +454,7 @@ comparison          ::= additive ( operator additive )?
                       | additive NOT? IN '(' select_stmt ')'
                       | additive NOT? LIKE string_literal
                       | additive NOT? ILIKE string_literal
-                      | EXISTS '(' select_stmt ')'
+                      | exists_expr
 
 operator            ::= '=' | '!=' | '<' | '<=' | '>' | '>='
 
