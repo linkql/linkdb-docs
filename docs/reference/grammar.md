@@ -1,12 +1,6 @@
 # Grammar
 Complete grammar reference for LinkQL.
 
-# TODO Implementations
-- views
-- window functions
-- EXPLAIN/ANALYZE/INFO
-- index statements
-
 ## Notation
 - `::=` Definition
 - `|` Alternation
@@ -25,30 +19,42 @@ Complete grammar reference for LinkQL.
 ```
 program         ::= statement+
 
-statement       ::= select_stmt ';'
-                  | insert_stmt ';'
-                  | update_stmt ';'
-                  | delete_stmt ';'
-                  | create_table_stmt ';'
-                  | create_collection_stmt ';'
-                  | create_database_stmt ';'
-                  | alter_table_stmt ';'
-                  | alter_collection_stmt ';'
-                  | alter_database_stmt ';'
-                  | drop_stmt ';'
-                  | truncate_stmt ';'
+statement       ::= ddl_stmt ';'
+                  | dml_stmt ';'
+                  | utility_stmt ';'
                   | transaction_stmt ';'
                   | for_stmt ';'
                   | let_block ';'
 
-let_block       ::= LET let_binding (',' let_binding)* dml_stmt
+ddl_stmt        ::= create_stmt
+                  | alter_stmt
+                  | drop_stmt
+                  | truncate_stmt
 
-let_binding     ::= identifier '=' '(' select_stmt ')'
+create_stmt     ::= create_database_stmt
+                  | create_table_stmt
+                  | create_collection_stmt
+                  | create_view_stmt
+                  | create_index_stmt
+
+alter_stmt      ::= alter_database_stmt
+                  | alter_table_stmt
+                  | alter_collection_stmt
+                  | alter_view_stmt
+                  | alter_index_stmt
 
 dml_stmt        ::= select_stmt
                   | insert_stmt
                   | update_stmt
                   | delete_stmt
+
+utility_stmt    ::= refresh_view_stmt
+                  | explain_stmt
+                  | info_stmt
+
+let_block       ::= LET let_binding (',' let_binding)* dml_stmt
+
+let_binding     ::= identifier '=' '(' select_stmt ')'
 ```
 
 ---
@@ -62,6 +68,13 @@ create_table_stmt           ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' ta
 
 create_collection_stmt      ::= CREATE COLLECTION identifier ( IF NOT EXISTS )?
                                   ( '(' collection_item (',' collection_item)* ','? ')' )?
+
+create_view_stmt            ::= CREATE ( OR REPLACE )? MATERIALIZED? VIEW
+                                  ( IF NOT EXISTS )? identifier AS select_stmt
+
+create_index_stmt           ::= CREATE UNIQUE? INDEX ( IF NOT EXISTS )? identifier
+                                  ON identifier '(' order_item ( ',' order_item )* ')'
+                                  ( WHERE expr )?
 
 table_item                  ::= field_def
                               | table_constraint
@@ -126,6 +139,10 @@ alter_database_cmd      ::= RENAME TO identifier
 
 alter_table_stmt        ::= ALTER TABLE identifier alter_table_cmd ( ',' alter_table_cmd )*
 
+alter_view_stmt         ::= ALTER MATERIALIZED? VIEW identifier alter_view_cmd
+
+alter_index_stmt        ::= ALTER INDEX ( IF EXISTS )? identifier alter_index_cmd
+
 alter_table_cmd         ::= ADD COLUMN ( IF NOT EXISTS )? field_def
                           | DROP COLUMN ( IF EXISTS )? identifier
                           | MODIFY COLUMN ( IF EXISTS )? field_def ( USING expr )?
@@ -147,7 +164,8 @@ alter_collection_cmd    ::= ADD FIELD ( IF NOT EXISTS )? field_def
                           | MODIFY CONSTRAINT existing_constraint_name table_constraint_type
                           | DROP CONSTRAINT existing_constraint_name
 
-alter_index_stmt        ::= ALTER INDEX identifier alter_index_cmd
+alter_view_cmd          ::= RENAME TO identifier
+                          | AS select_stmt
 
 alter_index_cmd         ::= RENAME TO identifier
 ```
@@ -160,12 +178,18 @@ alter_index_cmd         ::= RENAME TO identifier
 drop_stmt                   ::= drop_database_stmt
                               | drop_table_stmt
                               | drop_collection_stmt
+                              | drop_view_stmt
+                              | drop_index_stmt
 
 drop_database_stmt          ::= DROP DATABASE ( IF EXISTS )? identifier CONFIRM string_literal
 
 drop_table_stmt             ::= DROP TABLE ( IF EXISTS )? identifier ( cascade_clause )?
 
 drop_collection_stmt        ::= DROP COLLECTION ( IF EXISTS )? identifier ( cascade_clause )?
+
+drop_view_stmt              ::= DROP MATERIALIZED? VIEW ( IF EXISTS )? identifier
+
+drop_index_stmt             ::= DROP INDEX ( IF EXISTS )? identifier
 
 cascade_clause              ::= CASCADE ( cascade_depth )? ( cascade_override )?
 
@@ -187,6 +211,28 @@ truncate_table_stmt         ::= TRUNCATE TABLE identifier ( RESTART IDENTITY )?
 
 truncate_collection_stmt    ::= TRUNCATE COLLECTION identifier ( RESTART IDENTITY )?
 ```
+---
+
+## Utility Statements
+
+```
+refresh_view_stmt       ::= REFRESH MATERIALIZED VIEW identifier
+
+explain_stmt            ::= EXPLAIN ANALYZE? VERBOSE? explainable_stmt
+
+explainable_stmt        ::= select_stmt
+                          | insert_stmt
+                          | update_stmt
+                          | delete_stmt
+
+info_stmt               ::= INFO info_target
+
+info_target             ::= TABLE identifier
+                         | COLLECTION identifier
+                         | VIEW identifier
+                         | INDEX identifier
+                         | DATABASE
+```
 
 ---
 
@@ -197,6 +243,7 @@ select_stmt         ::= SELECT DISTINCT? select_item (',' select_item)*
                         FROM from_clause
                         ( WHERE expr )?
                         ( group_clause )?
+                        ( WINDOW window_definition ( ',' window_definition)* )?
                         ( ORDER BY order_item (',' order_item)* )?
                         ( LIMIT integer_literal ( OFFSET integer_literal )? )?
 
@@ -235,6 +282,27 @@ join_condition      ::= ON expr
                       | USING '(' identifier ( ',' identifier )* ')'
 
 join_type           ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
+
+window_definition    ::= identifier AS '(' window_spec ')'
+```
+---
+
+## Window Functions
+```
+window_function_call    ::= function_call OVER ( identifier | '(' window_spec ')' )
+
+window_spec             ::= ( PARTITION BY expr (',' expr)* )?
+                          ( ORDER BY order_item (',' order_item)* )?
+                          ( frame_clause )?
+
+frame_clause           ::= ( ROWS | RANGE ) frame_bound
+                         | ( ROWS | RANGE ) BETWEEN frame_bound AND frame_bound
+
+frame_bound            ::= UNBOUNDED PRECEDING
+                         | UNBOUNDED FOLLOWING
+                         | CURRENT ROW
+                         | integer_literal PRECEDING
+                         | integer_literal FOLLOWING
 ```
 
 ---
@@ -377,6 +445,7 @@ unary               ::= ( '-' | '+' ) unary
 
 primary             ::= literal
                       | function_call
+                      | window_function_call
                       | column_ref
                       | exists_expr
                       | '(' select_stmt ')'
