@@ -1556,9 +1556,9 @@
 </span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                  | for_stmt &#39;;&#39;
 </span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                  | let_block &#39;;&#39;
 </span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>let_block       ::= let_binding+ dml_stmt
+</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>let_block       ::= LET let_binding (&#39;,&#39; let_binding)* dml_stmt
 </span><span id="True-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>let_binding     ::= LET identifier &#39;=&#39; &#39;(&#39; select_stmt &#39;)&#39; &#39;,&#39;
+</span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>let_binding     ::= identifier &#39;=&#39; &#39;(&#39; select_stmt &#39;)&#39;
 </span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
 </span><span id="True-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>dml_stmt        ::= select_stmt
 </span><span id="True-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>                  | insert_stmt
@@ -1719,7 +1719,7 @@
 </span><span id="True-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>from_item           ::= identifier ( AS? identifier )?
 </span><span id="True-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>                      | &#39;(&#39; select_stmt &#39;)&#39; AS? identifier
 </span><span id="True-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
-</span><span id="True-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>traditional_join    ::= join_type? JOIN from_item join_condition
+</span><span id="True-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
 </span><span id="True-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>
 </span><span id="True-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>shorthand_join      ::= identifier
 </span><span id="True-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>                      | join_type identifier

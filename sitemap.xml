@@ -2,174 +2,174 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://linkql.github.io/linkdb-docs/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/data_types/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/functions/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/json/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/transactions/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/create/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/alter-collection/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/alter-database/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/alter-table/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/create/create-collection/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/create/create-database/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/create/create-table/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/cascade/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/drop-collection/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/drop-database/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/drop-table/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/delete/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/for/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/insert/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/let/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/update/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/case/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/from/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/grouping/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/joins/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/order-and-limit/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/select-items/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/where/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/installation/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/api/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/api/connection/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/api/query_execution/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/api/results/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/cli/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/linkdb/cli/commands/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/reference/error_codes/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/reference/grammar/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
     <url>
          <loc>https://linkql.github.io/linkdb-docs/reference/keywords/</loc>
-         <lastmod>2026-07-20</lastmod>
+         <lastmod>2026-07-21</lastmod>
     </url>
 </urlset>
