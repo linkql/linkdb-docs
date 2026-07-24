@@ -60,8 +60,6 @@ utility_stmt    ::= refresh_view_stmt
 ```
 let_block       ::= LET let_binding ( ',' let_binding )* dml_stmt
 
-with_block      ::= WITH with_clause dml_stmt
-
 let_binding     ::= identifier '=' '(' select_stmt ')'
                   | recursive_let
 
@@ -73,7 +71,7 @@ recursive_let   ::= RECURSIVE identifier '=' '(' select_stmt ')'
 cycle_clause    ::= CYCLE ON identifier ( ',' identifier )* SET identifier
                   | MAX ITERATIONS integer_literal
 
-with_clause     ::= WITH ( RECURSIVE? ) cte_binding ( ',' cte_binding )*
+with_clause     ::= WITH ( RECURSIVE )? cte_binding ( ',' cte_binding )*
 
 cte_binding     ::= identifier ( '(' identifier ( ',' identifier )* ')' )?
                       AS '(' select_stmt ')'
@@ -139,9 +137,7 @@ table_constraint_type       ::= PRIMARY KEY '(' identifier (',' identifier)* ')'
                                   ( ON DELETE reference_action )?
                                   ( ON UPDATE reference_action )?
 
-constraint_name             ::= CONSTRAINT ( IF NOT EXISTS)? identifier
-
-existing_constraint_name    ::= CONSTRAINT ( IF EXISTS )? identifier
+constraint_name             ::= CONSTRAINT identifier
 
 reference_action            ::= CASCADE
                               | SET NULL
@@ -171,8 +167,8 @@ alter_table_cmd         ::= ADD COLUMN ( IF NOT EXISTS )? field_def
                           | RENAME COLUMN ( IF EXISTS )? identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY CONSTRAINT existing_constraint_name table_constraint_type
-                          | DROP CONSTRAINT existing_constraint_name
+                          | MODIFY CONSTRAINT constraint_name table_constraint_type
+                          | DROP CONSTRAINT constraint_name
 
 alter_collection_stmt   ::= ALTER COLLECTION identifier alter_collection_cmd ( ',' alter_collection_cmd )*
 
@@ -183,8 +179,8 @@ alter_collection_cmd    ::= ADD FIELD ( IF NOT EXISTS )? field_def
                           | RENAME FIELD ( IF EXISTS )? identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY CONSTRAINT existing_constraint_name table_constraint_type
-                          | DROP CONSTRAINT existing_constraint_name
+                          | MODIFY CONSTRAINT constraint_name table_constraint_type
+                          | DROP CONSTRAINT constraint_name
 
 alter_view_cmd          ::= RENAME TO identifier
                           | AS select_stmt
@@ -246,6 +242,7 @@ explainable_stmt        ::= select_stmt
                           | insert_stmt
                           | update_stmt
                           | delete_stmt
+                          | merge_stmt
 
 info_stmt               ::= INFO info_target
 
@@ -261,9 +258,10 @@ info_target             ::= TABLE identifier
 ## DML — SELECT
 
 ```
-select_stmt         ::= intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )*
+select_stmt         ::= with_clause? intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )*
                           ( ORDER BY order_item ( ',' order_item )* )?
                           limit_clause?
+                          for_clause?
 
 intersect_stmt      ::= select_core ( INTERSECT ALL? select_core )*
 
@@ -340,7 +338,7 @@ window_spec             ::= ( PARTITION BY expr (',' expr)* )?
 
 frame_clause           ::= ( ROWS | RANGE ) frame_bound
                          | ( ROWS | RANGE | GROUPS ) BETWEEN frame_bound AND frame_bound
-                              ( EXCLUDE ( CURRENT ROW | GROUP | TIES | NO OTHERS ) )
+                              ( EXCLUDE ( CURRENT ROW | GROUP | TIES | NO OTHERS ) )?
 
 frame_bound            ::= UNBOUNDED PRECEDING
                          | UNBOUNDED FOLLOWING
@@ -354,7 +352,7 @@ frame_bound            ::= UNBOUNDED PRECEDING
 ## DML — INSERT
 
 ```
-insert_stmt     ::= INSERT INTO identifier ( '(' identifier ( ',' identifier )* ')' )?
+insert_stmt     ::= with_clause? INSERT INTO identifier ( '(' identifier ( ',' identifier )* ')' )?
                       ( with_free )?
                     insert_source
                     ( ON CONFLICT conflict_target conflict_action )?
@@ -391,7 +389,7 @@ return_item     ::= '*'
 ## DML — UPDATE
 
 ```
-update_stmt     ::= UPDATE identifier ( AS? identifier )?
+update_stmt     ::= with_clause? UPDATE identifier ( AS? identifier )?
                     ( with_free )?
                     SET set_values
                     ( FROM from_clause )?
@@ -409,7 +407,7 @@ set_expr        ::= identifier '=' expr
 ## DML — DELETE
 
 ```
-delete_stmt     ::= DELETE FROM identifier
+delete_stmt     ::= with_clause? DELETE FROM identifier
                     ( USING from_clause )?
                     ( WHERE expr )?
                     ( CONFIRM string_literal )?
@@ -419,7 +417,7 @@ delete_stmt     ::= DELETE FROM identifier
 ---
 ## DML - MERGE
 ```
-merge_stmt          ::= MERGE INTO identifier ( AS? identifier )?
+merge_stmt          ::= with_clause? MERGE INTO identifier ( AS? identifier )?
                         USING merge_source
                         ON expr
                         merge_when_clause+
@@ -457,7 +455,12 @@ for_statement   ::= insert_stmt ';'
 ## Transactions
 
 ```
-transaction_stmt        ::= TRANSACTION ( transaction_mode )?
+transaction_stmt        ::= BEGIN ( TRANSACTION )? ( transaction_mode )?
+                          | COMMIT ( TRANSACTION )?
+                          | ROLLBACK ( TRANSACTION )? ( TO SAVEPOINT identifier )?
+                          | SAVEPOINT identifier
+                          | RELEASE SAVEPOINT identifier
+                          | TRANSACTION ( transaction_mode )?
                             DO
                               transaction_statement+
                             END
@@ -555,11 +558,6 @@ cast_func           ::= CAST '(' expr AS data_type ')'
 merge_func          ::= MERGE '(' expr ',' expr ( ',' ( LEFT | RIGHT ) )? ')'
 
 unpack_func         ::= UNPACK '(' expr? ')'
-
-json_function       ::= HAS '(' expr ',' string_literal ')'
-                      | KEYS '(' expr ')'
-                      | VALUES '(' expr ')'
-                      | CONTAINS '(' expr ',' expr ')'
 ```
 
 ---
@@ -569,13 +567,10 @@ json_function       ::= HAS '(' expr ',' string_literal ')'
 ```
 json_access     ::= expr '[' string_literal ']' ( '[' string_literal ']' )*
 
-json_function   ::= HAS '(' expr ',' string_literal ')'
-                  | KEYS '(' expr ')'
-                  | VALUES '(' expr ')'
-                  | MERGE '(' expr ',' expr ( ',' ( LEFT | RIGHT ) )? ')'
-                  | CONTAINS '(' expr ',' expr ')'
-                  | UNPACK '(' expr ')'
-                  | UNPACK '(' ')'
+json_function       ::= HAS '(' expr ',' string_literal ')'
+                      | KEYS '(' expr ')'
+                      | VALUES '(' expr ')'
+                      | CONTAINS '(' expr ',' expr ')'
 ```
 
 ---
@@ -584,19 +579,28 @@ json_function   ::= HAS '(' expr ',' string_literal ')'
 
 ```
 data_type       ::= INT
+                  | SMALLINT
+                  | TINYINT
                   | BIGINT
                   | FLOAT
+                  | REAL
+                  | DOUBLE PRECISION
                   | DECIMAL ( '(' integer_literal ',' integer_literal ')' )?
+                  | NUMERIC ( '(' integer_literal ',' integer_literal ')' )?
                   | BOOLEAN
                   | VARCHAR ( '(' integer_literal ')' )?
                   | TEXT
                   | DATE
                   | TIME
                   | DATETIME
+                  | INTERVAL
                   | UUID
                   | JSON
                   | JSONB
+                  | BLOB
+                  | BYTEA
                   | ARRAY '(' data_type ')'
+                  | VARBINARY ( '(' integer_literal ')' )
 ```
 
 ---
@@ -610,6 +614,8 @@ literal         ::= integer_literal
                   | boolean_literal
                   | NULL
                   | MISSING
+                  | typed_literal
+                  | array_literal
 
 integer_literal ::= digit+
 
@@ -618,6 +624,13 @@ float_literal   ::= digit+ '.' digit+
 string_literal  ::= "'" any_char* "'"
 
 boolean_literal ::= TRUE | FALSE
+
+typed_literal   ::= DATE string_literal
+                  | TIME string_literal
+                  | TIMESTAMP string_literal
+                  | INTERVAL string_literal
+
+array_literal   ::= ARRAY '[' expr ( ',' expr )* ']'
 
 identifier      ::= letter ( letter | digit | '_' )*
 
