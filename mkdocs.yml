@@ -70,7 +70,8 @@ nav:
     - Transactions: language/transactions.md
     - Functions: language/functions.md
   - Reference:
-    - Grammar: reference/grammar.md
+    - Current Grammar: reference/grammar.md
+    - Complete Grammar: reference/complete_grammar.md
     - Keywords: reference/keywords.md
     - Error Codes: reference/error_codes.md
 
