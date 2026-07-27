@@ -60,7 +60,19 @@ nav:
       - ALTER: language/ddl/alter.md
       - DROP: language/ddl/drop.md
     - DML:
-      - SELECT: language/dml/select.md
+      - SELECT:
+        - Overview: language/dml/select/index.md
+        - Select Items: language/dml/select/select-items.md
+        - FROM: language/dml/select/from.md
+        - JOIN: language/dml/select/joins.md
+        - WHERE: language/dml/select/where.md
+        - GROUP BY / HAVING: language/dml/select/grouping.md
+        - ORDER BY / LIMIT: language/dml/select/order-and-limit.md
+        - CASE: language/dml/select/case.md
+        - Common Table Expressions: language/dml/select/cte.md
+        - Subqueries: language/dml/select/subqueries.md
+        - Window Functions: language/dml/select/window.md
+        - Set Operations: language/dml/select/set-ops.md
       - INSERT: language/dml/insert.md
       - UPDATE: language/dml/update.md
       - DELETE: language/dml/delete.md
@@ -70,6 +82,7 @@ nav:
     - JSON Querying: language/json.md
     - Transactions: language/transactions.md
     - Functions: language/functions.md
+    - Utility Commands: language/utility.md
   - Reference:
     - Current Grammar: reference/grammar.md
     - Complete Grammar: reference/complete_grammar.md

@@ -19,7 +19,7 @@ from_item       ::= identifier ( AS? identifier )?
 can be filtered with a `WHERE` clause. If no `WHERE` clause is provided, all rows or
 documents in the table or collection are deleted.
 
-A `FROM` clause can be used to join against other tables or collections when determining
+A `USING` clause can be used to join against other tables or collections when determining
 which rows to delete.
 
 For collections, deleting a document removes it entirely including all defined and free
@@ -61,7 +61,7 @@ fields.
 - If no `WHERE` clause is provided, all rows or documents are deleted.
 - Deleting a document from a collection removes it entirely including all defined and
   free fields.
-- `FROM` follows the same syntax as the `SELECT` `FROM` clause including shorthand
+- `USING` follows the same syntax as the `SELECT` `FROM` clause including shorthand
   and traditional join syntax.
 - Foreign key constraints are validated at commit time. If a deleted row is referenced
   by another table or collection, the transaction will fail unless the reference action
@@ -98,22 +98,34 @@ DELETE FROM posts
 WHERE posts::user_id = 1;
 ```
 
-```sql title="Delete with FROM clause"
+```sql title="Delete with USING clause"
 DELETE FROM sessions
-FROM users
+USING users
 WHERE sessions.user_id = users.user_id
 AND users.status = 'inactive';
 ```
 
-```sql title="Delete with JOIN in FROM"
+```sql title="Delete with JOIN in USING"
 DELETE FROM sessions
-FROM users, LEFT posts(user_id)
+USING users, LEFT posts(user_id)
 WHERE sessions.user_id = users.user_id
 AND posts::status = 'deleted';
 ```
 
+```sql title="Delete with RETURNING"
+DELETE FROM users
+WHERE user_id = 1
+RETURNING user_id, username;
+```
+
+```sql title="Delete with RETURNING alias"
+DELETE FROM users
+WHERE user_id = 1
+RETURNING user_id AS deleted_id, username;
+```
+
 ## See Also
-[INSERT](insert.md), [UPDATE](update.md), [SELECT](select.md), [DROP TABLE](../ddl/drop/drop-table.md), [DROP COLLECTION](../ddl/drop/drop-collection.md)
+[INSERT](insert.md), [UPDATE](update.md), [SELECT](select/index.md), [DROP TABLE](../ddl/drop/drop-table.md), [DROP COLLECTION](../ddl/drop/drop-collection.md)
 
 ---
-[← Back to DML](../select.md)
+[← Back to DML](../select/index.md)

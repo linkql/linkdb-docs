@@ -181,4 +181,4 @@ FROM
 [FROM](from.md), [WHERE](where.md), [SELECT Items](select-items.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](index.md)

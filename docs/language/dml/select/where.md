@@ -253,4 +253,4 @@ WHERE EXISTS (
 [SELECT Items](select-items.md), [FROM](from.md), [Joins](joins.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](index.md)

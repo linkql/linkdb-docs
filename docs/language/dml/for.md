@@ -114,4 +114,4 @@ END;
 [LET](let.md), [UPDATE](update.md), [DELETE](delete.md), [INSERT](insert.md), [Transactions](../transactions.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](../select/index.md)

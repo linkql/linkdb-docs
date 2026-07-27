@@ -136,6 +136,10 @@ VALUES
     ('jane', 'Jane', 'Smith');
 ```
 
+```sql title="Insert default values"
+INSERT INTO users DEFAULT VALUES;
+```
+
 ```sql title="Insert with DEFAULT"
 INSERT INTO users (username, first_name, last_name, phone)
 VALUES ('john', 'John', 'Smith', DEFAULT);
@@ -194,8 +198,20 @@ ON CONFLICT (user_id) DO UPDATE SET
     mood = EXCLUDED.mood;
 ```
 
+```sql title="Insert with RETURNING"
+INSERT INTO users (username, email)
+VALUES ('alice', 'alice@example.com')
+RETURNING user_id, username;
+```
+
+```sql title="Insert with RETURNING alias"
+INSERT INTO users (username, email)
+VALUES ('bob', 'bob@example.com')
+RETURNING user_id AS new_id;
+```
+
 ## See Also
-[UPDATE](update.md), [DELETE](delete.md), [SELECT](select.md), [Functions](../../functions.md)
+[UPDATE](update.md), [DELETE](delete.md), [SELECT](select/index.md), [Functions](../../functions.md)
 
 ---
-[← Back to DML](../select.md)
+[← Back to DML](../select/index.md)

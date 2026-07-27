@@ -16,6 +16,10 @@ select_core         ::= '(' select_stmt ')'
                           ( group_clause )?
                           ( WINDOW window_definition ( ',' window_definition)* )?
 
+with_clause         ::= WITH ( RECURSIVE )? cte ( ',' cte )*
+
+cte                 ::= identifier ( '(' identifier ( ',' identifier )* ')' )? AS '(' select_stmt ')'
+
 select_item         ::= '*'
                       | table_star
                       | collection_star
@@ -60,7 +64,7 @@ join_condition      ::= ON expr
 
 join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | CROSS
 
-window_definition    ::= identifier AS '(' window_spec ')'
+window_definition   ::= identifier AS '(' window_spec ')'
 
 limit_clause        ::= LIMIT expr ( OFFSET expr )?
                       | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )?
@@ -83,15 +87,19 @@ with double colon notation — `collection::field`.
 ## Clauses
 *Click for more info*
 
-- [SELECT ITEMS](select/select-items.md) - specifies source columns to retrieve from your FROM clause
-- [FROM](select/from.md) — specifies the source tables and collections, including join syntax
-- [JOIN](select/joins.md) — joins tables and collections together
-- [WHERE](select/where.md) — filters rows based on a condition
-- [GROUP BY / HAVING](select/grouping.md) — groups rows and filters groups
-- [ORDER BY / LIMIT](select/order-and-limit.md) — sorts and paginates results
-- [LET](let.md) — defines named subqueries for use in the statement
-- [FOR](for.md) — applies statements to each row in a result set
-- [CASE](select/case.md) — conditional expressions, standard and shorthand
+- [SELECT ITEMS](select-items.md) - specifies source columns to retrieve from your FROM clause
+- [FROM](from.md) — specifies the source tables and collections, including join syntax
+- [JOIN](joins.md) — joins tables and collections together
+- [WHERE](where.md) — filters rows based on a condition
+- [GROUP BY / HAVING](grouping.md) — groups rows and filters groups
+- [ORDER BY / LIMIT](order-and-limit.md) — sorts and paginates results
+- [CASE](case.md) — conditional expressions, standard and shorthand
+- [Common Table Expressions](cte.md) — named subqueries using `WITH`
+- [Subqueries](subqueries.md) — queries nested inside another statement
+- [Window Functions](window.md) — compute values across rows
+- [Set Operations](set-ops.md) — combine results with `UNION`, `INTERSECT`, and `EXCEPT`
+- [LET](../let.md) — defines named subqueries for use in the statement
+- [FOR](../for.md) — applies statements to each row in a result set
 
 ## Examples
 
@@ -124,8 +132,31 @@ ORDER BY post_count DESC
 LIMIT 10 OFFSET 20;
 ```
 
+```sql title="CTE"
+WITH cte AS (SELECT id FROM users) SELECT * FROM cte;
+```
+
+```sql title="Recursive CTE"
+WITH RECURSIVE nums AS (
+    (SELECT 1) UNION ALL (SELECT n + 1 FROM nums WHERE n < 5)
+) SELECT * FROM nums;
+```
+
+```sql title="Window function"
+SELECT
+    users.username,
+    ROW_NUMBER() OVER (PARTITION BY users.status ORDER BY users.created_at) AS rn
+FROM users;
+```
+
+```sql title="UNION"
+SELECT username FROM users_a
+UNION
+SELECT username FROM users_b;
+```
+
 ## See Also
-[INSERT](insert.md), [UPDATE](update.md), [DELETE](delete.md), [JSON Querying](../json.md)
+[INSERT](../insert.md), [UPDATE](../update.md), [DELETE](../delete.md), [JSON Querying](../../json.md)
 
 ---
-[← Back to Language Reference](../index.md)
+[← Back to Language Reference](../../index.md)

@@ -150,4 +150,4 @@ FROM posts;
 [SELECT Items](select-items.md), [WHERE](where.md), [Functions](../../functions.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](index.md)

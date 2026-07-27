@@ -143,4 +143,4 @@ SELECT DISTINCT users.username FROM users;
 [FROM](from.md), [WHERE](where.md), [Functions](../../functions.md), [JSON Querying](../../json.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](index.md)

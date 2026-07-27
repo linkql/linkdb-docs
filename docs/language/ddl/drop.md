@@ -6,11 +6,16 @@ all data from an object without removing the object itself.
 - [DROP DATABASE](drop/drop-database.md) — removes an existing database
 - [DROP TABLE](drop/drop-table.md) — removes an existing table
 - [DROP COLLECTION](drop/drop-collection.md) — removes an existing collection
+- [DROP INDEX](drop/drop-index.md) — removes an existing index
+- [DROP VIEW](drop/drop-view.md) — removes an existing view or materialized view
 
 ```sql title="Examples"
 DROP DATABASE my_database CONFIRM 'my_database';
 DROP TABLE IF EXISTS users;
 DROP COLLECTION IF EXISTS posts;
+DROP INDEX IF EXISTS idx_username;
+DROP VIEW IF EXISTS active_users;
+DROP MATERIALIZED VIEW IF EXISTS user_stats;
 
 TRUNCATE TABLE users;
 TRUNCATE COLLECTION posts;

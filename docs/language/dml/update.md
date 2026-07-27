@@ -170,8 +170,28 @@ WHERE posts::user_id = users.user_id
 AND sessions.last_active < '2020-01-01';
 ```
 
+```sql title="Update with alias"
+UPDATE users AS u
+SET u.status = 'inactive'
+WHERE u.last_login < '2020-01-01';
+```
+
+```sql title="Update with RETURNING"
+UPDATE users
+SET status = 'inactive'
+WHERE last_login < '2020-01-01'
+RETURNING user_id, status;
+```
+
+```sql title="Update with RETURNING alias"
+UPDATE users
+SET status = 'inactive'
+WHERE user_id = 1
+RETURNING user_id AS updated_id;
+```
+
 ## See Also
-[INSERT](insert.md), [DELETE](delete.md), [SELECT](select.md), [Functions](../../functions.md)
+[INSERT](insert.md), [DELETE](delete.md), [SELECT](select/index.md), [Functions](../../functions.md)
 
 ---
-[← Back to DML](../select.md)
+[← Back to DML](../select/index.md)

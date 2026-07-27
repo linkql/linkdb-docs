@@ -15,16 +15,18 @@ merge_when_clause   ::= WHEN MATCHED ( AND expr )? THEN UPDATE SET set_values
                       | WHEN NOT MATCHED ( AND expr )? THEN INSERT
                         ( '(' identifier ( ',' identifier )* ')' )?
                         VALUES '(' insert_value ( ',' insert_value )* ')'
+                      | WHEN MATCHED ( AND expr )? THEN DELETE
+                      | WHEN NOT MATCHED ( AND expr )? THEN DO NOTHING
 ```
 
 ## Description
-`MERGE` atomically inserts or updates rows in a target table or collection based on
+`MERGE` atomically inserts, updates, or deletes rows in a target table or collection based on
 whether rows from a source dataset match rows in the target. The source can be another
 table, collection, or the result of a `SELECT` statement.
 
 For each row in the source, the engine evaluates the `ON` condition against the target.
-If a match is found, the `WHEN MATCHED` clause is executed. If no match is found,
-the `WHEN NOT MATCHED` clause is executed. Multiple `merge_when_clause` entries can be
+If a match is found, a `WHEN MATCHED` clause is executed. If no match is found,
+a `WHEN NOT MATCHED` clause is executed. Multiple `merge_when_clause` entries can be
 provided, but at minimum one must be present.
 
 The `RETURNING` clause optionally returns values from the affected rows.
@@ -58,6 +60,14 @@ The `RETURNING` clause optionally returns values from the affected rows.
     list can name specific target columns. An optional `AND expr` condition can further
     restrict which unmatched rows are inserted.
 
+`WHEN MATCHED THEN DELETE`
+:   Deletes the matching target row. An optional `AND expr` condition can restrict
+    which matched rows are deleted.
+
+`WHEN NOT MATCHED THEN DO NOTHING`
+:   Skips the source row when no match is found. An optional `AND expr` condition can
+    restrict which unmatched rows are skipped.
+
 `RETURNING return_item`
 :   Returns values from the merged rows. Can return `*` for all columns or
     specific expressions with optional aliases.
@@ -67,7 +77,7 @@ The `RETURNING` clause optionally returns values from the affected rows.
 - `MERGE` is not supported inside `FOR` loop bodies.
 - `MERGE` can be used inside a `LET` block as a valid DML statement.
 - The source dataset is evaluated once before any inserts or updates are applied.
-- `RETURNING` returns values from rows that were inserted or updated.
+- `RETURNING` returns values from rows that were inserted, updated, or deleted.
 
 ## Examples
 
@@ -122,6 +132,48 @@ WHEN NOT MATCHED THEN INSERT (user_id, username)
 RETURNING *;
 ```
 
+```sql title="MERGE with matched delete"
+MERGE INTO users AS target
+USING staging_users AS source
+ON target.user_id = source.user_id
+WHEN MATCHED AND source.deleted THEN DELETE
+WHEN NOT MATCHED THEN INSERT (user_id, username)
+    VALUES (source.user_id, source.username);
+```
+
+```sql title="MERGE with not matched do nothing"
+MERGE INTO users AS target
+USING staging_users AS source
+ON target.user_id = source.user_id
+WHEN MATCHED THEN UPDATE SET username = source.username
+WHEN NOT MATCHED AND source.status = 'active' THEN DO NOTHING;
+```
+
+```sql title="MERGE with DEFAULT values"
+MERGE INTO users AS target
+USING staging_users AS source
+ON target.user_id = source.user_id
+WHEN NOT MATCHED THEN INSERT (user_id, username)
+    VALUES (source.user_id, DEFAULT);
+```
+
+```sql title="MERGE inside a LET block"
+LET
+  new_data AS (
+    SELECT user_id, username, email
+    FROM staging_users
+    WHERE status = 'active'
+  )
+MERGE INTO users AS target
+USING new_data AS source
+ON target.user_id = source.user_id
+WHEN MATCHED THEN UPDATE SET
+    username = source.username,
+    email = source.email
+WHEN NOT MATCHED THEN INSERT (user_id, username, email)
+    VALUES (source.user_id, source.username, source.email);
+```
+
 ```sql title="MERGE into a collection"
 MERGE INTO posts AS target
 USING staging_posts AS source
@@ -132,7 +184,7 @@ WHEN NOT MATCHED THEN INSERT (post_id, content)
 ```
 
 ## See Also
-[INSERT](insert.md), [UPDATE](update.md), [DELETE](delete.md), [SELECT](select.md), [LET](let.md)
+[INSERT](insert.md), [UPDATE](update.md), [DELETE](delete.md), [SELECT](select/index.md), [LET](let.md)
 
 ---
-[← Back to DML](../select.md)
+[← Back to DML](../select/index.md)

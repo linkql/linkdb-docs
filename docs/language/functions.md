@@ -246,8 +246,68 @@ CREATE TABLE users (
 );
 ```
 
+## Window
+
+Window functions compute values across a set of rows related to the current row.
+They are used with an `OVER` clause that defines the window.
+
+`ROW_NUMBER()`
+:   Assigns a unique sequential integer to each row within the window partition,
+    starting at 1.
+
+`RANK()`
+:   Assigns a rank to each row within the window partition, with gaps in the ranking
+    for tied rows.
+
+`DENSE_RANK()`
+:   Assigns a rank to each row within the window partition, without gaps in the
+    ranking for tied rows.
+
+`LEAD(expr, offset?, default?)`
+:   Returns the value of `expr` from the row that is `offset` rows after the current
+    row. `offset` defaults to 1, and `default` is returned if the target row is
+    outside the window.
+
+`LAG(expr, offset?, default?)`
+:   Returns the value of `expr` from the row that is `offset` rows before the current
+    row. `offset` defaults to 1, and `default` is returned if the target row is
+    outside the window.
+
+`FIRST_VALUE(expr)`
+:   Returns the first value of `expr` within the window frame.
+
+`LAST_VALUE(expr)`
+:   Returns the last value of `expr` within the window frame.
+
+`NTH_VALUE(expr, n)`
+:   Returns the value of `expr` at the `n`-th row within the window frame.
+
+```sql
+SELECT
+    user_id,
+    amount,
+    ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY order_date) AS row_num
+FROM orders;
+```
+
+```sql
+SELECT
+    user_id,
+    amount,
+    RANK() OVER (ORDER BY amount DESC) AS rnk
+FROM orders;
+```
+
+```sql
+SELECT
+    user_id,
+    amount,
+    LAG(amount, 1, 0) OVER (PARTITION BY user_id ORDER BY order_date) AS prev_amount
+FROM orders;
+```
+
 ## See Also
-[Data Types](data_types.md), [JSON Querying](json.md), [SELECT Items](dml/select/select-items.md)
+[Data Types](data_types.md), [JSON Querying](json.md), [SELECT Items](dml/select/index.md), [Window Functions in SELECT](dml/select/index.md)
 
 ---
 [← Back to Language](index.md)

@@ -95,4 +95,4 @@ FROM users, posts(user_id);
 [Joins](joins.md), [WHERE](where.md), [SELECT Items](select-items.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](index.md)

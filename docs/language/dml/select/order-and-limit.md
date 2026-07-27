@@ -130,4 +130,4 @@ LIMIT 20;
 [WHERE](where.md), [GROUP BY / HAVING](grouping.md), [SELECT Items](select-items.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](index.md)

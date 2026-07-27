@@ -136,4 +136,4 @@ GROUP BY posts::category;
 [WHERE](where.md), [SELECT Items](select-items.md), [ORDER BY / LIMIT](order-and-limit.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](index.md)

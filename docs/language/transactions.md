@@ -1,5 +1,4 @@
 # Transactions
-# Transactions
 Groups multiple statements into a single atomic operation.
 
 ```grammar title="Grammar"
@@ -223,6 +222,20 @@ UPDATE users SET status = 'active' WHERE username = 'john';
 RELEASE SAVEPOINT after_insert;
 COMMIT;
 ```
+
+```sql title="Standalone SAVEPOINT, RELEASE, and ROLLBACK TO"
+SAVEPOINT sp1;
+RELEASE SAVEPOINT sp1;
+SAVEPOINT sp2;
+ROLLBACK TO SAVEPOINT sp2;
+```
+
+```sql title="Standalone ROLLBACK"
+ROLLBACK;
+```
+
+```sql title="Standalone COMMIT"
+COMMIT;
 ```
 
 ```sql title="Transaction across table and collection"

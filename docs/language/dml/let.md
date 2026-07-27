@@ -157,7 +157,7 @@ WHERE user_id IN (
 ```
 
 ## See Also
-[FOR](for.md), [SELECT](select.md), [INSERT](insert.md), [UPDATE](update.md), [DELETE](delete.md)
+[FOR](for.md), [SELECT](select/index.md), [INSERT](insert.md), [UPDATE](update.md), [DELETE](delete.md)
 
 ---
-[← Back to SELECT](../select.md)
+[← Back to SELECT](../select/index.md)

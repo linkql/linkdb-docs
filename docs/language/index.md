@@ -16,8 +16,9 @@ LinkQL lets you join tables and collections in a single query. Foreign key refer
 
 ## Language Reference
 - **[Data Types](data_types.md)** — All primitive and structured types available in LinkQL
-- **[DDL](ddl/create.md)** — Creating, altering, and dropping tables, collections, and databases
-- **[DML](dml/select.md)** — Querying and manipulating data
+- **[DDL](ddl/create.md)** — Creating, altering, and dropping tables, collections, indexes, views, and databases
+- **[DML](dml/select/index.md)** — Querying and manipulating data
 - **[Transactions](transactions.md)** — Transaction behavior and syntax
 - **[JSON Querying](json.md)** — JSON functions, path access, and manipulation
 - **[Functions](functions.md)** — Built-in functions available in LinkQL
+- **[Utility Commands](utility.md)** — Refreshing materialized views, explaining queries, and inspecting metadata
