@@ -25,6 +25,10 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/utility/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
@@ -45,7 +49,15 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/alter-index/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/alter-table/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/ddl/alter/alter-view/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -57,7 +69,15 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/ddl/create/create-index/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/create/create-table/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/ddl/create/create-view/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -69,7 +89,15 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/drop-index/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/drop-table/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/ddl/drop/drop-view/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -93,15 +121,19 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
-         <loc>https://linkql.github.io/linkdb-docs/language/dml/select/</loc>
-         <lastmod>2026-07-27</lastmod>
-    </url>
-    <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/update/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/dml/select/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/case/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/dml/select/cte/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -125,7 +157,19 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/dml/select/set-ops/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/dml/select/subqueries/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://linkql.github.io/linkdb-docs/language/dml/select/where/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://linkql.github.io/linkdb-docs/language/dml/select/window/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
