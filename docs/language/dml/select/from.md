@@ -4,8 +4,10 @@ Specifies the source tables and collections for a `SELECT` statement.
 ```grammar title="Grammar"
 from_clause     ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 
-from_item       ::= identifier ( AS? identifier )?
-                  | '(' select_stmt ')' AS? identifier
+from_item       ::= LATERAL? identifier ( AS? identifier )?
+                  | LATERAL? '(' select_stmt ')' AS? identifier
+                  | UNNEST '(' expr ( ',' expr )* ')'
+                      ( WITH ORDINALITY )? ( AS? identifier )?
 ```
 
 ## Description

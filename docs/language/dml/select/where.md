@@ -12,18 +12,34 @@ and_expr        ::= not_expr ( AND not_expr )*
 
 not_expr        ::= NOT not_expr | comparison
 
-comparison      comparison ::= additive ( operator additive )?
-                             | additive IS NOT? NULL
-                             | additive IS NOT? MISSING
-                             | additive IS NOT? NULL OR MISSING
-                             | additive NOT? BETWEEN additive AND additive
-                             | additive NOT? IN '(' expr (',' expr)* ')'
-                             | additive NOT? IN '(' select_stmt ')'
-                             | additive NOT? LIKE string_literal
-                             | additive NOT? ILIKE string_literal
-                             | EXISTS '(' select_stmt ')'
+comparison      ::= additive ( operator additive )?
+                  | additive IS NOT? NULL
+                  | additive IS NOT? MISSING
+                  | additive IS NOT? NULL OR MISSING
+                  | additive IS NOT? DISTINCT FROM additive
+                  | additive NOT? BETWEEN additive AND additive
+                  | additive NOT? IN '(' expr (',' expr)* ')'
+                  | additive NOT? IN '(' select_stmt ')'
+                  | additive NOT? LIKE string_literal ( ESCAPE string_literal )?
+                  | additive NOT? ILIKE string_literal ( ESCAPE string_literal )?
+                  | additive operator ( ANY | SOME | ALL ) '(' select_stmt ')'
+                  | EXISTS '(' select_stmt ')'
 
 operator        ::= '=' | '!=' | '<' | '<=' | '>' | '>='
+
+additive        ::= multiplicative ( ( '+' | '-' | '||' ) multiplicative )*
+
+multiplicative  ::= unary ( ( '*' | '/' | '%' ) unary )*
+
+unary           ::= ( '-' | '+' ) unary | primary
+
+primary         ::= literal
+                  | function_call
+                  | window_function_call
+                  | column_ref
+                  | '(' select_stmt ')'
+                  | '(' expr ( ',' expr )* ')'
+                  | case_expr
 ```
 
 ## Description
@@ -50,6 +66,34 @@ LinkQL distinguishes between two types of absence:
 | `>=` | Greater than or equal to |
 
 ## Conditions
+
+### IS DISTINCT FROM
+Tests whether two values are different, with proper `NULL` handling. Unlike `!=`,
+`IS DISTINCT FROM` treats two `NULL` values as equal (not distinct) and a `NULL` and
+a non-`NULL` value as distinct.
+
+```sql
+WHERE users.last_login IS DISTINCT FROM users.previous_login
+WHERE users.email IS NOT DISTINCT FROM users.previous_email
+```
+
+### Quantified Comparisons (ANY / SOME / ALL)
+Compares a value against all rows returned by a subquery.
+
+- `ANY` and `SOME` are synonyms — the condition is true if it holds for **at least one**
+  row returned by the subquery.
+- `ALL` — the condition is true if it holds for **every** row returned by the subquery.
+
+```sql
+-- Greater than at least one value
+WHERE users.salary > ANY ( SELECT salaries.amount FROM salaries )
+
+-- Greater than every value
+WHERE users.salary > ALL ( SELECT salaries.amount FROM salaries )
+
+-- Equal to at least one value (same as IN)
+WHERE users.status = SOME ( SELECT statuses.code FROM statuses )
+```
 
 ### IS NULL / IS MISSING
 Tests whether a value is `NULL`, `MISSING`, or either. The `NOT` modifier inverts

@@ -4,9 +4,11 @@ Sorts and paginates the result set.
 ```grammar title="Grammar"
 order_clause    ::= ORDER BY order_item (',' order_item)*
 
-order_item      ::= expr ( ASC | DESC )?
+order_item      ::= expr ( ASC | DESC )? ( NULLS ( FIRST | LAST ) )?
 
-limit_clause    ::= LIMIT integer_literal ( OFFSET integer_literal )?
+limit_clause    ::= LIMIT expr ( OFFSET expr )?
+                  | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )?
+                  | FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )?
 ```
 
 ## Description
@@ -43,6 +45,37 @@ SELECT users.username FROM users LIMIT 10;
 
 -- Return rows 11-20
 SELECT users.username FROM users LIMIT 10 OFFSET 10;
+```
+
+## NULLS FIRST / LAST
+
+`NULLS FIRST` and `NULLS LAST` control where `NULL` values appear in the sorted
+result set regardless of the `ASC` or `DESC` direction.
+
+```sql
+-- NULL values first in an ascending sort
+SELECT users.username FROM users ORDER BY users.last_login ASC NULLS FIRST;
+
+-- NULL values last in a descending sort (default for DESC)
+SELECT users.username FROM users ORDER BY users.last_login DESC NULLS LAST;
+```
+
+## FETCH FIRST / WITH TIES
+
+The `FETCH FIRST` syntax is the SQL-standard equivalent of `LIMIT`.
+
+```sql
+-- Return first 10 rows (same as LIMIT 10)
+SELECT users.username FROM users ORDER BY users.created_at DESC FETCH FIRST 10 ROWS ONLY;
+
+-- WITH TIES returns additional rows that match the last row's sort values
+SELECT users.username, users.score FROM users ORDER BY users.score DESC FETCH FIRST 10 ROWS WITH TIES;
+```
+
+`OFFSET` can also be combined with `FETCH FIRST`:
+
+```sql
+SELECT users.username FROM users ORDER BY users.created_at DESC OFFSET 20 ROWS FETCH FIRST 10 ROWS ONLY;
 ```
 
 ## NULL and MISSING Behavior

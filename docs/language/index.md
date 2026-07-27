@@ -1,5 +1,5 @@
 # Link Query Language
-**LinkQL** (Link Query Language) is the query language for **Link**, a database system designed to manage **relational** and **non-relational** data in a single, unified system. Rather than maintaining separate database systems and writing glue code between them or using a third-party software, Link lets you define, query, and relate both structured tables and flexible document collections using one consistent syntax.
+**LinkQL** (Link Query Language) is the query language for **LinkDB**, a database system designed to manage **relational** and **non-relational** data in a single, unified system. Rather than maintaining separate database systems and writing glue code between them or using a third-party software, Link lets you define, query, and relate both structured tables and flexible document collections using one consistent syntax.
 
 ## Core Concepts
 ### Tables
@@ -19,4 +19,5 @@ LinkQL lets you join tables and collections in a single query. Foreign key refer
 - **[DDL](ddl/create.md)** — Creating, altering, and dropping tables, collections, and databases
 - **[DML](dml/select.md)** — Querying and manipulating data
 - **[Transactions](transactions.md)** — Transaction behavior and syntax
+- **[JSON Querying](json.md)** — JSON functions, path access, and manipulation
 - **[Functions](functions.md)** — Built-in functions available in LinkQL

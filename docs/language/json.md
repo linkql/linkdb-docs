@@ -7,10 +7,7 @@ json_access     ::= expr '[' string_literal ']' ( '[' string_literal ']' )*
 json_function   ::= HAS '(' expr ',' string_literal ')'
                   | KEYS '(' expr ')'
                   | VALUES '(' expr ')'
-                  | MERGE '(' expr ',' expr ( ',' ( LEFT | RIGHT ) )? ')'
                   | CONTAINS '(' expr ',' expr ')'
-                  | UNPACK '(' expr ')'
-                  | UNPACK '(' ')'
 ```
 
 ## Description

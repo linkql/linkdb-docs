@@ -2,7 +2,7 @@
 Creates a new document collection.
 
 ``` title="Grammar"
-create_collection_stmt  ::= CREATE COLLECTION ( IF NOT EXISTS ) identifier
+create_collection_stmt  ::= CREATE COLLECTION ( IF NOT EXISTS )? identifier
                               ( '(' collection_item (',' collection_item)* ','? ')' )?
 
 collection_item         ::= field_def
@@ -26,7 +26,7 @@ reference_target        ::= identifier ( '(' identifier ')' )?
                               ( ON DELETE reference_action )?
                               ( ON UPDATE reference_action )?
 
-column_property         ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+field_property          ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
                           | AUTONOW
                           | AUTO
                           | DEFAULT expr

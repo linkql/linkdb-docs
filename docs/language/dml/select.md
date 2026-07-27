@@ -2,48 +2,73 @@
 Retrieves data from one or more tables or collections.
 
 ```grammar title="Grammar"
-select_stmt       ::= SELECT DISTINCT? select_item (',' select_item)*
-                      FROM from_clause
-                      ( WHERE expr )?
-                      ( group_clause )?
-                      ( ORDER BY order_item (',' order_item)* )?
-                      ( LIMIT integer_literal ( OFFSET integer_literal )? )?
+select_stmt         ::= with_clause? intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )*
+                          ( ORDER BY order_item ( ',' order_item )* )?
+                          limit_clause?
+                          for_clause?
 
-group_clause      ::= GROUP BY expr (',' expr)*
-                       ( HAVING expr )?
+intersect_stmt      ::= select_core ( INTERSECT ALL? select_core )*
 
-select_item     ::= '*'
-                  | table_star
-                  | collection_star
-                  | expr ( AS identifier )?
-                  | function_call AS identifier
+select_core         ::= '(' select_stmt ')'
+                      | SELECT DISTINCT? select_item (',' select_item)*
+                          ( FROM from_clause )?
+                          ( WHERE expr )?
+                          ( group_clause )?
+                          ( WINDOW window_definition ( ',' window_definition)* )?
 
-table_star      ::= identifier '.' '*'
+select_item         ::= '*'
+                      | table_star
+                      | collection_star
+                      | expr ( AS identifier )?
+                      | function_call AS identifier
 
-collection_star ::= identifier '::' '*'
+table_star          ::= identifier '.' '*'
 
-order_item        ::= expr ( ASC | DESC )?
+collection_star     ::= identifier '::' '*'
 
-from_clause       ::= from_item ( ',' join_clause )*
+group_clause        ::= GROUP BY grouping_element (',' grouping_element)*
+                          ( HAVING expr )?
 
-from_item         ::= identifier ( AS? identifier )?
-                    | '(' select_stmt ')' AS identifier
+grouping_element    ::= expr
+                      | '(' ')'
+                      | '(' expr ( ',' expr )* ')'
+                      | ROLLUP '(' grouping_element (  ',' grouping_element )* ')'
+                      | CUBE '(' grouping_element (  ',' grouping_element )* ')'
+                      | GROUPING SETS '(' grouping_element (  ',' grouping_element )* ')'
 
-join_clause       ::= traditional_join
-                    | shorthand_join
+order_item          ::= expr ( ASC | DESC )? ( NULLS ( FIRST | LAST ) )?
 
-traditional_join  ::= join_type? JOIN from_item join_condition
+from_clause         ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 
-shorthand_join    ::= identifier
-                    | join_type identifier
-                    | join_type identifier '(' identifier (',' identifier)* ')'
-                    | join_type identifier '(' identifier (',' identifier)* ')'
-                          ON identifier '(' identifier ')'
+from_item           ::= LATERAL? identifier ( AS? identifier )?
+                      | LATERAL? '(' select_stmt ')' AS? identifier
+                      | UNNEST '(' expr ( ',' expr )* ')'
+                          ( WITH ORDINALITY )? ( AS? identifier )?
 
-join_condition    ::= ON expr
-                    | USING '(' identifier ( ',' identifier )* ')'
+traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
 
-join_type         ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
+shorthand_join      ::= identifier
+                      | join_type identifier
+                      | join_type identifier '(' identifier (',' identifier)* ')'
+                      | join_type identifier '(' identifier (',' identifier)* ')' ON shorthand_condition
+
+shorthand_condition ::= identifier '(' identifier ')'
+                      | expr
+
+join_condition      ::= ON expr
+                      | USING '(' identifier ( ',' identifier )* ')'
+
+join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | CROSS
+
+window_definition    ::= identifier AS '(' window_spec ')'
+
+limit_clause        ::= LIMIT expr ( OFFSET expr )?
+                      | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )?
+                      | FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )?
+
+for_clause          ::= FOR ( UPDATE | NO KEY UPDATE | SHARE | KEY SHARE )
+                          ( OF identifier ( ',' identifier )* )?
+                          ( NOWAIT | SKIP LOCKED )?
 ```
 
 ## Description
@@ -103,4 +128,4 @@ LIMIT 10 OFFSET 20;
 [INSERT](insert.md), [UPDATE](update.md), [DELETE](delete.md), [JSON Querying](../json.md)
 
 ---
-[← Back to DML](../dml.md)
+[← Back to Language Reference](../index.md)

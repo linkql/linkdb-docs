@@ -2,8 +2,15 @@
 Groups rows and documents and filters groups based on a condition.
 
 ```grammar title="Grammar"
-group_clause    ::= GROUP BY expr (',' expr)*
-                      ( HAVING expr )?
+group_clause        ::= GROUP BY grouping_element (',' grouping_element)*
+                          ( HAVING expr )?
+
+grouping_element    ::= expr
+                      | '(' ')'
+                      | '(' expr ( ',' expr )* ')'
+                      | ROLLUP '(' grouping_element (  ',' grouping_element )* ')'
+                      | CUBE '(' grouping_element (  ',' grouping_element )* ')'
+                      | GROUPING SETS '(' grouping_element (  ',' grouping_element )* ')'
 ```
 
 ## Description

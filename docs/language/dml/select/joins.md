@@ -2,7 +2,7 @@
 Combines rows from multiple tables and collections in a single query.
 
 ```grammar title="Grammar"
-traditional_join    ::= join_type? JOIN from_item join_condition
+traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
 
 shorthand_join      ::= identifier
                       | join_type identifier
@@ -16,7 +16,7 @@ shorthand_condition ::= identifier '(' identifier ')'
 join_condition      ::= ON expr
                       | USING '(' identifier ( ',' identifier )* ')'
 
-join_type           ::= INNER | LEFT | RIGHT | FULL OUTER? | CROSS | OUTER
+join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | CROSS
 ```
 
 ## Description
@@ -123,7 +123,7 @@ SELECT
     comments::content
 FROM
     users,
-    LEFT posts(user_id),
+    LEFT posts(user_id)
     JOIN comments ON comments.post_id = posts::post_id;
 ```
 

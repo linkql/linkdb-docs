@@ -11,7 +11,7 @@ alter_collection_cmd    ::= ADD FIELD field_def
                           | RENAME FIELD identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY table_constraint
+                          | MODIFY CONSTRAINT identifier table_constraint_type
                           | DROP CONSTRAINT identifier
 
 field_def               ::= '_id'
@@ -32,7 +32,7 @@ reference_target        ::= identifier ( '(' identifier ')' )?
                               ( ON DELETE reference_action )?
                               ( ON UPDATE reference_action )?
 
-column_property         ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+field_property          ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
                           | AUTONOW
                           | AUTO
                           | DEFAULT expr
@@ -79,7 +79,7 @@ current database.
     rules as [`CREATE COLLECTION`](create-collection.md). If the collection already has
     documents, a `DEFAULT` value must be provided so existing documents can be populated.
     If a free field with the same name already exists on a document, that value is used
-    instead of the default.
+    instead of the default as long as the data types match.
 
 `DROP FIELD identifier`
 :   Removes a defined field from the catalog and scrubs the data from all documents in

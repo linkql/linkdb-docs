@@ -2,17 +2,17 @@
 Modifies existing rows or documents in a table or collection.
 
 ```grammar title="Grammar"
-update_stmt     ::= UPDATE identifier
+update_stmt     ::= with_clause? UPDATE identifier ( AS? identifier )?
                     ( with_free )?
                     SET set_values
                     ( FROM from_clause )?
                     ( WHERE expr )?
                     ( CONFIRM string_literal )?
+                    ( RETURNING return_item ( ',' return_item )* )?
 
 set_values      ::= set_expr ( ',' set_expr )*
 
 set_expr        ::= identifier '=' expr
-                  | identifier '=' EXCLUDED '.' identifier
 
 with_free       ::= WITH FREE free_source
 
@@ -44,6 +44,13 @@ which rows to update.
 `identifier`
 :   The name of the table or collection to update.
 
+`with_clause`
+:   Optional common table expression (`WITH` or `WITH RECURSIVE`) that provides
+    named subqueries available within the `UPDATE` statement.
+
+`AS? identifier`
+:   Optional alias for the target table or collection.
+
 `WITH FREE free_source`
 :   Declares free fields to update. Only valid on collections. Three forms are supported:
 
@@ -63,6 +70,10 @@ which rows to update.
     update. Follows the same syntax as the [`FROM`](select/from.md) clause in `SELECT`.
 
 `WHERE expr`
+
+`RETURNING return_item`
+:   Returns values from the updated rows. Can return `*` for all columns or
+    specific expressions with optional aliases.
 :   Filters which rows or documents are updated. If omitted, all rows or documents in
     the table or collection are updated.
 
@@ -163,4 +174,4 @@ AND sessions.last_active < '2020-01-01';
 [INSERT](insert.md), [DELETE](delete.md), [SELECT](select.md), [Functions](../../functions.md)
 
 ---
-[← Back to DML](../index.md)
+[← Back to DML](../select.md)

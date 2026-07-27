@@ -2,10 +2,11 @@
 Removes rows or documents from a table or collection.
 
 ```grammar title="Grammar"
-delete_stmt     ::= DELETE FROM identifier
-                    ( FROM from_clause )?
+delete_stmt     ::= with_clause? DELETE FROM identifier
+                    ( USING from_clause )?
                     ( WHERE expr )?
                     ( CONFIRM string_literal )?
+                    ( RETURNING return_item ( ',' return_item )* )?
 
 from_clause     ::= from_item ( ',' join_clause )*
 
@@ -29,7 +30,11 @@ fields.
 `identifier`
 :   The name of the table or collection to delete from.
 
-`FROM from_clause`
+`with_clause`
+:   Optional common table expression (`WITH` or `WITH RECURSIVE`) that provides
+    named subqueries available within the `DELETE` statement.
+
+`USING from_clause`
 :   Joins against one or more tables or collections when determining which rows to
     delete. Follows the same syntax as the [`FROM`](select/from.md) clause in `SELECT`.
 
@@ -41,6 +46,10 @@ fields.
 :   A confirmation string that must match the name of the table or collection being
     deleted from. Required when `CONFIRM_BULK_OPERATIONS` is enabled on the database
     and no `WHERE` clause is provided.
+
+`RETURNING return_item`
+:   Returns values from the deleted rows. Can return `*` for all columns or
+    specific expressions with optional aliases.
 
 ## Database Settings
 
@@ -107,4 +116,4 @@ AND posts::status = 'deleted';
 [INSERT](insert.md), [UPDATE](update.md), [SELECT](select.md), [DROP TABLE](../ddl/drop/drop-table.md), [DROP COLLECTION](../ddl/drop/drop-collection.md)
 
 ---
-[← Back to DML](../index.md)
+[← Back to DML](../select.md)

@@ -5,12 +5,12 @@ Modifies an existing table.
 alter_table_stmt        ::= ALTER TABLE identifier alter_table_cmd
 
 alter_table_cmd         ::= ADD COLUMN field_def
-                          | DROP COLUMN identifier
+                          | DROP COLUMN identifier ( KEEP )?
                           | MODIFY COLUMN field_def ( USING expr )?
                           | RENAME COLUMN identifier TO identifier
                           | RENAME TO identifier
                           | ADD table_constraint
-                          | MODIFY CONSTRAINT identifier column_constraint_type
+                          | MODIFY CONSTRAINT identifier table_constraint_type
                           | DROP CONSTRAINT identifier
 
 field_def               ::= '_id'
@@ -31,7 +31,7 @@ reference_target        ::= identifier ( '(' identifier ')' )?
                               ( ON DELETE reference_action )?
                               ( ON UPDATE reference_action )?
 
-column_property         ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+field_property          ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
                           | AUTONOW
                           | AUTO
                           | DEFAULT expr

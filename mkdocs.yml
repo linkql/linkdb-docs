@@ -64,6 +64,7 @@ nav:
       - INSERT: language/dml/insert.md
       - UPDATE: language/dml/update.md
       - DELETE: language/dml/delete.md
+      - MERGE: language/dml/merge.md
       - LET: language/dml/let.md
       - FOR Loops: language/dml/for.md
     - JSON Querying: language/json.md

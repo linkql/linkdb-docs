@@ -3,25 +3,30 @@
 Groups multiple statements into a single atomic operation.
 
 ```grammar title="Grammar"
-transaction_stmt      ::= TRANSACTION ( transaction_mode )?
-                          DO
-                            transaction_statement+
-                          END
+transaction_stmt        ::= BEGIN ( TRANSACTION )? ( transaction_mode )?
+                          | COMMIT ( TRANSACTION )?
+                          | ROLLBACK ( TRANSACTION )? ( TO SAVEPOINT identifier )?
+                          | SAVEPOINT identifier
+                          | RELEASE SAVEPOINT identifier
+                          | TRANSACTION ( transaction_mode )?
+                            DO
+                              transaction_statement+
+                            END
 
-transaction_mode      ::= READ ONLY
-                        | READ WRITE
+transaction_mode        ::= READ ONLY
+                          | READ WRITE
 
-transaction_statement ::= insert_stmt ';'
-                        | update_stmt ';'
-                        | delete_stmt ';'
-                        | select_stmt ';'
-                        | for_stmt ';'
-                        | savepoint_stmt ';'
-                        | rollback_stmt ';'
+transaction_statement   ::= insert_stmt ';'
+                          | update_stmt ';'
+                          | delete_stmt ';'
+                          | select_stmt ';'
+                          | for_stmt ';'
+                          | savepoint_stmt ';'
+                          | rollback_stmt ';'
 
-savepoint_stmt        ::= SAVEPOINT identifier
+savepoint_stmt          ::= SAVEPOINT identifier
 
-rollback_stmt         ::= ROLLBACK ( TO identifier )?
+rollback_stmt           ::= ROLLBACK ( TO identifier )?
 ```
 
 ## Description
@@ -47,18 +52,29 @@ LinkQL has three execution modes:
 :   The transaction may read and write data. This is the default behavior if no mode
     is specified.
 
-`SAVEPOINT identifier`
-:   Creates a named checkpoint within the transaction. The transaction can be rolled
-    back to this point without rolling back the entire block.
+`BEGIN (TRANSACTION)?`
+:   Starts an explicit transaction. Statements following `BEGIN` are executed within
+    the transaction until a `COMMIT` or `ROLLBACK` is issued.
 
-`ROLLBACK`
-:   Rolls back the entire transaction. All changes made within the block are undone.
+`COMMIT (TRANSACTION)?`
+:   Commits the current transaction. All changes made since `BEGIN` are persisted.
 
-`ROLLBACK TO identifier`
+`ROLLBACK (TRANSACTION)?`
+:   Rolls back the entire transaction. All changes made within the transaction are undone.
+
+`ROLLBACK (TRANSACTION)? TO SAVEPOINT identifier`
 :   Rolls back to a named savepoint. All changes made after the savepoint are undone.
     Changes made before the savepoint remain. The savepoint must have been defined
     earlier in the same transaction block — referencing an undefined savepoint returns
     an error detected at planning time.
+
+`SAVEPOINT identifier`
+:   Creates a named checkpoint within the transaction. The transaction can be rolled
+    back to this point without rolling back the entire block.
+
+`RELEASE SAVEPOINT identifier`
+:   Releases a previously created savepoint. After releasing, the savepoint can no
+    longer be referenced in a `ROLLBACK TO` statement.
 
 ## Execution Modes
 
@@ -175,6 +191,38 @@ DO
         UPDATE users SET status = 'inactive' WHERE user_id = user.user_id;
     END;
 END;
+```
+
+```sql title="BEGIN transaction"
+BEGIN TRANSACTION;
+INSERT INTO users (username) VALUES ('john');
+UPDATE users SET status = 'active' WHERE username = 'john';
+COMMIT;
+```
+
+```sql title="BEGIN with READ ONLY"
+BEGIN READ ONLY;
+SELECT users.username, users.status FROM users;
+COMMIT;
+```
+
+```sql title="Rollback to savepoint"
+BEGIN;
+INSERT INTO users (username) VALUES ('john');
+SAVEPOINT after_insert;
+UPDATE users SET status = 'active' WHERE username = 'john';
+ROLLBACK TO SAVEPOINT after_insert;
+COMMIT;
+```
+
+```sql title="Release savepoint"
+BEGIN;
+INSERT INTO users (username) VALUES ('john');
+SAVEPOINT after_insert;
+UPDATE users SET status = 'active' WHERE username = 'john';
+RELEASE SAVEPOINT after_insert;
+COMMIT;
+```
 ```
 
 ```sql title="Transaction across table and collection"

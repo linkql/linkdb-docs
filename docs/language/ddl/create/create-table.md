@@ -2,7 +2,7 @@
 Creates a new table for relational data.
 
 ```ebnf title="Grammar"
-create_table_stmt       ::= CREATE TABLE ( IF NOT EXISTS ) identifier '(' table_item (',' table_item)* ')'
+create_table_stmt       ::= CREATE TABLE ( IF NOT EXISTS )? identifier '(' table_item (',' table_item)* ','? ')'
 
 table_item              ::= field_def
                           | table_constraint
@@ -25,7 +25,7 @@ reference_target        ::= identifier ( '(' identifier ')' )?
                               ( ON DELETE reference_action )?
                               ( ON UPDATE reference_action )?
 
-column_property         ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
+field_property          ::= AUTOINCREMENT ( '(' integer_literal ',' integer_literal ')' )?
                           | AUTONOW
                           | AUTO
                           | DEFAULT expr

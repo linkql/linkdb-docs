@@ -3,19 +3,28 @@ LinkQL provides a set of primitive and structured data types for use in both tab
 
 ```title="Grammar"
 data_type ::= INT
+            | SMALLINT
+            | TINYINT
             | BIGINT
             | FLOAT
+            | REAL
+            | DOUBLE PRECISION
             | DECIMAL ( '(' integer_literal ',' integer_literal ')' )?
+            | NUMERIC ( '(' integer_literal ',' integer_literal ')' )?
             | BOOLEAN
             | VARCHAR ( '(' integer_literal ')' )?
             | TEXT
             | DATE
             | TIME
             | DATETIME
+            | INTERVAL
             | UUID
             | JSON
             | JSONB
+            | BLOB
+            | BYTEA
             | ARRAY '(' data_type ')'
+            | VARBINARY ( '(' integer_literal ')' )
 ```
 
 ## Primitives
@@ -23,16 +32,25 @@ data_type ::= INT
 | <div style="width:14em">Type</div>    | Description | Example |
 |---------------------------------------|-------------|---------|
 | `INT`                                 | Standard 32-bit integer | `42` |
+| `SMALLINT`                            | 16-bit integer | `1000` |
+| `TINYINT`                             | 8-bit integer | `255` |
 | `BIGINT`                              | 64-bit integer for large values | `9999999999` |
 | `FLOAT`                               | Floating point number | `3.14` |
+| `REAL`                                | Single precision floating point | `3.14` |
+| `DOUBLE PRECISION`                    | Double precision floating point | `3.14159265359` |
 | `DECIMAL(<size>, <d>)`                | Fixed precision decimal. `size` is total digits, `d` is digits after the decimal. Defaults to arbitrary precision if unspecified. | `DECIMAL(10, 2)` |
+| `NUMERIC`                             | Arbitrary precision decimal (same as DECIMAL when no size given) | `NUMERIC(10, 2)` |
 | `BOOLEAN`                             | True or false value | `true` |
 | `VARCHAR(<length>)`                   | Fixed-length string | `VARCHAR(50)` |
 | `TEXT`                                | String of any length | `'hello world'` |
 | `DATE`                                | Date value in `YYYY-MM-DD` format | `'2024-01-15'` |
 | `TIME`                                | Time value in `hh:mm:ss` format | `'14:30:00'` |
 | `DATETIME`                            | Combined date and time in `YYYY-MM-DD hh:mm:ss` format | `'2024-01-15 14:30:00'` |
+| `INTERVAL`                            | Time interval | `INTERVAL '1 day'` |
 | `UUID`                                | Universally unique identifier | `'550e8400-e29b-41d4-a716-446655440000'` |
+| `BLOB`                                | Binary large object | `BLOB '...'` |
+| `BYTEA`                               | Binary data (alias for BLOB) | `BYTEA '...'` |
+| `VARBINARY`                           | Variable-length binary data | `VARBINARY(255)` |
 
 !!! note
 

@@ -41,8 +41,8 @@ into the block.
 
 `for_statement`
 :   A DML statement to apply on each iteration. Each statement must end with a
-    semicolon. Only `INSERT`, `UPDATE`, and `DELETE` are valid inside a `FOR` loop.
-    DDL statements and nested `FOR` loops are not permitted.
+    semicolon. Only `INSERT`, `UPDATE`, and `DELETE` are valid inside a
+    `FOR` loop. DDL statements and nested `FOR` loops are not permitted.
 
 ## Transactions
 `FOR` loops are implicitly transactional — all iterations are treated as a single

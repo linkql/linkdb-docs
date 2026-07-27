@@ -2,14 +2,17 @@
 Inserts one or more rows or documents into a table or collection.
 
 ```grammar title="Grammar"
-insert_stmt     ::= INSERT INTO identifier ( '(' identifier ( ',' identifier )* ')' )?
+insert_stmt     ::= with_clause? INSERT INTO identifier ( '(' identifier ( ',' identifier )* ')' )?
                       ( with_free )?
                     insert_source
                     ( ON CONFLICT conflict_target conflict_action )?
+                    ( RETURNING return_item ( ',' return_item )* )?
 
 insert_source   ::= select_stmt
+                  | '(' select_stmt ')'
                   | VALUES '(' insert_value ( ',' insert_value )* ')'
                         ( ',' '(' insert_value ( ',' insert_value )* ')' )*
+                  | DEFAULT VALUES
 
 insert_value    ::= expr | DEFAULT
 
@@ -26,6 +29,9 @@ conflict_action ::= DO NOTHING
 
 conflict_set    ::= identifier '=' expr
                   | identifier '=' EXCLUDED '.' identifier
+
+return_item     ::= '*'
+                  | expr ( AS identifier )?
 ```
 
 ## Description
@@ -77,6 +83,14 @@ constraint. The conflicting row can be silently skipped or updated with new valu
 :   Sources insert values from a `SELECT` statement. The result set must match the
     column list in order and type.
 
+`with_clause`
+:   Optional common table expression (`WITH` or `WITH RECURSIVE`) that provides
+    named subqueries available within the `INSERT` statement.
+
+`DEFAULT VALUES`
+:   Inserts a single row using default values for all columns. Cannot be combined
+    with a column list.
+
 `ON CONFLICT conflict_target`
 :   Specifies the unique or primary key column or columns that define a conflict.
 
@@ -89,6 +103,10 @@ constraint. The conflicting row can be silently skipped or updated with new valu
 `EXCLUDED`
 :   References the values from the attempted insert. Available in `DO UPDATE SET`
     for both defined and free fields.
+
+`RETURNING return_item`
+:   Returns values from the inserted rows. Can return `*` for all columns or
+    specific expressions with optional aliases.
 
 ## Notes
 - If no column list is provided, values must be given for all defined fields in their
@@ -180,4 +198,4 @@ ON CONFLICT (user_id) DO UPDATE SET
 [UPDATE](update.md), [DELETE](delete.md), [SELECT](select.md), [Functions](../../functions.md)
 
 ---
-[← Back to DML](../index.md)
+[← Back to DML](../select.md)

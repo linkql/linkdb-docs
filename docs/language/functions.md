@@ -30,6 +30,15 @@ Built-in functions available in LinkQL.
 SELECT COUNT_ARRAY(posts::likes) AS num_likes FROM posts;
 ```
 
+### FILTER Clause
+
+Aggregate functions can include a `FILTER (WHERE expr)` clause to only include rows
+that satisfy the condition.
+
+```sql
+SELECT COUNT(*) FILTER (WHERE status = 'active') AS active_count FROM users;
+```
+
 ## JSON
 
 `HAS(json, path)`
