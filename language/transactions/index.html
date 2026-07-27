@@ -1011,6 +1011,8 @@
       
         
       
+        
+      
     
     
     
@@ -1153,6 +1155,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dml/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1548,25 +1578,30 @@
 <h1 id="transactions">Transactions</h1>
 <h1 id="transactions_1">Transactions</h1>
 <p>Groups multiple statements into a single atomic operation.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>transaction_stmt      ::= TRANSACTION ( transaction_mode )?
-</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                          DO
-</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                            transaction_statement+
-</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          END
-</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>transaction_mode      ::= READ ONLY
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                        | READ WRITE
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>transaction_statement ::= insert_stmt &#39;;&#39;
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                        | update_stmt &#39;;&#39;
-</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                        | delete_stmt &#39;;&#39;
-</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                        | select_stmt &#39;;&#39;
-</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                        | for_stmt &#39;;&#39;
-</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                        | savepoint_stmt &#39;;&#39;
-</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                        | rollback_stmt &#39;;&#39;
-</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>savepoint_stmt        ::= SAVEPOINT identifier
-</span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>rollback_stmt         ::= ROLLBACK ( TO identifier )?
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>transaction_stmt        ::= BEGIN ( TRANSACTION )? ( transaction_mode )?
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                          | COMMIT ( TRANSACTION )?
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                          | ROLLBACK ( TRANSACTION )? ( TO SAVEPOINT identifier )?
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          | SAVEPOINT identifier
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                          | RELEASE SAVEPOINT identifier
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                          | TRANSACTION ( transaction_mode )?
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                            DO
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                              transaction_statement+
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                            END
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>transaction_mode        ::= READ ONLY
+</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                          | READ WRITE
+</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>transaction_statement   ::= insert_stmt &#39;;&#39;
+</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                          | update_stmt &#39;;&#39;
+</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                          | delete_stmt &#39;;&#39;
+</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                          | select_stmt &#39;;&#39;
+</span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                          | for_stmt &#39;;&#39;
+</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>                          | savepoint_stmt &#39;;&#39;
+</span><span id="True-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>                          | rollback_stmt &#39;;&#39;
+</span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+</span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>savepoint_stmt          ::= SAVEPOINT identifier
+</span><span id="True-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="True-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>rollback_stmt           ::= ROLLBACK ( TO identifier )?
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p>A <code>TRANSACTION</code> block groups one or more statements into a single atomic operation.
@@ -1603,16 +1638,24 @@ Useful for reporting queries where you want to guarantee nothing gets changed.</
 <dt><code>READ WRITE</code></dt>
 <dd>The transaction may read and write data. This is the default behavior if no mode
 is specified.</dd>
-<dt><code>SAVEPOINT identifier</code></dt>
-<dd>Creates a named checkpoint within the transaction. The transaction can be rolled
-back to this point without rolling back the entire block.</dd>
-<dt><code>ROLLBACK</code></dt>
-<dd>Rolls back the entire transaction. All changes made within the block are undone.</dd>
-<dt><code>ROLLBACK TO identifier</code></dt>
+<dt><code>BEGIN (TRANSACTION)?</code></dt>
+<dd>Starts an explicit transaction. Statements following <code>BEGIN</code> are executed within
+the transaction until a <code>COMMIT</code> or <code>ROLLBACK</code> is issued.</dd>
+<dt><code>COMMIT (TRANSACTION)?</code></dt>
+<dd>Commits the current transaction. All changes made since <code>BEGIN</code> are persisted.</dd>
+<dt><code>ROLLBACK (TRANSACTION)?</code></dt>
+<dd>Rolls back the entire transaction. All changes made within the transaction are undone.</dd>
+<dt><code>ROLLBACK (TRANSACTION)? TO SAVEPOINT identifier</code></dt>
 <dd>Rolls back to a named savepoint. All changes made after the savepoint are undone.
 Changes made before the savepoint remain. The savepoint must have been defined
 earlier in the same transaction block — referencing an undefined savepoint returns
 an error detected at planning time.</dd>
+<dt><code>SAVEPOINT identifier</code></dt>
+<dd>Creates a named checkpoint within the transaction. The transaction can be rolled
+back to this point without rolling back the entire block.</dd>
+<dt><code>RELEASE SAVEPOINT identifier</code></dt>
+<dd>Releases a previously created savepoint. After releasing, the savepoint can no
+longer be referenced in a <code>ROLLBACK TO</code> statement.</dd>
 </dl>
 <h2 id="execution-modes">Execution Modes</h2>
 <h3 id="transaction-block">Transaction Block</h3>
@@ -1707,14 +1750,38 @@ the error is raised when the transaction commits.</p>
 </span><span id="True-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="k">END</span><span class="p">;</span>
 </span><span id="True-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">END</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Transaction across table and collection</span><pre><span></span><code><span id="True-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">TRANSACTION</span>
-</span><span id="True-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">DO</span>
-</span><span id="True-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">)</span>
-</span><span id="True-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Smith&#39;</span><span class="p">);</span>
-</span><span id="True-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">)</span>
-</span><span id="True-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello world&#39;</span><span class="p">);</span>
-</span><span id="True-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="k">END</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">BEGIN transaction</span><pre><span></span><code><span id="True-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">BEGIN</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span>
+</span><span id="True-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">);</span>
+</span><span id="True-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;john&#39;</span><span class="p">;</span>
+</span><span id="True-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">COMMIT</span><span class="p">;</span>
 </span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">BEGIN with READ ONLY</span><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">BEGIN</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">ONLY</span><span class="p">;</span>
+</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+</span><span id="True-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">COMMIT</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">Rollback to savepoint</span><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">BEGIN</span><span class="p">;</span>
+</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">);</span>
+</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">after_insert</span><span class="p">;</span>
+</span><span id="True-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;john&#39;</span><span class="p">;</span>
+</span><span id="True-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">ROLLBACK</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">after_insert</span><span class="p">;</span>
+</span><span id="True-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">COMMIT</span><span class="p">;</span>
+</span></code></pre></div>
+<p><div class="language-sql highlight"><span class="filename">Release savepoint</span><pre><span></span><code><span id="True-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">BEGIN</span><span class="p">;</span>
+</span><span id="True-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">);</span>
+</span><span id="True-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">after_insert</span><span class="p">;</span>
+</span><span id="True-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;john&#39;</span><span class="p">;</span>
+</span><span id="True-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">RELEASE</span><span class="w"> </span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">after_insert</span><span class="p">;</span>
+</span><span id="True-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">COMMIT</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="True-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>```sql title=&quot;Transaction across table and collection&quot;
+</span><span id="True-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>TRANSACTION
+</span><span id="True-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>DO
+</span><span id="True-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    INSERT INTO users (username, first_name, last_name)
+</span><span id="True-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    VALUES (&#39;john&#39;, &#39;John&#39;, &#39;Smith&#39;);
+</span><span id="True-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    INSERT INTO posts (user_id, content)
+</span><span id="True-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    VALUES (1, &#39;Hello world&#39;);
+</span><span id="True-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>END;
+</span></code></pre></div></p>
 <h2 id="see-also">See Also</h2>
 <p><a href="../dml/for/">FOR</a>, <a href="../dml/insert/">INSERT</a>, <a href="../dml/update/">UPDATE</a>, <a href="../dml/delete/">DELETE</a></p>
 <hr />

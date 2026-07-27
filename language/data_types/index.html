@@ -1119,6 +1119,8 @@
       
         
       
+        
+      
     
     
     
@@ -1261,6 +1263,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dml/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1715,19 +1745,28 @@
 <h1 id="data-types">Data Types</h1>
 <p>LinkQL provides a set of primitive and structured data types for use in both tables and collections. For collections, defined fields must declare a type. Free fields are typeless and schemaless by nature, only aquiring a type at runtime.</p>
 <div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>data_type ::= INT
-</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>            | BIGINT
-</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>            | FLOAT
-</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>            | DECIMAL ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
-</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>            | BOOLEAN
-</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            | VARCHAR ( &#39;(&#39; integer_literal &#39;)&#39; )?
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            | TEXT
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            | DATE
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            | TIME
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            | DATETIME
-</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            | UUID
-</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            | JSON
-</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            | JSONB
-</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            | ARRAY &#39;(&#39; data_type &#39;)&#39;
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>            | SMALLINT
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>            | TINYINT
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>            | BIGINT
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>            | FLOAT
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            | REAL
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            | DOUBLE PRECISION
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            | DECIMAL ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            | NUMERIC ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            | BOOLEAN
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            | VARCHAR ( &#39;(&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            | TEXT
+</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            | DATE
+</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            | TIME
+</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            | DATETIME
+</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>            | INTERVAL
+</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>            | UUID
+</span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>            | JSON
+</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            | JSONB
+</span><span id="True-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>            | BLOB
+</span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>            | BYTEA
+</span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>            | ARRAY &#39;(&#39; data_type &#39;)&#39;
+</span><span id="True-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>            | VARBINARY ( &#39;(&#39; integer_literal &#39;)&#39; )
 </span></code></pre></div>
 <h2 id="primitives">Primitives</h2>
 <table>
@@ -1745,6 +1784,16 @@
 <td><code>42</code></td>
 </tr>
 <tr>
+<td><code>SMALLINT</code></td>
+<td>16-bit integer</td>
+<td><code>1000</code></td>
+</tr>
+<tr>
+<td><code>TINYINT</code></td>
+<td>8-bit integer</td>
+<td><code>255</code></td>
+</tr>
+<tr>
 <td><code>BIGINT</code></td>
 <td>64-bit integer for large values</td>
 <td><code>9999999999</code></td>
@@ -1755,9 +1804,24 @@
 <td><code>3.14</code></td>
 </tr>
 <tr>
+<td><code>REAL</code></td>
+<td>Single precision floating point</td>
+<td><code>3.14</code></td>
+</tr>
+<tr>
+<td><code>DOUBLE PRECISION</code></td>
+<td>Double precision floating point</td>
+<td><code>3.14159265359</code></td>
+</tr>
+<tr>
 <td><code>DECIMAL(&lt;size&gt;, &lt;d&gt;)</code></td>
 <td>Fixed precision decimal. <code>size</code> is total digits, <code>d</code> is digits after the decimal. Defaults to arbitrary precision if unspecified.</td>
 <td><code>DECIMAL(10, 2)</code></td>
+</tr>
+<tr>
+<td><code>NUMERIC</code></td>
+<td>Arbitrary precision decimal (same as DECIMAL when no size given)</td>
+<td><code>NUMERIC(10, 2)</code></td>
 </tr>
 <tr>
 <td><code>BOOLEAN</code></td>
@@ -1790,9 +1854,29 @@
 <td><code>'2024-01-15 14:30:00'</code></td>
 </tr>
 <tr>
+<td><code>INTERVAL</code></td>
+<td>Time interval</td>
+<td><code>INTERVAL '1 day'</code></td>
+</tr>
+<tr>
 <td><code>UUID</code></td>
 <td>Universally unique identifier</td>
 <td><code>'550e8400-e29b-41d4-a716-446655440000'</code></td>
+</tr>
+<tr>
+<td><code>BLOB</code></td>
+<td>Binary large object</td>
+<td><code>BLOB '...'</code></td>
+</tr>
+<tr>
+<td><code>BYTEA</code></td>
+<td>Binary data (alias for BLOB)</td>
+<td><code>BYTEA '...'</code></td>
+</tr>
+<tr>
+<td><code>VARBINARY</code></td>
+<td>Variable-length binary data</td>
+<td><code>VARBINARY(255)</code></td>
 </tr>
 </tbody>
 </table>

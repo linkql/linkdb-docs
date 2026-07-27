@@ -1000,6 +1000,8 @@
       
         
       
+        
+      
     
     
     
@@ -1142,6 +1144,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dml/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1606,7 +1636,7 @@
 
 <h1 id="create-table">CREATE TABLE</h1>
 <p>Creates a new table for relational data.</p>
-<div class="language-ebnf highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">create_table_stmt       </span><span class="err">::</span><span class="o">=</span> <span class="k">CREATE TABLE </span><span class="p">(</span> <span class="k">IF NOT EXISTS </span><span class="p">)</span> <span class="k">identifier </span><span class="s1">&#39;(&#39;</span> <span class="k">table_item </span><span class="p">(</span><span class="s1">&#39;,&#39;</span> <span class="k">table_item</span><span class="p">)</span><span class="err">*</span> <span class="s1">&#39;)&#39;</span>
+<div class="language-ebnf highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">create_table_stmt       </span><span class="err">::</span><span class="o">=</span> <span class="k">CREATE TABLE </span><span class="p">(</span> <span class="k">IF NOT EXISTS </span><span class="p">)</span><span class="ni">? identifier &#39;(&#39; table_item (&#39;,&#39; table_item)* &#39;,&#39;?</span> <span class="s1">&#39;)&#39;</span>
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">table_item              </span><span class="err">::=</span> <span class="k">field_def</span>
 </span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          <span class="p">|</span> <span class="k">table_constraint</span>
@@ -1629,7 +1659,7 @@
 </span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>                              <span class="p">(</span> <span class="k">ON DELETE reference_action </span><span class="p">)</span><span class="ni">?</span>
 </span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="ni">                              ( ON UPDATE reference_action )?</span>
 </span><span id="True-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-</span><span id="True-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">column_property         </span><span class="err">::=</span> <span class="k">AUTOINCREMENT </span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="k">integer_literal </span><span class="s1">&#39;,&#39;</span> <span class="k">integer_literal </span><span class="s1">&#39;)&#39;</span> <span class="p">)</span><span class="ni">?</span>
+</span><span id="True-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">field_property          </span><span class="err">::=</span> <span class="k">AUTOINCREMENT </span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="k">integer_literal </span><span class="s1">&#39;,&#39;</span> <span class="k">integer_literal </span><span class="s1">&#39;)&#39;</span> <span class="p">)</span><span class="ni">?</span>
 </span><span id="True-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="ni">                          | AUTONOW</span>
 </span><span id="True-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="ni">                          | AUTO</span>
 </span><span id="True-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="ni">                          | DEFAULT expr</span>

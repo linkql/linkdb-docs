@@ -1000,6 +1000,8 @@
       
         
       
+        
+      
     
     
     
@@ -1142,6 +1144,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dml/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1615,7 +1645,7 @@
 </span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                          | RENAME FIELD identifier TO identifier
 </span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                          | RENAME TO identifier
 </span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                          | ADD table_constraint
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                          | MODIFY table_constraint
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                          | MODIFY CONSTRAINT identifier table_constraint_type
 </span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                          | DROP CONSTRAINT identifier
 </span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
 </span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>field_def               ::= &#39;_id&#39;
@@ -1636,7 +1666,7 @@
 </span><span id="True-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>                              ( ON DELETE reference_action )?
 </span><span id="True-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>                              ( ON UPDATE reference_action )?
 </span><span id="True-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
-</span><span id="True-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>column_property         ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>field_property          ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
 </span><span id="True-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>                          | AUTONOW
 </span><span id="True-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>                          | AUTO
 </span><span id="True-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>                          | DEFAULT expr
@@ -1678,7 +1708,7 @@ current database.</p>
 rules as <a href="create-collection.md"><code>CREATE COLLECTION</code></a>. If the collection already has
 documents, a <code>DEFAULT</code> value must be provided so existing documents can be populated.
 If a free field with the same name already exists on a document, that value is used
-instead of the default.</dd>
+instead of the default as long as the data types match.</dd>
 <dt><code>DROP FIELD identifier</code></dt>
 <dd>Removes a defined field from the catalog and scrubs the data from all documents in
 the collection. The field must be defined or an error is returned.</dd>

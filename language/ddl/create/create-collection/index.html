@@ -1000,6 +1000,8 @@
       
         
       
+        
+      
     
     
     
@@ -1142,6 +1144,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dml/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1606,7 +1636,7 @@
 
 <h1 id="create-collection">CREATE COLLECTION</h1>
 <p>Creates a new document collection.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>create_collection_stmt  ::= CREATE COLLECTION ( IF NOT EXISTS ) identifier
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>create_collection_stmt  ::= CREATE COLLECTION ( IF NOT EXISTS )? identifier
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                              ( &#39;(&#39; collection_item (&#39;,&#39; collection_item)* &#39;,&#39;? &#39;)&#39; )?
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>collection_item         ::= field_def
@@ -1630,7 +1660,7 @@
 </span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                              ( ON DELETE reference_action )?
 </span><span id="True-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>                              ( ON UPDATE reference_action )?
 </span><span id="True-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
-</span><span id="True-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>column_property         ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>field_property          ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
 </span><span id="True-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>                          | AUTONOW
 </span><span id="True-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>                          | AUTO
 </span><span id="True-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>                          | DEFAULT expr

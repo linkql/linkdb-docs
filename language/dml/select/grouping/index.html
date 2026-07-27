@@ -1000,6 +1000,8 @@
       
         
       
+        
+      
     
     
     
@@ -1142,6 +1144,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1622,8 +1652,15 @@
 
 <h1 id="group-by-having">GROUP BY / HAVING</h1>
 <p>Groups rows and documents and filters groups based on a condition.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>group_clause    ::= GROUP BY expr (&#39;,&#39; expr)*
-</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                      ( HAVING expr )?
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>group_clause        ::= GROUP BY grouping_element (&#39;,&#39; grouping_element)*
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                          ( HAVING expr )?
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>grouping_element    ::= expr
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                      | &#39;(&#39; &#39;)&#39;
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                      | &#39;(&#39; expr ( &#39;,&#39; expr )* &#39;)&#39;
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                      | ROLLUP &#39;(&#39; grouping_element (  &#39;,&#39; grouping_element )* &#39;)&#39;
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                      | CUBE &#39;(&#39; grouping_element (  &#39;,&#39; grouping_element )* &#39;)&#39;
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                      | GROUPING SETS &#39;(&#39; grouping_element (  &#39;,&#39; grouping_element )* &#39;)&#39;
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p><code>GROUP BY</code> groups rows and documents that share the same values in the specified

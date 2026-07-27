@@ -1000,6 +1000,8 @@
       
         
       
+        
+      
     
     
     
@@ -1142,6 +1144,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1550,6 +1580,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#is-distinct-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IS DISTINCT FROM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantified-comparisons-any-some-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantified Comparisons (ANY / SOME / ALL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#is-null-is-missing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1693,18 +1745,34 @@
 </span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>not_expr        ::= NOT not_expr | comparison
 </span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>comparison      comparison ::= additive ( operator additive )?
-</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                             | additive IS NOT? NULL
-</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                             | additive IS NOT? MISSING
-</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                             | additive IS NOT? NULL OR MISSING
-</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                             | additive NOT? BETWEEN additive AND additive
-</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                             | additive NOT? IN &#39;(&#39; expr (&#39;,&#39; expr)* &#39;)&#39;
-</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                             | additive NOT? IN &#39;(&#39; select_stmt &#39;)&#39;
-</span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                             | additive NOT? LIKE string_literal
-</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>                             | additive NOT? ILIKE string_literal
-</span><span id="True-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>                             | EXISTS &#39;(&#39; select_stmt &#39;)&#39;
-</span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-</span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>operator        ::= &#39;=&#39; | &#39;!=&#39; | &#39;&lt;&#39; | &#39;&lt;=&#39; | &#39;&gt;&#39; | &#39;&gt;=&#39;
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>comparison      ::= additive ( operator additive )?
+</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                  | additive IS NOT? NULL
+</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                  | additive IS NOT? MISSING
+</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                  | additive IS NOT? NULL OR MISSING
+</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                  | additive IS NOT? DISTINCT FROM additive
+</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                  | additive NOT? BETWEEN additive AND additive
+</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                  | additive NOT? IN &#39;(&#39; expr (&#39;,&#39; expr)* &#39;)&#39;
+</span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                  | additive NOT? IN &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>                  | additive NOT? LIKE string_literal ( ESCAPE string_literal )?
+</span><span id="True-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>                  | additive NOT? ILIKE string_literal ( ESCAPE string_literal )?
+</span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>                  | additive operator ( ANY | SOME | ALL ) &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                  | EXISTS &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="True-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>operator        ::= &#39;=&#39; | &#39;!=&#39; | &#39;&lt;&#39; | &#39;&lt;=&#39; | &#39;&gt;&#39; | &#39;&gt;=&#39;
+</span><span id="True-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="True-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>additive        ::= multiplicative ( ( &#39;+&#39; | &#39;-&#39; | &#39;||&#39; ) multiplicative )*
+</span><span id="True-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+</span><span id="True-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>multiplicative  ::= unary ( ( &#39;*&#39; | &#39;/&#39; | &#39;%&#39; ) unary )*
+</span><span id="True-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+</span><span id="True-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>unary           ::= ( &#39;-&#39; | &#39;+&#39; ) unary | primary
+</span><span id="True-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+</span><span id="True-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>primary         ::= literal
+</span><span id="True-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>                  | function_call
+</span><span id="True-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>                  | window_function_call
+</span><span id="True-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>                  | column_ref
+</span><span id="True-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>                  | &#39;(&#39; select_stmt &#39;)&#39;
+</span><span id="True-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>                  | &#39;(&#39; expr ( &#39;,&#39; expr )* &#39;)&#39;
+</span><span id="True-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>                  | case_expr
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p>The <code>WHERE</code> clause filters rows and documents based on a condition. Only rows and
@@ -1753,65 +1821,88 @@ documents where the condition evaluates to <code>true</code> are included in the
 </tbody>
 </table>
 <h2 id="conditions">Conditions</h2>
+<h3 id="is-distinct-from">IS DISTINCT FROM</h3>
+<p>Tests whether two values are different, with proper <code>NULL</code> handling. Unlike <code>!=</code>,
+<code>IS DISTINCT FROM</code> treats two <code>NULL</code> values as equal (not distinct) and a <code>NULL</code> and
+a non-<code>NULL</code> value as distinct.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">previous_login</span>
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">previous_email</span>
+</span></code></pre></div>
+<h3 id="quantified-comparisons-any-some-all">Quantified Comparisons (ANY / SOME / ALL)</h3>
+<p>Compares a value against all rows returned by a subquery.</p>
+<ul>
+<li><code>ANY</code> and <code>SOME</code> are synonyms — the condition is true if it holds for <strong>at least one</strong>
+  row returned by the subquery.</li>
+<li><code>ALL</code> — the condition is true if it holds for <strong>every</strong> row returned by the subquery.</li>
+</ul>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Greater than at least one value</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">ANY</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">salaries</span><span class="p">.</span><span class="n">amount</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">salaries</span><span class="w"> </span><span class="p">)</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">-- Greater than every value</span>
+</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">salaries</span><span class="p">.</span><span class="n">amount</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">salaries</span><span class="w"> </span><span class="p">)</span>
+</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="True-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1">-- Equal to at least one value (same as IN)</span>
+</span><span id="True-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">SOME</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">statuses</span><span class="p">.</span><span class="n">code</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">statuses</span><span class="w"> </span><span class="p">)</span>
+</span></code></pre></div>
 <h3 id="is-null-is-missing">IS NULL / IS MISSING</h3>
 <p>Tests whether a value is <code>NULL</code>, <code>MISSING</code>, or either. The <code>NOT</code> modifier inverts
 the condition.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- Field exists but has no value</span>
-</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
-</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">-- Field was never present on the document</span>
-</span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="n">MISSING</span>
-</span><span id="True-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="True-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">-- Field is either null or missing</span>
-</span><span id="True-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">MISSING</span>
-</span><span id="True-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-</span><span id="True-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">-- Negated forms</span>
-</span><span id="True-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
-</span><span id="True-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MISSING</span>
-</span><span id="True-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">MISSING</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Field exists but has no value</span>
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">-- Field was never present on the document</span>
+</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="n">MISSING</span>
+</span><span id="True-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="True-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1">-- Field is either null or missing</span>
+</span><span id="True-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">MISSING</span>
+</span><span id="True-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="True-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1">-- Negated forms</span>
+</span><span id="True-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+</span><span id="True-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MISSING</span>
+</span><span id="True-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">MISSING</span>
 </span></code></pre></div>
 <h3 id="between">BETWEEN</h3>
 <p>Tests whether a value falls within an inclusive range.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">65</span>
-</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">65</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">65</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">65</span>
 </span></code></pre></div>
 <h3 id="in">IN</h3>
 <p>Tests whether a value matches any value in a list or subquery.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pending&#39;</span><span class="p">)</span>
-</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;banned&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;deleted&#39;</span><span class="p">)</span>
-</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">-- With subquery</span>
-</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span>
-</span><span id="True-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pending&#39;</span><span class="p">)</span>
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;banned&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;deleted&#39;</span><span class="p">)</span>
+</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">-- With subquery</span>
+</span><span id="True-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span>
+</span><span id="True-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="like-ilike">LIKE / ILIKE</h3>
 <p>Tests whether a string matches a pattern. <code>%</code> matches any sequence of characters.
 <code>_</code> matches any single character. <code>LIKE</code> is case sensitive. <code>ILIKE</code> is case
 insensitive.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- Case sensitive</span>
-</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;john%&#39;</span>
-</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1">-- Case insensitive</span>
-</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">ILIKE</span><span class="w"> </span><span class="s1">&#39;john%&#39;</span>
-</span><span id="True-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="True-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">-- Single character wildcard</span>
-</span><span id="True-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;j_hn&#39;</span>
-</span><span id="True-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-</span><span id="True-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1">-- Negated</span>
-</span><span id="True-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;admin%&#39;</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Case sensitive</span>
+</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;john%&#39;</span>
+</span><span id="True-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="True-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1">-- Case insensitive</span>
+</span><span id="True-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">ILIKE</span><span class="w"> </span><span class="s1">&#39;john%&#39;</span>
+</span><span id="True-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="True-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1">-- Single character wildcard</span>
+</span><span id="True-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;j_hn&#39;</span>
+</span><span id="True-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="True-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1">-- Negated</span>
+</span><span id="True-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;admin%&#39;</span>
 </span></code></pre></div>
 <h3 id="exists">EXISTS</h3>
 <p>Tests whether a subquery returns any rows.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">)</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="logical-operators">Logical Operators</h3>
 <p>Conditions can be combined with <code>AND</code>, <code>OR</code>, and <code>NOT</code>.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span>
-</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span>
-</span><span id="True-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;banned&#39;</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span>
+</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span>
+</span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;banned&#39;</span>
 </span></code></pre></div>
 <h2 id="null-and-missing-behavior">NULL and MISSING Behavior</h2>
 <table>
@@ -1857,41 +1948,41 @@ insensitive.</p>
 <li><code>ILIKE</code> is case insensitive. <code>LIKE</code> is case sensitive.</li>
 </ul>
 <h2 id="examples">Examples</h2>
-<div class="language-sql highlight"><span class="filename">Basic filter</span><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Basic filter</span><pre><span></span><code><span id="True-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Multiple conditions</span><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Multiple conditions</span><pre><span></span><code><span id="True-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Filter on collection free field</span><pre><span></span><code><span id="True-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
-</span><span id="True-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Filter on collection free field</span><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
+</span><span id="True-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">NULL and MISSING checks</span><pre><span></span><code><span id="True-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
-</span><span id="True-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">MISSING</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">NULL and MISSING checks</span><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
+</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">likes</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">MISSING</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Pattern matching</span><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">ILIKE</span><span class="w"> </span><span class="s1">&#39;john%&#39;</span><span class="p">;</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">IN with subquery</span><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-</span><span id="True-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span>
-</span><span id="True-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p">);</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">EXISTS</span><pre><span></span><code><span id="True-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+<div class="language-sql highlight"><span class="filename">Pattern matching</span><pre><span></span><code><span id="True-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
 </span><span id="True-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span>
-</span><span id="True-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
-</span><span id="True-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">);</span>
+</span><span id="True-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">ILIKE</span><span class="w"> </span><span class="s1">&#39;john%&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">IN with subquery</span><pre><span></span><code><span id="True-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</span><span id="True-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span>
+</span><span id="True-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">);</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">EXISTS</span><pre><span></span><code><span id="True-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span>
+</span><span id="True-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span>
+</span><span id="True-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">);</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
 <p><a href="../select-items/">SELECT Items</a>, <a href="../from/">FROM</a>, <a href="../joins/">Joins</a></p>

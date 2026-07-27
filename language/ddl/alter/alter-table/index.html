@@ -1000,6 +1000,8 @@
       
         
       
+        
+      
     
     
     
@@ -1142,6 +1144,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dml/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1609,12 +1639,12 @@
 <div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>alter_table_stmt        ::= ALTER TABLE identifier alter_table_cmd
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>alter_table_cmd         ::= ADD COLUMN field_def
-</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          | DROP COLUMN identifier
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          | DROP COLUMN identifier ( KEEP )?
 </span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                          | MODIFY COLUMN field_def ( USING expr )?
 </span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                          | RENAME COLUMN identifier TO identifier
 </span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                          | RENAME TO identifier
 </span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                          | ADD table_constraint
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                          | MODIFY CONSTRAINT identifier column_constraint_type
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                          | MODIFY CONSTRAINT identifier table_constraint_type
 </span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                          | DROP CONSTRAINT identifier
 </span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 </span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>field_def               ::= &#39;_id&#39;
@@ -1635,7 +1665,7 @@
 </span><span id="True-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>                              ( ON DELETE reference_action )?
 </span><span id="True-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>                              ( ON UPDATE reference_action )?
 </span><span id="True-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
-</span><span id="True-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>column_property         ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
+</span><span id="True-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>field_property          ::= AUTOINCREMENT ( &#39;(&#39; integer_literal &#39;,&#39; integer_literal &#39;)&#39; )?
 </span><span id="True-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>                          | AUTONOW
 </span><span id="True-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>                          | AUTO
 </span><span id="True-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>                          | DEFAULT expr

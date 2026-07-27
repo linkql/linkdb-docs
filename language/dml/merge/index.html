@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://linkql.github.io/linkdb-docs/language/dml/let/">
+        <link rel="canonical" href="https://linkql.github.io/linkdb-docs/language/dml/merge/">
       
       
-        <link rel="prev" href="../merge/">
+        <link rel="prev" href="../delete/">
       
       
-        <link rel="next" href="../for/">
+        <link rel="next" href="../let/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>LET - LinkQL Documentation</title>
+        <title>MERGE - LinkQL Documentation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#let" class="md-skip">
+        <a href="#merge" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              LET
+              MERGE
             
           </span>
         </div>
@@ -1174,34 +1174,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../merge/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MERGE
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1221,7 +1193,7 @@
   <span class="md-ellipsis">
     
   
-    LET
+    MERGE
   
 
     
@@ -1239,7 +1211,7 @@
   <span class="md-ellipsis">
     
   
-    LET
+    MERGE
   
 
     
@@ -1287,17 +1259,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#chaining-bindings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chaining Bindings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1334,6 +1295,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../let/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1694,17 +1683,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#chaining-bindings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chaining Bindings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1754,145 +1732,120 @@
 
 
 
-<h1 id="let">LET</h1>
-<p>Defines named subqueries for use within a statement.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>let_block       ::= LET let_binding ( &#39;,&#39; let_binding )* dml_stmt
-</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>let_binding     ::= identifier &#39;=&#39; &#39;(&#39; select_stmt &#39;)&#39;
-</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                  | recursive_let
-</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>recursive_let   ::= RECURSIVE identifier &#39;=&#39; &#39;(&#39; select_stmt &#39;)&#39;
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                      UNION ALL &#39;(&#39; select_stmt &#39;)&#39;
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                      ( cycle_clause )*
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                      ( SEARCH ( DEPTH | BREADTH ) FIRST BY identifier SET identifier )?
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>cycle_clause    ::= CYCLE ON identifier ( &#39;,&#39; identifier )* SET identifier
-</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                  | MAX ITERATIONS integer_literal
-</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>with_clause     ::= WITH ( RECURSIVE )? cte_binding ( &#39;,&#39; cte_binding )*
-</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>cte_binding     ::= identifier ( &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39; )?
-</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                      AS &#39;(&#39; select_stmt &#39;)&#39;
+<h1 id="merge">MERGE</h1>
+<p>Conditionally inserts or updates rows in a table or collection based on a source dataset.</p>
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>merge_stmt          ::= with_clause? MERGE INTO identifier ( AS? identifier )?
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                        USING merge_source
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                        ON expr
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                        merge_when_clause+
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                        ( RETURNING return_item ( &#39;,&#39; return_item )* )?
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>merge_source        ::= identifier ( AS? identifier )?
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                      | &#39;(&#39; select_stmt &#39;)&#39; ( AS? identifier )?
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>merge_when_clause   ::= WHEN MATCHED ( AND expr )? THEN UPDATE SET set_values
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                      | WHEN NOT MATCHED ( AND expr )? THEN INSERT
+</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                        ( &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39; )?
+</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                        VALUES &#39;(&#39; insert_value ( &#39;,&#39; insert_value )* &#39;)&#39;
 </span></code></pre></div>
 <h2 id="description">Description</h2>
-<p><code>LET</code> defines one or more named subqueries that can be referenced within a single
-statement. It is LinkQL's equivalent of SQL's <code>WITH</code> clause (common table expressions).
-<code>LET</code> bindings are scoped to the statement they are defined in and cannot be referenced
-outside of it.</p>
-<p><code>LET</code> can be used with <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>. Each binding is
-defined as a named subquery and can be referenced by name in subsequent bindings or
-in the final statement.</p>
+<p><code>MERGE</code> atomically inserts or updates rows in a target table or collection based on
+whether rows from a source dataset match rows in the target. The source can be another
+table, collection, or the result of a <code>SELECT</code> statement.</p>
+<p>For each row in the source, the engine evaluates the <code>ON</code> condition against the target.
+If a match is found, the <code>WHEN MATCHED</code> clause is executed. If no match is found,
+the <code>WHEN NOT MATCHED</code> clause is executed. Multiple <code>merge_when_clause</code> entries can be
+provided, but at minimum one must be present.</p>
+<p>The <code>RETURNING</code> clause optionally returns values from the affected rows.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><code>identifier</code></dt>
-<dd>The name assigned to the subquery. This name is used to reference the result set
-in subsequent bindings or in the final statement.</dd>
-<dt><code>select_stmt</code></dt>
-<dd>The subquery that defines the named result set. Must be a valid <code>SELECT</code> statement.</dd>
-<dt><code>dml_stmt</code></dt>
-<dd>The statement that uses the defined bindings. Can be a <code>SELECT</code>, <code>INSERT</code>,
-<code>UPDATE</code>, <code>DELETE</code>, or <code>MERGE</code> statement.</dd>
-<dt><code>recursive_let</code></dt>
-<dd>Defines a recursive named subquery using the <code>RECURSIVE</code> keyword. The first
-<code>SELECT</code> provides the base result, and the second <code>SELECT</code> provides the recursive
-step. Results are combined with <code>UNION ALL</code>.</dd>
-<dt><code>cycle_clause</code></dt>
-<dd>Detects cycles in recursive CTEs. <code>CYCLE ON</code> marks columns to track and a
-column to set when a cycle is detected. <code>MAX ITERATIONS</code> limits the recursion depth.</dd>
-<dt><code>SEARCH (DEPTH | BREADTH) FIRST BY identifier SET identifier</code></dt>
-<dd>Controls the order of rows returned by a recursive CTE. <code>DEPTH FIRST</code> uses
-depth-first search ordering; <code>BREADTH FIRST</code> uses breadth-first search ordering.
-The <code>BY</code> column determines ordering, and the <code>SET</code> column stores the ordering value.</dd>
+<dd>The name of the target table or collection to merge into.</dd>
+<dt><code>AS? identifier</code></dt>
+<dd>Optional alias for the target table or collection.</dd>
 <dt><code>with_clause</code></dt>
-<dd>SQL-standard common table expression syntax. <code>WITH RECURSIVE</code> introduces one
-or more named subqueries (<code>cte_binding</code>) that can reference each other. Each
-binding is an identifier (with optional column list) followed by <code>AS ( select_stmt )</code>.</dd>
-<dt><code>cte_binding</code></dt>
-<dd>A single CTE definition within a <code>WITH</code> clause. The optional column list defines
-names for the result columns. The <code>AS</code> clause wraps the defining <code>SELECT</code>.</dd>
+<dd>Optional common table expression (<code>WITH</code> or <code>WITH RECURSIVE</code>) that provides
+named subqueries available within the <code>MERGE</code> statement.</dd>
+<dt><code>USING merge_source</code></dt>
+<dd>The source dataset to compare against the target. Can be a table, collection,
+or a subquery.</dd>
+<dt><code>ON expr</code></dt>
+<dd>The matching condition evaluated for each source row against the target.
+Typically an equality comparison on key columns.</dd>
+<dt><code>WHEN MATCHED THEN UPDATE SET set_values</code></dt>
+<dd>Updates the matching target row with the specified values. An optional <code>AND expr</code>
+condition can further restrict which matched rows are updated.</dd>
+<dt><code>WHEN NOT MATCHED THEN INSERT ... VALUES ...</code></dt>
+<dd>Inserts a new row into the target with the specified values. An optional column
+list can name specific target columns. An optional <code>AND expr</code> condition can further
+restrict which unmatched rows are inserted.</dd>
+<dt><code>RETURNING return_item</code></dt>
+<dd>Returns values from the merged rows. Can return <code>*</code> for all columns or
+specific expressions with optional aliases.</dd>
 </dl>
-<h2 id="chaining-bindings">Chaining Bindings</h2>
-<p>Multiple <code>LET</code> bindings are comma separated. A later binding can reference any
-earlier binding by name. Circular references — where binding <code>a</code> references <code>b</code>
-and <code>b</code> references <code>a</code> — are detected by the planner and return an error.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">LET</span><span class="w"> </span><span class="n">inactive_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
-</span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">),</span><span class="w"> </span><span class="n">inactive_sessions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">sessions</span><span class="p">.</span><span class="n">session_id</span>
-</span><span id="True-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span><span class="p">,</span><span class="w"> </span><span class="n">inactive_users</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="True-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
-</span><span id="True-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-</span><span id="True-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">SELECT</span>
-</span><span id="True-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">inactive_users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
-</span><span id="True-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">inactive_sessions</span><span class="p">.</span><span class="n">session_id</span>
-</span><span id="True-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">FROM</span><span class="w"> </span><span class="n">inactive_users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">inactive_sessions</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
-</span></code></pre></div>
 <h2 id="notes">Notes</h2>
 <ul>
-<li><code>LET</code> bindings are scoped to the statement they are defined in. They cannot be
-  referenced outside of that statement.</li>
-<li>A later binding can reference any earlier binding by name.</li>
-<li>Circular references between bindings are detected by the planner and return an
-  error.</li>
-<li><code>LET</code> bindings can be used with <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>MERGE</code>.</li>
-<li><code>LET</code> is LinkQL's equivalent of SQL's <code>WITH</code> clause. Users familiar with CTEs
-  will find <code>LET</code> behaves the same way.</li>
+<li>At least one <code>WHEN MATCHED</code> or <code>WHEN NOT MATCHED</code> clause must be provided.</li>
+<li><code>MERGE</code> is not supported inside <code>FOR</code> loop bodies.</li>
+<li><code>MERGE</code> can be used inside a <code>LET</code> block as a valid DML statement.</li>
+<li>The source dataset is evaluated once before any inserts or updates are applied.</li>
+<li><code>RETURNING</code> returns values from rows that were inserted or updated.</li>
 </ul>
 <h2 id="examples">Examples</h2>
-<div class="language-sql highlight"><span class="filename">Basic LET with SELECT</span><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">LET</span><span class="w"> </span><span class="n">inactive_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
-</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">)</span>
-</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="True-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">SELECT</span>
-</span><span id="True-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">inactive_users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
-</span><span id="True-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">sessions</span><span class="p">.</span><span class="n">last_active</span>
-</span><span id="True-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">FROM</span><span class="w"> </span><span class="n">inactive_users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">sessions</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+<div class="language-sql highlight"><span class="filename">Basic MERGE from a table</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">MERGE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">target</span>
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">USING</span><span class="w"> </span><span class="n">staging_users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">source</span>
+</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">ON</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span>
+</span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+</span><span id="True-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">email</span>
+</span><span id="True-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">INSERT</span>
+</span><span id="True-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">)</span>
+</span><span id="True-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">email</span><span class="p">);</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Chained LET bindings</span><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">LET</span><span class="w"> </span><span class="n">inactive_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
-</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">),</span><span class="w"> </span><span class="n">inactive_sessions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">sessions</span><span class="p">.</span><span class="n">session_id</span><span class="p">,</span><span class="w"> </span><span class="n">sessions</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span><span class="p">,</span><span class="w"> </span><span class="n">inactive_users</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="True-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
-</span><span id="True-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-</span><span id="True-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">SELECT</span>
-</span><span id="True-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">inactive_users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
-</span><span id="True-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">inactive_sessions</span><span class="p">.</span><span class="n">session_id</span>
-</span><span id="True-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="k">FROM</span><span class="w"> </span><span class="n">inactive_users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">inactive_sessions</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+<div class="language-sql highlight"><span class="filename">MERGE from a SELECT subquery</span><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">MERGE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">target</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">USING</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">new_users</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">new_users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">new_users</span><span class="p">.</span><span class="n">email</span>
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">new_users</span>
+</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">new_users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span>
+</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">source</span>
+</span><span id="True-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">ON</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span>
+</span><span id="True-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+</span><span id="True-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">email</span>
+</span><span id="True-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">INSERT</span>
+</span><span id="True-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">)</span>
+</span><span id="True-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">email</span><span class="p">);</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">LET with DELETE</span><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">LET</span><span class="w"> </span><span class="n">inactive_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
-</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">)</span>
-</span><span id="True-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="True-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span>
-</span><span id="True-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">inactive_users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">inactive_users</span>
-</span><span id="True-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">);</span>
+<div class="language-sql highlight"><span class="filename">MERGE with conditional matched clause</span><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">MERGE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">target</span>
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">USING</span><span class="w"> </span><span class="n">staging_users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">source</span>
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">ON</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">last_modified</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">last_modified</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span>
+</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+</span><span id="True-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">email</span><span class="p">,</span>
+</span><span id="True-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">last_modified</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">last_modified</span>
+</span><span id="True-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">INSERT</span>
+</span><span id="True-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">last_modified</span><span class="p">)</span>
+</span><span id="True-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">last_modified</span><span class="p">);</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">LET with UPDATE</span><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">LET</span><span class="w"> </span><span class="n">inactive_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span>
-</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span>
-</span><span id="True-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span>
-</span><span id="True-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-</span><span id="True-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span>
-</span><span id="True-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">inactive_users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">inactive_users</span>
-</span><span id="True-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">);</span>
+<div class="language-sql highlight"><span class="filename">MERGE with RETURNING</span><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">MERGE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">target</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">USING</span><span class="w"> </span><span class="n">staging_users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">source</span>
+</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">ON</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">)</span>
+</span><span id="True-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">.</span><span class="n">username</span><span class="p">)</span>
+</span><span id="True-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">RETURNING</span><span class="w"> </span><span class="o">*</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">MERGE into a collection</span><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">MERGE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">target</span>
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">USING</span><span class="w"> </span><span class="n">staging_posts</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">source</span>
+</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">ON</span><span class="w"> </span><span class="n">target</span><span class="p">::</span><span class="n">post_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">::</span><span class="n">post_id</span>
+</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">source</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">)</span>
+</span><span id="True-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="k">source</span><span class="p">::</span><span class="n">post_id</span><span class="p">,</span><span class="w"> </span><span class="k">source</span><span class="p">::</span><span class="n">content</span><span class="p">);</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
-<p><a href="../for/">FOR</a>, <a href="../select/">SELECT</a>, <a href="../insert/">INSERT</a>, <a href="../update/">UPDATE</a>, <a href="../delete/">DELETE</a></p>
+<p><a href="../insert/">INSERT</a>, <a href="../update/">UPDATE</a>, <a href="../delete/">DELETE</a>, <a href="../select/">SELECT</a>, <a href="../let/">LET</a></p>
 <hr />
-<p><a href="../select.md">← Back to SELECT</a></p>
+<p><a href="../select.md">← Back to DML</a></p>
 
 
 
@@ -1922,7 +1875,7 @@ and <code>b</code> references <code>a</code> — are detected by the planner and
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../merge/" class="md-footer__link md-footer__link--prev" aria-label="Previous: MERGE">
+          <a href="../delete/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DELETE">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1932,20 +1885,20 @@ and <code>b</code> references <code>a</code> — are detected by the planner and
                 Previous
               </span>
               <div class="md-ellipsis">
-                MERGE
+                DELETE
               </div>
             </div>
           </a>
         
         
           
-          <a href="../for/" class="md-footer__link md-footer__link--next" aria-label="Next: FOR Loops">
+          <a href="../let/" class="md-footer__link md-footer__link--next" aria-label="Next: LET">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                FOR Loops
+                LET
               </div>
             </div>
             <div class="md-footer__button md-icon">

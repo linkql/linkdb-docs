@@ -1013,6 +1013,8 @@
       
         
       
+        
+      
     
     
     
@@ -1279,6 +1281,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1748,17 +1778,17 @@
 
 <h1 id="update">UPDATE</h1>
 <p>Modifies existing rows or documents in a table or collection.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>update_stmt     ::= UPDATE identifier
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>update_stmt     ::= with_clause? UPDATE identifier ( AS? identifier )?
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                    ( with_free )?
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                    SET set_values
 </span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                    ( FROM from_clause )?
 </span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                    ( WHERE expr )?
 </span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                    ( CONFIRM string_literal )?
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>set_values      ::= set_expr ( &#39;,&#39; set_expr )*
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>set_expr        ::= identifier &#39;=&#39; expr
-</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                  | identifier &#39;=&#39; EXCLUDED &#39;.&#39; identifier
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                    ( RETURNING return_item ( &#39;,&#39; return_item )* )?
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>set_values      ::= set_expr ( &#39;,&#39; set_expr )*
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>set_expr        ::= identifier &#39;=&#39; expr
 </span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
 </span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>with_free       ::= WITH FREE free_source
 </span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
@@ -1785,6 +1815,11 @@ which rows to update.</p>
 <dl>
 <dt><code>identifier</code></dt>
 <dd>The name of the table or collection to update.</dd>
+<dt><code>with_clause</code></dt>
+<dd>Optional common table expression (<code>WITH</code> or <code>WITH RECURSIVE</code>) that provides
+named subqueries available within the <code>UPDATE</code> statement.</dd>
+<dt><code>AS? identifier</code></dt>
+<dd>Optional alias for the target table or collection.</dd>
 <dt><code>WITH FREE free_source</code></dt>
 <dd>
 <p>Declares free fields to update. Only valid on collections. Three forms are supported:</p>
@@ -1802,7 +1837,12 @@ engine resolves whether each field is defined or free automatically via the cata
 <dt><code>FROM from_clause</code></dt>
 <dd>Joins against one or more tables or collections when determining which rows to
 update. Follows the same syntax as the <a href="../select/from/"><code>FROM</code></a> clause in <code>SELECT</code>.</dd>
-<dt><code>WHERE expr</code></dt>
+</dl>
+<p><code>WHERE expr</code></p>
+<dl>
+<dt><code>RETURNING return_item</code></dt>
+<dd>Returns values from the updated rows. Can return <code>*</code> for all columns or
+specific expressions with optional aliases.</dd>
 <dd>Filters which rows or documents are updated. If omitted, all rows or documents in
 the table or collection are updated.</dd>
 <dt><code>CONFIRM string_literal</code></dt>
@@ -1901,7 +1941,7 @@ When disabled, documents missing the free field are skipped. Enabled by default.
 <h2 id="see-also">See Also</h2>
 <p><a href="../insert/">INSERT</a>, <a href="../delete/">DELETE</a>, <a href="../select/">SELECT</a>, <a href="../../functions.md">Functions</a></p>
 <hr />
-<p><a href="../../">← Back to DML</a></p>
+<p><a href="../select.md">← Back to DML</a></p>
 
 
 

@@ -1013,6 +1013,8 @@
       
         
       
+        
+      
     
     
     
@@ -1155,6 +1157,34 @@
     
   
     DELETE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MERGE
   
 
     
@@ -1759,8 +1789,8 @@ are accessed with double colon notation — <code>user::field</code>.</dd>
 binding name, or a subquery.</dd>
 <dt><code>for_statement</code></dt>
 <dd>A DML statement to apply on each iteration. Each statement must end with a
-semicolon. Only <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> are valid inside a <code>FOR</code> loop.
-DDL statements and nested <code>FOR</code> loops are not permitted.</dd>
+semicolon. Only <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> are valid inside a
+<code>FOR</code> loop. DDL statements and nested <code>FOR</code> loops are not permitted.</dd>
 </dl>
 <h2 id="transactions">Transactions</h2>
 <p><code>FOR</code> loops are implicitly transactional — all iterations are treated as a single
