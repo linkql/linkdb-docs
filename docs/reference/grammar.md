@@ -632,7 +632,11 @@ typed_literal   ::= DATE string_literal
 
 array_literal   ::= ARRAY '[' expr ( ',' expr )* ']'
 
-identifier      ::= letter ( letter | digit | '_' )*
+identifier      ::= unquoted_identifier | quoted_identifier
+
+unquoted_identifier ::= letter ( letter | digit | '_' )*
+
+quoted_identifier   ::= '"' any_char* '"'
 
 letter          ::= 'a'..'z' | 'A'..'Z' | '_'
 
