@@ -3095,11 +3095,15 @@
 </span><span id="True-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>
 </span><span id="True-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>array_literal   ::= ARRAY &#39;[&#39; expr ( &#39;,&#39; expr )* &#39;]&#39;
 </span><span id="True-18-24"><a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>
-</span><span id="True-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>identifier      ::= letter ( letter | digit | &#39;_&#39; )*
+</span><span id="True-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>identifier      ::= unquoted_identifier | quoted_identifier
 </span><span id="True-18-26"><a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>
-</span><span id="True-18-27"><a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>letter          ::= &#39;a&#39;..&#39;z&#39; | &#39;A&#39;..&#39;Z&#39; | &#39;_&#39;
+</span><span id="True-18-27"><a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>unquoted_identifier ::= letter ( letter | digit | &#39;_&#39; )*
 </span><span id="True-18-28"><a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a>
-</span><span id="True-18-29"><a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>digit           ::= &#39;0&#39;..&#39;9&#39;
+</span><span id="True-18-29"><a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>quoted_identifier   ::= &#39;&quot;&#39; any_char* &#39;&quot;&#39;
+</span><span id="True-18-30"><a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a>
+</span><span id="True-18-31"><a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a>letter          ::= &#39;a&#39;..&#39;z&#39; | &#39;A&#39;..&#39;Z&#39; | &#39;_&#39;
+</span><span id="True-18-32"><a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a>
+</span><span id="True-18-33"><a id="__codelineno-18-33" name="__codelineno-18-33" href="#__codelineno-18-33"></a>digit           ::= &#39;0&#39;..&#39;9&#39;
 </span></code></pre></div>
 <hr />
 <h2 id="see-also">See Also</h2>
