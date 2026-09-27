@@ -77,6 +77,8 @@ The `RETURNING` clause optionally returns values from the affected rows.
 ## Notes
 - The target must be a table or collection. A view cannot be modified.
 - At least one `WHEN MATCHED` or `WHEN NOT MATCHED` clause must be provided.
+- `UPDATE` and `DELETE` are only valid in a `WHEN MATCHED` clause, and `INSERT` and
+  `DO NOTHING` only in a `WHEN NOT MATCHED` clause. Any other combination is an error.
 - `MERGE` is not supported inside `FOR` loop bodies.
 - `MERGE` can be used inside a `LET` block as a valid DML statement.
 - The source dataset is evaluated once before any inserts or updates are applied.

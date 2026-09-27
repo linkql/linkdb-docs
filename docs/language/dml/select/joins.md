@@ -15,7 +15,7 @@ shorthand_condition ::= identifier '(' identifier ( ',' identifier )* ')'
 join_condition      ::= ON expr
                       | USING '(' identifier ( ',' identifier )* ')'
 
-join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | CROSS
+join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | OUTER | CROSS
 ```
 
 ## Description
