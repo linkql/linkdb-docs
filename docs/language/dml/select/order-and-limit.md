@@ -34,6 +34,20 @@ SELECT users.username FROM users
 ORDER BY users.country ASC, users.username ASC;
 ```
 
+### Ordering by an Output Alias
+An `ORDER BY` item can be the alias of a select item. The alias has to be the whole item:
+it cannot be qualified with a table name, used inside an expression such as
+`order_count + 1`, or used in `WHERE` or `GROUP BY`, where a name always means a column
+of the source. If an alias has the same name as a column of the source, `ORDER BY` uses
+the alias.
+
+```sql
+SELECT users.username, COUNT(orders.order_id) AS order_count
+FROM users, orders
+GROUP BY users.username
+ORDER BY order_count DESC;
+```
+
 ### ORDER BY with Set Operations
 After a set operation (`UNION`, `INTERSECT`, `EXCEPT`), `ORDER BY` sorts the combined
 result, so it may only name that result's columns — from the first query — rather than
