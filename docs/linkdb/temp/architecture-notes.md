@@ -22,12 +22,13 @@ Executor  → walks the plan tree, reads/writes via storage
 - No catalog access — stays clean and isolated (matches Postgres's `SelectStmt`/`RangeVar`
   layer, which is a literal structural translation of the SQL with no validation).
 
-**Analyzer** (`linkdb-analyzer`, not yet built)
+**Analyzer** (`linkdb-analyzer`)
 - Parse tree → query tree.
 - This is where `linkdb-catalog` gets consulted for the first time.
 - Resolves whether an identifier is a table or a collection.
 - Validates that referenced columns/fields actually exist.
-- Resolves types.
+- Resolves types. (Not yet: every `DataType` is currently an `"UNKNOWN"` placeholder,
+  and there is no type inference or function-signature validation.)
 - Roughly Postgres's `Query`/`RangeTblEntry`/`TargetEntry` layer — a `RangeVar("bar")`
   becomes something that knows `bar` is a table with known columns and an OID; a
   `ColumnRef("foo")` becomes something that knows it's column 3, type VARCHAR.

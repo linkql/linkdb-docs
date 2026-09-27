@@ -27,7 +27,7 @@ statement. It is LinkQL's equivalent of SQL's `WITH` clause (common table expres
 `LET` bindings are scoped to the statement they are defined in and cannot be referenced
 outside of it.
 
-`LET` can be used with `SELECT`, `INSERT`, `UPDATE`, and `DELETE`. Each binding is
+`LET` can be used with `SELECT`, `INSERT`, `UPDATE`, `DELETE`, and `MERGE`. Each binding is
 defined as a named subquery and can be referenced by name in subsequent bindings or
 in the final statement.
 
@@ -69,8 +69,11 @@ in the final statement.
 
 ## Chaining Bindings
 Multiple `LET` bindings are comma separated. A later binding can reference any
-earlier binding by name. Circular references — where binding `a` references `b`
-and `b` references `a` — are detected by the planner and return an error.
+earlier binding by name. A binding can only see the bindings defined before it, so
+circular references — where binding `a` references `b` and `b` references `a` —
+cannot occur. A reference to a later binding, or to the binding itself (unless it is
+`RECURSIVE`), is not treated as a `LET` name at all: it is looked up as an ordinary
+table, collection, or view name, and is an error if none exists.
 
 ```sql
 LET inactive_users = (
@@ -92,8 +95,10 @@ FROM inactive_users, LEFT inactive_sessions(user_id);
 - `LET` bindings are scoped to the statement they are defined in. They cannot be
   referenced outside of that statement.
 - A later binding can reference any earlier binding by name.
-- Circular references between bindings are detected by the planner and return an
-  error.
+- A binding can only reference bindings defined before it, so circular references
+  cannot occur. A name that is not yet defined is looked up as a table, collection,
+  or view instead. If one with that name exists, it is used without any error, so a
+  binding placed too early can silently read a table of the same name.
 - `LET` bindings can be used with `SELECT`, `INSERT`, `UPDATE`, `DELETE`, and `MERGE`.
 - `LET` is LinkQL's equivalent of SQL's `WITH` clause. Users familiar with CTEs
   will find `LET` behaves the same way.

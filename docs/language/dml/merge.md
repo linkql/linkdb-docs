@@ -45,7 +45,7 @@ The `RETURNING` clause optionally returns values from the affected rows.
 
 `USING merge_source`
 :   The source dataset to compare against the target. Can be a table, collection,
-    or a subquery.
+    view, or a subquery.
 
 `ON expr`
 :   The matching condition evaluated for each source row against the target.

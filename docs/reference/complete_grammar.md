@@ -308,7 +308,7 @@ shorthand_join      ::= identifier
                       | join_type identifier '(' identifier (',' identifier)* ')'
                       | join_type identifier '(' identifier (',' identifier)* ')' ON shorthand_condition
 
-shorthand_condition ::= identifier '(' identifier ')'
+shorthand_condition ::= identifier '(' identifier ( ',' identifier )* ')'
                       | expr
 
 join_condition      ::= ON expr

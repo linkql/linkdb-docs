@@ -36,8 +36,8 @@ into the block.
     are accessed with double colon notation — `user::field`.
 
 `for_source`
-:   The result set to iterate over. Can be a table or collection identifier, a LET
-    binding name, or a subquery.
+:   The result set to iterate over. Can be a table, collection, or view identifier, a
+    LET binding name, or a subquery.
 
 `for_statement`
 :   A DML statement to apply on each iteration. Each statement must end with a
