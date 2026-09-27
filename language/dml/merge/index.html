@@ -2175,7 +2175,7 @@ provided, but at minimum one must be present.</p>
 named subqueries available within the <code>MERGE</code> statement.</dd>
 <dt><code>USING merge_source</code></dt>
 <dd>The source dataset to compare against the target. Can be a table, collection,
-or a subquery.</dd>
+view, or a subquery.</dd>
 <dt><code>ON expr</code></dt>
 <dd>The matching condition evaluated for each source row against the target.
 Typically an equality comparison on key columns.</dd>
@@ -2194,11 +2194,16 @@ which matched rows are deleted.</dd>
 restrict which unmatched rows are skipped.</dd>
 <dt><code>RETURNING return_item</code></dt>
 <dd>Returns values from the merged rows. Can return <code>*</code> for all columns or
-specific expressions with optional aliases.</dd>
+specific expressions with optional aliases. <code>*</code> returns every column of the target
+followed by the columns of the source. For a collection, <code>*</code> and <code>collection::*</code>
+also return free fields.</dd>
 </dl>
 <h2 id="notes">Notes</h2>
 <ul>
+<li>The target must be a table or collection. A view cannot be modified.</li>
 <li>At least one <code>WHEN MATCHED</code> or <code>WHEN NOT MATCHED</code> clause must be provided.</li>
+<li><code>UPDATE</code> and <code>DELETE</code> are only valid in a <code>WHEN MATCHED</code> clause, and <code>INSERT</code> and
+  <code>DO NOTHING</code> only in a <code>WHEN NOT MATCHED</code> clause. Any other combination is an error.</li>
 <li><code>MERGE</code> is not supported inside <code>FOR</code> loop bodies.</li>
 <li><code>MERGE</code> can be used inside a <code>LET</code> block as a valid DML statement.</li>
 <li>The source dataset is evaluated once before any inserts or updates are applied.</li>
@@ -2268,7 +2273,7 @@ specific expressions with optional aliases.</dd>
 </span><span id="True-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="k">source</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">DEFAULT</span><span class="p">);</span>
 </span></code></pre></div>
 <div class="language-sql highlight"><span class="filename">MERGE inside a LET block</span><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">LET</span>
-</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="n">new_data</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="n">new_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
 </span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">email</span>
 </span><span id="True-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">staging_users</span>
 </span><span id="True-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span>

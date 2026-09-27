@@ -2229,10 +2229,12 @@ with a column list.</dd>
 for both defined and free fields.</dd>
 <dt><code>RETURNING return_item</code></dt>
 <dd>Returns values from the inserted rows. Can return <code>*</code> for all columns or
-specific expressions with optional aliases.</dd>
+specific expressions with optional aliases. For a collection, <code>*</code> and
+<code>collection::*</code> also return free fields.</dd>
 </dl>
 <h2 id="notes">Notes</h2>
 <ul>
+<li>The target must be a table or collection. A view cannot be modified.</li>
 <li>If no column list is provided, values must be given for all defined fields in their
   defined order. Free fields cannot be inserted without a column list and <code>WITH FREE</code>.</li>
 <li><code>WITH FREE</code> is only valid on collections. Using it on a table returns an error.</li>

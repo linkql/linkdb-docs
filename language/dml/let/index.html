@@ -2184,7 +2184,7 @@
 statement. It is LinkQL's equivalent of SQL's <code>WITH</code> clause (common table expressions).
 <code>LET</code> bindings are scoped to the statement they are defined in and cannot be referenced
 outside of it.</p>
-<p><code>LET</code> can be used with <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>. Each binding is
+<p><code>LET</code> can be used with <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>MERGE</code>. Each binding is
 defined as a named subquery and can be referenced by name in subsequent bindings or
 in the final statement.</p>
 <h2 id="parameters">Parameters</h2>
@@ -2218,8 +2218,11 @@ names for the result columns. The <code>AS</code> clause wraps the defining <cod
 </dl>
 <h2 id="chaining-bindings">Chaining Bindings</h2>
 <p>Multiple <code>LET</code> bindings are comma separated. A later binding can reference any
-earlier binding by name. Circular references — where binding <code>a</code> references <code>b</code>
-and <code>b</code> references <code>a</code> — are detected by the planner and return an error.</p>
+earlier binding by name. A binding can only see the bindings defined before it, so
+circular references — where binding <code>a</code> references <code>b</code> and <code>b</code> references <code>a</code> —
+cannot occur. A reference to a later binding, or to the binding itself (unless it is
+<code>RECURSIVE</code>), is not treated as a <code>LET</code> name at all: it is looked up as an ordinary
+table, collection, or view name, and is an error if none exists.</p>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">LET</span><span class="w"> </span><span class="n">inactive_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
 </span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
 </span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
@@ -2239,8 +2242,10 @@ and <code>b</code> references <code>a</code> — are detected by the planner and
 <li><code>LET</code> bindings are scoped to the statement they are defined in. They cannot be
   referenced outside of that statement.</li>
 <li>A later binding can reference any earlier binding by name.</li>
-<li>Circular references between bindings are detected by the planner and return an
-  error.</li>
+<li>A binding can only reference bindings defined before it, so circular references
+  cannot occur. A name that is not yet defined is looked up as a table, collection,
+  or view instead. If one with that name exists, it is used without any error, so a
+  binding placed too early can silently read a table of the same name.</li>
 <li><code>LET</code> bindings can be used with <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>MERGE</code>.</li>
 <li><code>LET</code> is LinkQL's equivalent of SQL's <code>WITH</code> clause. Users familiar with CTEs
   will find <code>LET</code> behaves the same way.</li>

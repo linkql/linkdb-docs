@@ -2371,10 +2371,15 @@ with double colon notation — <code>collection::field</code>.</p>
 <h3 id="wildcard">Wildcard</h3>
 <p>Selects all columns and fields from all tables and collections in the query. Cannot
 be combined with <code>DISTINCT</code>.</p>
+<p>When the query uses a <code>NATURAL</code> join, a <code>USING</code> join, or a bare shorthand join, each
+merged join column is returned once, ahead of the other columns. See
+<a href="../joins/#merged-columns">Merged Columns</a>. A subquery, CTE, or view that selects <code>*</code>
+exposes all of its columns to the query that uses it.</p>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </span></code></pre></div>
 <h3 id="table-wildcard">Table Wildcard</h3>
-<p>Selects all columns from a specific table.</p>
+<p>Selects all columns from a specific table. Unlike <code>*</code>, it never merges columns: every
+column of the table is returned, including the ones a <code>NATURAL</code> or <code>USING</code> join merges.</p>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </span></code></pre></div>
 <h3 id="collection-wildcard">Collection Wildcard</h3>

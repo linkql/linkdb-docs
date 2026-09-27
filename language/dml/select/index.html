@@ -2027,7 +2027,7 @@
 
 
 <h1 id="select">SELECT</h1>
-<p>Retrieves data from one or more tables or collections.</p>
+<p>Retrieves data from one or more tables, collections, or views.</p>
 <div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>select_stmt         ::= with_clause? intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )*
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                          ( ORDER BY order_item ( &#39;,&#39; order_item )* )?
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                          limit_clause?
@@ -2075,33 +2075,32 @@
 </span><span id="True-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>                      | UNNEST &#39;(&#39; expr ( &#39;,&#39; expr )* &#39;)&#39;
 </span><span id="True-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>                          ( WITH ORDINALITY )? ( AS? identifier )?
 </span><span id="True-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
-</span><span id="True-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
+</span><span id="True-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition?
 </span><span id="True-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>
-</span><span id="True-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>shorthand_join      ::= identifier
-</span><span id="True-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>                      | join_type identifier
-</span><span id="True-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; ON shorthand_condition
-</span><span id="True-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>
-</span><span id="True-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>shorthand_condition ::= identifier &#39;(&#39; identifier &#39;)&#39;
-</span><span id="True-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>                      | expr
-</span><span id="True-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>
-</span><span id="True-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>join_condition      ::= ON expr
-</span><span id="True-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>                      | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
-</span><span id="True-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>
-</span><span id="True-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | CROSS
-</span><span id="True-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>
-</span><span id="True-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>window_definition   ::= identifier AS &#39;(&#39; window_spec &#39;)&#39;
-</span><span id="True-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>
-</span><span id="True-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>limit_clause        ::= LIMIT expr ( OFFSET expr )?
-</span><span id="True-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>                      | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )?
-</span><span id="True-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>                      | FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )?
-</span><span id="True-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>
-</span><span id="True-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>for_clause          ::= FOR ( UPDATE | NO KEY UPDATE | SHARE | KEY SHARE )
-</span><span id="True-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>                          ( OF identifier ( &#39;,&#39; identifier )* )?
-</span><span id="True-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>                          ( NOWAIT | SKIP LOCKED )?
+</span><span id="True-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>shorthand_join      ::= join_type? identifier
+</span><span id="True-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>                      | join_type? identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
+</span><span id="True-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>                      | join_type? identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39; ON shorthand_condition
+</span><span id="True-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>
+</span><span id="True-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>shorthand_condition ::= identifier &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
+</span><span id="True-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>                      | expr
+</span><span id="True-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>
+</span><span id="True-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>join_condition      ::= ON expr
+</span><span id="True-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>                      | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
+</span><span id="True-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>
+</span><span id="True-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | OUTER | CROSS
+</span><span id="True-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>
+</span><span id="True-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>window_definition   ::= identifier AS &#39;(&#39; window_spec &#39;)&#39;
+</span><span id="True-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>
+</span><span id="True-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>limit_clause        ::= LIMIT expr ( OFFSET expr )?
+</span><span id="True-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>                      | OFFSET expr ( ROW | ROWS )? ( FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )? )?
+</span><span id="True-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>                      | FETCH FIRST expr ( ROW | ROWS ) ( ONLY | WITH TIES )?
+</span><span id="True-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>
+</span><span id="True-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>for_clause          ::= FOR ( UPDATE | NO KEY UPDATE | SHARE | KEY SHARE )
+</span><span id="True-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>                          ( OF identifier ( &#39;,&#39; identifier )* )?
+</span><span id="True-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>                          ( NOWAIT | SKIP LOCKED )?
 </span></code></pre></div>
 <h2 id="description">Description</h2>
-<p><code>SELECT</code> retrieves rows from one or more tables or collections. Results can be filtered,
+<p><code>SELECT</code> retrieves rows from one or more tables, collections, or views. Results can be filtered,
 grouped, ordered, and limited. LinkQL extends standard SQL <code>SELECT</code> with shorthand join
 syntax, <code>LET</code> blocks for named subqueries, <code>FOR</code> loops for row level operations, and
 support for querying both tables and collections in a single statement.</p>
@@ -2111,7 +2110,7 @@ with double colon notation — <code>collection::field</code>.</p>
 <p><em>Click for more info</em></p>
 <ul>
 <li><a href="select-items/">SELECT ITEMS</a> - specifies source columns to retrieve from your FROM clause</li>
-<li><a href="from/">FROM</a> — specifies the source tables and collections, including join syntax</li>
+<li><a href="from/">FROM</a> — specifies the source tables, collections, and views, including join syntax</li>
 <li><a href="joins/">JOIN</a> — joins tables and collections together</li>
 <li><a href="where/">WHERE</a> — filters rows based on a condition</li>
 <li><a href="grouping/">GROUP BY / HAVING</a> — groups rows and filters groups</li>

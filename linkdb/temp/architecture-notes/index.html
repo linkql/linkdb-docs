@@ -2066,12 +2066,13 @@ to keep concerns clean):</p>
 - Tokens → parse tree. Doesn't know or care if referenced tables/columns exist.
 - No catalog access — stays clean and isolated (matches Postgres's <code>SelectStmt</code>/<code>RangeVar</code>
   layer, which is a literal structural translation of the SQL with no validation).</p>
-<p><strong>Analyzer</strong> (<code>linkdb-analyzer</code>, not yet built)
+<p><strong>Analyzer</strong> (<code>linkdb-analyzer</code>)
 - Parse tree → query tree.
 - This is where <code>linkdb-catalog</code> gets consulted for the first time.
 - Resolves whether an identifier is a table or a collection.
 - Validates that referenced columns/fields actually exist.
-- Resolves types.
+- Resolves types. (Not yet: every <code>DataType</code> is currently an <code>"UNKNOWN"</code> placeholder,
+  and there is no type inference or function-signature validation.)
 - Roughly Postgres's <code>Query</code>/<code>RangeTblEntry</code>/<code>TargetEntry</code> layer — a <code>RangeVar("bar")</code>
   becomes something that knows <code>bar</code> is a table with known columns and an OID; a
   <code>ColumnRef("foo")</code> becomes something that knows it's column 3, type VARCHAR.

@@ -2201,11 +2201,10 @@
 </span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                  | UNPACK &#39;(&#39; expr &#39;)&#39;
 </span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                  | UNPACK &#39;(&#39; &#39;)&#39;
 </span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>from_clause     ::= from_item ( &#39;,&#39; join_clause )*
-</span><span id="True-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="True-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>from_item       ::= identifier ( AS? identifier )?
-</span><span id="True-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                  | &#39;(&#39; select_stmt &#39;)&#39; AS identifier
+</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>from_clause     ::= from_item ( &#39;,&#39; shorthand_join )* ( traditional_join )*
 </span></code></pre></div>
+<p><code>from_clause</code>, <code>from_item</code>, <code>shorthand_join</code>, and <code>traditional_join</code> are defined in
+<a href="../select/">SELECT</a>.</p>
 <h2 id="description">Description</h2>
 <p><code>UPDATE</code> modifies one or more rows or documents in a table or collection. Rows can be
 filtered with a <code>WHERE</code> clause. If no <code>WHERE</code> clause is provided, all rows or documents
@@ -2242,14 +2241,15 @@ engine resolves whether each field is defined or free automatically via the cata
 <dt><code>FROM from_clause</code></dt>
 <dd>Joins against one or more tables or collections when determining which rows to
 update. Follows the same syntax as the <a href="../select/from/"><code>FROM</code></a> clause in <code>SELECT</code>.</dd>
-</dl>
-<p><code>WHERE expr</code></p>
-<dl>
-<dt><code>RETURNING return_item</code></dt>
-<dd>Returns values from the updated rows. Can return <code>*</code> for all columns or
-specific expressions with optional aliases.</dd>
+<dt><code>WHERE expr</code></dt>
 <dd>Filters which rows or documents are updated. If omitted, all rows or documents in
 the table or collection are updated.</dd>
+<dt><code>RETURNING return_item</code></dt>
+<dd>Returns values from the updated rows. Can return <code>*</code> for all columns or
+specific expressions with optional aliases. <code>*</code> returns every column of the target
+followed by the columns of any <code>FROM</code> tables, with <code>NATURAL</code> and <code>USING</code> join
+columns merged into one. <code>table.*</code> returns the columns of one table. For a
+collection, <code>*</code> and <code>collection::*</code> also return free fields.</dd>
 <dt><code>CONFIRM string_literal</code></dt>
 <dd>A confirmation string that must match the name of the table or collection being
 updated. Required when <code>CONFIRM_BULK_OPERATIONS</code> is enabled on the database and no
@@ -2294,6 +2294,7 @@ When disabled, documents missing the free field are skipped. Enabled by default.
 </dl>
 <h2 id="notes">Notes</h2>
 <ul>
+<li>The target must be a table or collection. A view cannot be modified.</li>
 <li>If no <code>WHERE</code> clause is provided, all rows or documents are updated.</li>
 <li>The engine resolves whether a field is defined or free automatically via the catalog.</li>
 <li><code>WITH FREE</code> is only valid on collections. Using it on a table returns an error.</li>

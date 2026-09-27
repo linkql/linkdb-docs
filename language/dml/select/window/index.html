@@ -2198,6 +2198,10 @@ ranking functions and frame-based calculations.</dd>
 <li>Aggregate functions can also be used as window functions with <code>OVER</code>.</li>
 <li><code>NULLS FIRST</code> and <code>NULLS LAST</code> control null ordering within <code>ORDER BY</code> in the
   window specification.</li>
+<li><code>OVER name</code> must refer to a window defined in the <code>WINDOW</code> clause of the same
+  <code>SELECT</code>. A name that is not defined there is an error.</li>
+<li>A subquery cannot use the named windows of the query around it. Define the window in
+  the subquery itself.</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <div class="language-sql highlight"><span class="filename">Window function with no partition, order, or frame</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>

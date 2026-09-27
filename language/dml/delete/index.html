@@ -2167,11 +2167,10 @@
 </span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                    ( CONFIRM string_literal )?
 </span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                    ( RETURNING return_item ( &#39;,&#39; return_item )* )?
 </span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>from_clause     ::= from_item ( &#39;,&#39; join_clause )*
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>from_item       ::= identifier ( AS? identifier )?
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                  | &#39;(&#39; select_stmt &#39;)&#39; AS identifier
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>from_clause     ::= from_item ( &#39;,&#39; shorthand_join )* ( traditional_join )*
 </span></code></pre></div>
+<p><code>from_clause</code>, <code>from_item</code>, <code>shorthand_join</code>, and <code>traditional_join</code> are defined in
+<a href="../select/">SELECT</a>.</p>
 <h2 id="description">Description</h2>
 <p><code>DELETE FROM</code> removes one or more rows or documents from a table or collection. Rows
 can be filtered with a <code>WHERE</code> clause. If no <code>WHERE</code> clause is provided, all rows or
@@ -2199,7 +2198,10 @@ deleted from. Required when <code>CONFIRM_BULK_OPERATIONS</code> is enabled on t
 and no <code>WHERE</code> clause is provided.</dd>
 <dt><code>RETURNING return_item</code></dt>
 <dd>Returns values from the deleted rows. Can return <code>*</code> for all columns or
-specific expressions with optional aliases.</dd>
+specific expressions with optional aliases. <code>*</code> returns every column of the target
+followed by the columns of any <code>USING</code> tables, with <code>NATURAL</code> and <code>USING</code> join
+columns merged into one. <code>table.*</code> returns the columns of one table. For a
+collection, <code>*</code> and <code>collection::*</code> also return free fields.</dd>
 </dl>
 <h2 id="database-settings">Database Settings</h2>
 <dl>
@@ -2209,6 +2211,7 @@ with no <code>WHERE</code> clause. Disabled by default.</dd>
 </dl>
 <h2 id="notes">Notes</h2>
 <ul>
+<li>The target must be a table or collection. A view cannot be modified.</li>
 <li>If no <code>WHERE</code> clause is provided, all rows or documents are deleted.</li>
 <li>Deleting a document from a collection removes it entirely including all defined and
   free fields.</li>

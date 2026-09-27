@@ -1278,6 +1278,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#subquery" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2141,6 +2152,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#subquery" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2227,36 +2249,47 @@
 </span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                      ( WITH ORDINALITY )? ( AS? identifier )?
 </span></code></pre></div>
 <h2 id="description">Description</h2>
-<p>The <code>FROM</code> clause defines the source tables and collections for a <code>SELECT</code> statement.
-It can reference a single table or collection, multiple sources joined together, or a
-subquery. Joins are specified as part of the <code>FROM</code> clause — see <a href="../joins/">Joins</a> for
+<p>The <code>FROM</code> clause defines the source tables, collections, and views for a <code>SELECT</code>
+statement. It can reference a single table, collection, or view, multiple sources joined
+together, or a subquery. Joins are specified as part of the <code>FROM</code> clause — see <a href="../joins/">Joins</a> for
 full join syntax and behavior.</p>
 <h2 id="source-types">Source Types</h2>
 <h3 id="table-or-collection">Table or Collection</h3>
 <p>A direct reference to a table or collection by name. An optional alias can be assigned
-with or without the <code>AS</code> keyword.</p>
+with or without the <code>AS</code> keyword. Once a table has an alias it is referred to by that
+alias only: with <code>FROM users AS u</code>, write <code>u.username</code>, not <code>users.username</code>.</p>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">-- With alias</span>
 </span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
 </span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
 </span></code></pre></div>
+<h3 id="view">View</h3>
+<p>A view is queried like a table. Views are read-only: they can be read in <code>FROM</code> and
+joins, in the <code>USING</code> clause of <code>DELETE</code> and the <code>FROM</code> clause of <code>UPDATE</code>, as a <code>MERGE</code>
+source, and as a <code>FOR</code> source, but <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>MERGE</code> cannot modify
+one. See <a href="../../../ddl/create/create-view/">CREATE VIEW</a>.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">active_users</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">active_users</span><span class="p">;</span>
+</span></code></pre></div>
 <h3 id="subquery">Subquery</h3>
 <p>A subquery can be used as a source in the <code>FROM</code> clause. Subqueries must always be
 aliased with <code>AS</code>.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">active</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span>
-</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">active</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span>
+</span><span id="True-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active</span><span class="p">;</span>
 </span></code></pre></div>
+<p>A subquery in <code>FROM</code> can reference columns of the queries that enclose it, but not the
+other items in its own <code>FROM</code> clause. Prefix it with <code>LATERAL</code> to let it reference the
+items listed before it. See <a href="../subqueries/">Subqueries</a>.</p>
 <h3 id="multiple-sources">Multiple Sources</h3>
 <p>Multiple sources are comma separated. When multiple sources are listed, joins are
 resolved left to right with the first source as the base table. See <a href="../joins/">Joins</a>
 for full join behavior.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
 </span></code></pre></div>
 <h2 id="notes">Notes</h2>
 <ul>
@@ -2267,24 +2300,24 @@ for full join behavior.</p>
 <li>See <a href="../joins/">Joins</a> for full join syntax including traditional and shorthand joins.</li>
 </ul>
 <h2 id="examples">Examples</h2>
-<div class="language-sql highlight"><span class="filename">Single table</span><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">first_name</span>
-</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Single table</span><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">first_name</span>
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Single collection</span><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">created_at</span>
-</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Single collection</span><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">created_at</span>
+</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">posts</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Table with alias</span><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">first_name</span>
-</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Table with alias</span><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">first_name</span>
+</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Subquery as source</span><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">active</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
-</span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span>
-</span><span id="True-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Subquery as source</span><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">active</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+</span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">last_login</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span>
+</span><span id="True-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Multiple sources with a join</span><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+<div class="language-sql highlight"><span class="filename">Multiple sources with a join</span><pre><span></span><code><span id="True-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
 <p><a href="../joins/">Joins</a>, <a href="../where/">WHERE</a>, <a href="../select-items/">SELECT Items</a></p>

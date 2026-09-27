@@ -2467,7 +2467,8 @@ a non-<code>NULL</code> value as distinct.</p>
 </span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">previous_email</span>
 </span></code></pre></div>
 <h3 id="quantified-comparisons-any-some-all">Quantified Comparisons (ANY / SOME / ALL)</h3>
-<p>Compares a value against all rows returned by a subquery.</p>
+<p>Compares a value against all rows returned by a subquery. As with <code>IN</code>, the subquery must
+return as many columns as there are values on the left.</p>
 <ul>
 <li><code>ANY</code> and <code>SOME</code> are synonyms — the condition is true if it holds for <strong>at least one</strong>
   row returned by the subquery.</li>
@@ -2505,7 +2506,9 @@ the condition.</p>
 </span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">65</span>
 </span></code></pre></div>
 <h3 id="in">IN</h3>
-<p>Tests whether a value matches any value in a list or subquery.</p>
+<p>Tests whether a value matches any value in a list or subquery. A subquery must return as
+many columns as there are values on the left: one, or one per item of a row expression
+such as <code>(first_name, last_name)</code>.</p>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pending&#39;</span><span class="p">)</span>
 </span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;banned&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;deleted&#39;</span><span class="p">)</span>
 </span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>

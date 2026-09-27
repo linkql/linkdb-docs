@@ -1305,6 +1305,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#natural-and-using-joins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NATURAL and USING Joins
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NATURAL and USING Joins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#merged-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merged Columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#joining-against-the-whole-left-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Joining Against the Whole Left Side
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#shorthand-joins" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2184,6 +2223,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#natural-and-using-joins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NATURAL and USING Joins
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NATURAL and USING Joins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#merged-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merged Columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#joining-against-the-whole-left-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Joining Against the Whole Left Side
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#shorthand-joins" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2307,21 +2385,20 @@
 
 <h1 id="joins">Joins</h1>
 <p>Combines rows from multiple tables and collections in a single query.</p>
-<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
+<div class="language-text highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition?
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>shorthand_join      ::= identifier
-</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                      | join_type identifier
-</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                      | join_type identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                            ON shorthand_condition
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>shorthand_condition ::= identifier &#39;(&#39; identifier &#39;)&#39;
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                      | expr
-</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>join_condition      ::= ON expr
-</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                      | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
-</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | CROSS
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>shorthand_join      ::= join_type? identifier
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                      | join_type? identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                      | join_type? identifier &#39;(&#39; identifier (&#39;,&#39; identifier)* &#39;)&#39;
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                            ON shorthand_condition
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>shorthand_condition ::= identifier &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                      | expr
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>join_condition      ::= ON expr
+</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                      | USING &#39;(&#39; identifier ( &#39;,&#39; identifier )* &#39;)&#39;
+</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>join_type           ::= INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | OUTER | CROSS
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p>LinkQL supports two join syntaxes — traditional SQL joins and a shorthand join syntax
@@ -2384,6 +2461,62 @@ to <code>INNER</code>.</p>
 </span><span id="True-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
 </span><span id="True-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
 </span></code></pre></div>
+<h2 id="natural-and-using-joins">NATURAL and USING Joins</h2>
+<p><code>NATURAL JOIN</code> and <code>USING</code> join on columns that have the same name on both sides, and
+behave as in standard SQL.</p>
+<dl>
+<dt><code>NATURAL JOIN</code></dt>
+<dd>Joins on every column name the two sides have in common. If there are none, an
+error is returned.</dd>
+<dt><code>USING ( column, ... )</code></dt>
+<dd>Joins on the listed columns. Each one must exist on both sides.</dd>
+</dl>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- NATURAL join</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">NATURAL</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">-- USING with more than one column</span>
+</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">order_items</span><span class="p">.</span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="n">shipments</span><span class="p">.</span><span class="n">carrier</span>
+</span><span id="True-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">FROM</span><span class="w"> </span><span class="n">order_items</span>
+</span><span id="True-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">shipments</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="n">item_id</span><span class="p">);</span>
+</span></code></pre></div>
+<h3 id="merged-columns">Merged Columns</h3>
+<p>A column joined with <code>NATURAL</code> or <code>USING</code> is merged: the two columns become one, and
+the result contains it only once. Its value is the left value, or the right value for
+rows with no match on the left (<code>RIGHT</code> and <code>FULL</code> joins).</p>
+<ul>
+<li><code>SELECT *</code> returns the merged columns first — in <code>USING</code> order, or in the left side's
+  column order for <code>NATURAL</code> — followed by the remaining columns of the left side and
+  then of the right side.</li>
+<li>An unqualified reference to a merged column is not ambiguous, even though both
+  tables have it.</li>
+<li>A qualified reference such as <code>users.user_id</code> or <code>orders.user_id</code> still refers to
+  that table's own column, and <code>users.*</code> returns every column of <code>users</code>, merged or not.</li>
+<li>Columns that share a name but are <strong>not</strong> in the join are not merged. They still have
+  to be qualified.</li>
+</ul>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- users(user_id, username), orders(order_id, user_id, total)</span>
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">-- returns: user_id, username, order_id, total</span>
+</span><span id="True-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="True-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Joins written with <code>ON</code> never merge columns: both <code>user_id</code> columns are returned by
+<code>SELECT *</code>.</p>
+<h3 id="joining-against-the-whole-left-side">Joining Against the Whole Left Side</h3>
+<p>In a chain of joins, <code>NATURAL</code> and <code>USING</code> relate the new table to <strong>everything</strong> already
+joined to its left, not only the table just before it.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- region_id is only on users, which is not the table just before regions</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span>
+</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">regions</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">region_id</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Each <code>USING</code> column must therefore exist exactly once on the left side. If two tables
+on the left both have it and were not merged (for example, because they were joined with
+<code>ON</code>), an error is returned; use an <code>ON</code> condition to say which one you mean. A <code>USING</code>
+column that is missing from the left side or from the joined table is also an error.</p>
 <h2 id="shorthand-joins">Shorthand Joins</h2>
 <p>Shorthand joins are a LinkQL specific syntax designed to reduce verbosity. They are
 specified as part of the comma separated source list in the <code>FROM</code> clause. The first
@@ -2391,48 +2524,60 @@ source listed is always the base table — shorthand joins always join against i
 <h3 id="basic-shorthand">Basic Shorthand</h3>
 <p>A bare identifier after the base table defaults to an <code>INNER</code> join on any shared
 column names. If no shared column exists, an error is returned.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- INNER join on shared column name</span>
-</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
-</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
+<p>A bare shorthand join is a natural join against the base table, so the shared columns
+are merged — see <a href="#merged-columns">Merged Columns</a>. Shorthand joins with columns or an
+<code>ON</code> clause compare with an equality instead, and merge nothing.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">-- INNER join on shared column name</span>
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
+</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
 </span></code></pre></div>
 <h3 id="shorthand-with-join-type">Shorthand with Join Type</h3>
 <p>A join type before the identifier specifies the type of join.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- LEFT join on shared column name</span>
-</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- LEFT join on shared column name</span>
+</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">;</span>
 </span></code></pre></div>
 <h3 id="shorthand-with-columns">Shorthand with Columns</h3>
 <p>Columns in parentheses specify which columns to join on. All specified columns must
 be shared between the base table and the joined source or an error is returned.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- Join on specific shared columns</span>
-</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
-</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">-- LEFT join on specific shared columns</span>
-</span><span id="True-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">friends</span><span class="p">.</span><span class="n">username</span>
-</span><span id="True-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">friends</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Join on specific shared columns</span>
+</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+</span><span id="True-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="True-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1">-- LEFT join on specific shared columns</span>
+</span><span id="True-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">friends</span><span class="p">.</span><span class="n">username</span>
+</span><span id="True-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">friends</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+</span><span id="True-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="True-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="c1">-- Join on several columns</span>
+</span><span id="True-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">order_items</span><span class="p">.</span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="n">shipments</span><span class="p">.</span><span class="n">carrier</span>
+</span><span id="True-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="k">FROM</span><span class="w"> </span><span class="n">order_items</span><span class="p">,</span><span class="w"> </span><span class="n">shipments</span><span class="p">(</span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="n">item_id</span><span class="p">);</span>
 </span></code></pre></div>
 <h3 id="shorthand-with-on">Shorthand with ON</h3>
 <p>The <code>ON</code> clause overrides the default column matching when column names differ between
 sources. Both a shorthand form and a full expression form are valid.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">-- Shorthand ON form</span>
-</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
-</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="True-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">-- Full expression ON form</span>
-</span><span id="True-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- Shorthand ON form</span>
+</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+</span><span id="True-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="True-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1">-- Full expression ON form</span>
+</span><span id="True-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="p">;</span>
+</span></code></pre></div>
+<p>With several columns, list them in both sets of parentheses. They are matched by
+position, so both lists must be the same length or an error is returned.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">order_items</span><span class="p">.</span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="n">shipments</span><span class="p">.</span><span class="n">carrier</span>
+</span><span id="True-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">order_items</span><span class="p">,</span><span class="w"> </span><span class="n">shipments</span><span class="p">(</span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="n">item_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">order_items</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
 </span></code></pre></div>
 <h2 id="mixing-traditional-and-shorthand">Mixing Traditional and Shorthand</h2>
 <p>Traditional and shorthand joins can be mixed freely in the same query.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span>
-</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
-</span><span id="True-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span><span class="p">,</span>
-</span><span id="True-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">comments</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">FROM</span>
-</span><span id="True-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="n">users</span><span class="p">,</span>
-</span><span id="True-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="True-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="n">comments</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">post_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="True-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">SELECT</span>
+</span><span id="True-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+</span><span id="True-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span><span class="p">,</span>
+</span><span id="True-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="n">comments</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">FROM</span>
+</span><span id="True-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="n">users</span><span class="p">,</span>
+</span><span id="True-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</span><span id="True-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="n">comments</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">post_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span><span class="p">;</span>
 </span></code></pre></div>
 <h2 id="notes">Notes</h2>
 <ul>
@@ -2442,35 +2587,41 @@ sources. Both a shorthand form and a full expression form are valid.</p>
 <li>Shorthand join columns must be shared between the base table and the joined source.
   If a specified column does not exist on both sources, an error is returned.</li>
 <li>Traditional and shorthand joins can be mixed in the same query.</li>
+<li>A traditional join needs an <code>ON</code> or <code>USING</code> condition, except for <code>CROSS</code> and <code>NATURAL</code>
+  joins, which take none.</li>
+<li><code>NATURAL</code> and <code>USING</code> joins, and bare shorthand joins, merge their joined columns.
+  <code>ON</code> joins, and shorthand joins with columns, do not.</li>
+<li><code>NATURAL</code> and <code>USING</code> relate the joined table to the whole left side of the join, not
+  only the table before it. A shorthand join always relates to the base table.</li>
 <li>Joins work across tables and collections. The engine resolves whether a target is a
   table or collection automatically.</li>
 </ul>
 <h2 id="examples">Examples</h2>
-<div class="language-sql highlight"><span class="filename">Traditional INNER join</span><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
-</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Traditional INNER join</span><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
+</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Traditional LEFT join across table and collection</span><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
-</span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Traditional LEFT join across table and collection</span><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Shorthand join on shared column</span><pre><span></span><code><span id="True-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
-</span><span id="True-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Shorthand join on shared column</span><pre><span></span><code><span id="True-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
+</span><span id="True-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Shorthand LEFT join with specific columns</span><pre><span></span><code><span id="True-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+<div class="language-sql highlight"><span class="filename">Shorthand LEFT join with specific columns</span><pre><span></span><code><span id="True-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Shorthand join with ON override</span><pre><span></span><code><span id="True-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<div class="language-sql highlight"><span class="filename">Shorthand join with ON override</span><pre><span></span><code><span id="True-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Mixed traditional and shorthand joins</span><pre><span></span><code><span id="True-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SELECT</span>
-</span><span id="True-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
-</span><span id="True-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span><span class="p">,</span>
-</span><span id="True-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">COUNT_ARRAY</span><span class="p">(</span><span class="n">comments</span><span class="p">::</span><span class="n">likes</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">num_likes</span>
-</span><span id="True-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">FROM</span>
-</span><span id="True-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="n">users</span><span class="p">,</span>
-</span><span id="True-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="True-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">comments</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">post_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Mixed traditional and shorthand joins</span><pre><span></span><code><span id="True-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">SELECT</span>
+</span><span id="True-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+</span><span id="True-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span><span class="p">,</span>
+</span><span id="True-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="n">COUNT_ARRAY</span><span class="p">(</span><span class="n">comments</span><span class="p">::</span><span class="n">likes</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">num_likes</span>
+</span><span id="True-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="k">FROM</span>
+</span><span id="True-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="n">users</span><span class="p">,</span>
+</span><span id="True-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="k">LEFT</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</span><span id="True-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">comments</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">post_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">post_id</span><span class="p">;</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
 <p><a href="../from/">FROM</a>, <a href="../where/">WHERE</a>, <a href="../select-items/">SELECT Items</a></p>

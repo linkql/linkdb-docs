@@ -2054,6 +2054,11 @@ exists. A notice is issued instead. Cannot be combined with <code>OR REPLACE</co
 <li><code>CREATE OR REPLACE VIEW</code> and <code>CREATE OR REPLACE MATERIALIZED VIEW</code> replace an
   existing view or materialized view with the same name.</li>
 <li>Materialized views store a snapshot of the query result at creation time.</li>
+<li>A view can be read anywhere a table can: in <code>FROM</code> and joins, in the <code>USING</code> clause of
+  <code>DELETE</code> and the <code>FROM</code> clause of <code>UPDATE</code>, as a <code>MERGE</code> source, and as a <code>FOR</code> source.
+  It is read-only: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>MERGE</code> cannot target a view.</li>
+<li>A view cannot refer to itself, directly or through other views. Using such a view is
+  an error.</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <div class="language-sql highlight"><span class="filename">Create a basic view</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">active_users</span><span class="w"> </span><span class="k">AS</span>
