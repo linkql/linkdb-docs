@@ -106,9 +106,11 @@ constraint. The conflicting row can be silently skipped or updated with new valu
 
 `RETURNING return_item`
 :   Returns values from the inserted rows. Can return `*` for all columns or
-    specific expressions with optional aliases.
+    specific expressions with optional aliases. For a collection, `*` and
+    `collection::*` also return free fields.
 
 ## Notes
+- The target must be a table or collection. A view cannot be modified.
 - If no column list is provided, values must be given for all defined fields in their
   defined order. Free fields cannot be inserted without a column list and `WITH FREE`.
 - `WITH FREE` is only valid on collections. Using it on a table returns an error.

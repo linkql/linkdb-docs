@@ -20,11 +20,11 @@ free_source     ::= '(' identifier ( ',' identifier )* ')'
                   | UNPACK '(' expr ')'
                   | UNPACK '(' ')'
 
-from_clause     ::= from_item ( ',' join_clause )*
-
-from_item       ::= identifier ( AS? identifier )?
-                  | '(' select_stmt ')' AS identifier
+from_clause     ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 ```
+
+`from_clause`, `from_item`, `shorthand_join`, and `traditional_join` are defined in
+[SELECT](select/index.md).
 
 ## Description
 `UPDATE` modifies one or more rows or documents in a table or collection. Rows can be
@@ -70,12 +70,15 @@ which rows to update.
     update. Follows the same syntax as the [`FROM`](select/from.md) clause in `SELECT`.
 
 `WHERE expr`
+:   Filters which rows or documents are updated. If omitted, all rows or documents in
+    the table or collection are updated.
 
 `RETURNING return_item`
 :   Returns values from the updated rows. Can return `*` for all columns or
-    specific expressions with optional aliases.
-:   Filters which rows or documents are updated. If omitted, all rows or documents in
-    the table or collection are updated.
+    specific expressions with optional aliases. `*` returns every column of the target
+    followed by the columns of any `FROM` tables, with `NATURAL` and `USING` join
+    columns merged into one. `table.*` returns the columns of one table. For a
+    collection, `*` and `collection::*` also return free fields.
 
 `CONFIRM string_literal`
 :   A confirmation string that must match the name of the table or collection being
@@ -102,6 +105,7 @@ When updating a free field on a collection:
     When disabled, documents missing the free field are skipped. Enabled by default.
 
 ## Notes
+- The target must be a table or collection. A view cannot be modified.
 - If no `WHERE` clause is provided, all rows or documents are updated.
 - The engine resolves whether a field is defined or free automatically via the catalog.
 - `WITH FREE` is only valid on collections. Using it on a table returns an error.

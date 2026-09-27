@@ -78,7 +78,8 @@ WHERE users.email IS NOT DISTINCT FROM users.previous_email
 ```
 
 ### Quantified Comparisons (ANY / SOME / ALL)
-Compares a value against all rows returned by a subquery.
+Compares a value against all rows returned by a subquery. As with `IN`, the subquery must
+return as many columns as there are values on the left.
 
 - `ANY` and `SOME` are synonyms — the condition is true if it holds for **at least one**
   row returned by the subquery.
@@ -124,7 +125,9 @@ WHERE users.age NOT BETWEEN 18 AND 65
 ```
 
 ### IN
-Tests whether a value matches any value in a list or subquery.
+Tests whether a value matches any value in a list or subquery. A subquery must return as
+many columns as there are values on the left: one, or one per item of a row expression
+such as `(first_name, last_name)`.
 
 ```sql
 WHERE users.status IN ('active', 'pending')

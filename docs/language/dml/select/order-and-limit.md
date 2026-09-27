@@ -34,6 +34,18 @@ SELECT users.username FROM users
 ORDER BY users.country ASC, users.username ASC;
 ```
 
+### ORDER BY with Set Operations
+After a set operation (`UNION`, `INTERSECT`, `EXCEPT`), `ORDER BY` sorts the combined
+result, so it may only name that result's columns — from the first query — rather than
+table columns or expressions. See [Set Operations](set-ops.md#order-by-on-a-set-operation).
+
+```sql
+SELECT users_a.username AS name FROM users_a
+UNION
+SELECT users_b.username FROM users_b
+ORDER BY name;
+```
+
 ## LIMIT and OFFSET
 
 `LIMIT` restricts the number of rows returned. `OFFSET` skips a number of rows

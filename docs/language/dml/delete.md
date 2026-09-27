@@ -8,11 +8,11 @@ delete_stmt     ::= with_clause? DELETE FROM identifier
                     ( CONFIRM string_literal )?
                     ( RETURNING return_item ( ',' return_item )* )?
 
-from_clause     ::= from_item ( ',' join_clause )*
-
-from_item       ::= identifier ( AS? identifier )?
-                  | '(' select_stmt ')' AS identifier
+from_clause     ::= from_item ( ',' shorthand_join )* ( traditional_join )*
 ```
+
+`from_clause`, `from_item`, `shorthand_join`, and `traditional_join` are defined in
+[SELECT](select/index.md).
 
 ## Description
 `DELETE FROM` removes one or more rows or documents from a table or collection. Rows
@@ -49,7 +49,10 @@ fields.
 
 `RETURNING return_item`
 :   Returns values from the deleted rows. Can return `*` for all columns or
-    specific expressions with optional aliases.
+    specific expressions with optional aliases. `*` returns every column of the target
+    followed by the columns of any `USING` tables, with `NATURAL` and `USING` join
+    columns merged into one. `table.*` returns the columns of one table. For a
+    collection, `*` and `collection::*` also return free fields.
 
 ## Database Settings
 
@@ -58,6 +61,7 @@ fields.
     with no `WHERE` clause. Disabled by default.
 
 ## Notes
+- The target must be a table or collection. A view cannot be modified.
 - If no `WHERE` clause is provided, all rows or documents are deleted.
 - Deleting a document from a collection removes it entirely including all defined and
   free fields.

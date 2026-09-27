@@ -70,9 +70,12 @@ The `RETURNING` clause optionally returns values from the affected rows.
 
 `RETURNING return_item`
 :   Returns values from the merged rows. Can return `*` for all columns or
-    specific expressions with optional aliases.
+    specific expressions with optional aliases. `*` returns every column of the target
+    followed by the columns of the source. For a collection, `*` and `collection::*`
+    also return free fields.
 
 ## Notes
+- The target must be a table or collection. A view cannot be modified.
 - At least one `WHEN MATCHED` or `WHEN NOT MATCHED` clause must be provided.
 - `MERGE` is not supported inside `FOR` loop bodies.
 - `MERGE` can be used inside a `LET` block as a valid DML statement.
@@ -159,7 +162,7 @@ WHEN NOT MATCHED THEN INSERT (user_id, username)
 
 ```sql title="MERGE inside a LET block"
 LET
-  new_data AS (
+  new_data = (
     SELECT user_id, username, email
     FROM staging_users
     WHERE status = 'active'

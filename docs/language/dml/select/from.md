@@ -11,9 +11,9 @@ from_item       ::= LATERAL? identifier ( AS? identifier )?
 ```
 
 ## Description
-The `FROM` clause defines the source tables and collections for a `SELECT` statement.
-It can reference a single table or collection, multiple sources joined together, or a
-subquery. Joins are specified as part of the `FROM` clause — see [Joins](joins.md) for
+The `FROM` clause defines the source tables, collections, and views for a `SELECT`
+statement. It can reference a single table, collection, or view, multiple sources joined
+together, or a subquery. Joins are specified as part of the `FROM` clause — see [Joins](joins.md) for
 full join syntax and behavior.
 
 ## Source Types
@@ -30,6 +30,16 @@ SELECT u.username FROM users AS u;
 SELECT u.username FROM users u;
 ```
 
+### View
+A view is queried like a table. Views are read-only: they can be read in `FROM` and
+joins, in the `USING` clause of `DELETE` and the `FROM` clause of `UPDATE`, as a `MERGE`
+source, and as a `FOR` source, but `INSERT`, `UPDATE`, `DELETE`, and `MERGE` cannot modify
+one. See [CREATE VIEW](../../ddl/create/create-view.md).
+
+```sql
+SELECT active_users.username FROM active_users;
+```
+
 ### Subquery
 A subquery can be used as a source in the `FROM` clause. Subqueries must always be
 aliased with `AS`.
@@ -42,6 +52,10 @@ FROM (
     WHERE users.last_login > '2024-01-01'
 ) AS active;
 ```
+
+A subquery in `FROM` can reference columns of the queries that enclose it, but not the
+other items in its own `FROM` clause. Prefix it with `LATERAL` to let it reference the
+items listed before it. See [Subqueries](subqueries.md).
 
 ### Multiple Sources
 Multiple sources are comma separated. When multiple sources are listed, joins are

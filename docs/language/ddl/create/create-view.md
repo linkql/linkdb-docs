@@ -37,6 +37,11 @@ refreshed separately.
 - `CREATE OR REPLACE VIEW` and `CREATE OR REPLACE MATERIALIZED VIEW` replace an
   existing view or materialized view with the same name.
 - Materialized views store a snapshot of the query result at creation time.
+- A view can be read anywhere a table can: in `FROM` and joins, in the `USING` clause of
+  `DELETE` and the `FROM` clause of `UPDATE`, as a `MERGE` source, and as a `FOR` source.
+  It is read-only: `INSERT`, `UPDATE`, `DELETE`, and `MERGE` cannot target a view.
+- A view cannot refer to itself, directly or through other views. Using such a view is
+  an error.
 
 ## Examples
 

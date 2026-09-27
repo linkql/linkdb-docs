@@ -301,12 +301,11 @@ from_item           ::= LATERAL? identifier ( AS? identifier )?
                       | UNNEST '(' expr ( ',' expr )* ')'
                           ( WITH ORDINALITY )? ( AS? identifier )?
 
-traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
+traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition?
 
-shorthand_join      ::= identifier
-                      | join_type identifier
-                      | join_type identifier '(' identifier (',' identifier)* ')'
-                      | join_type identifier '(' identifier (',' identifier)* ')' ON shorthand_condition
+shorthand_join      ::= join_type? identifier
+                      | join_type? identifier '(' identifier (',' identifier)* ')'
+                      | join_type? identifier '(' identifier (',' identifier)* ')' ON shorthand_condition
 
 shorthand_condition ::= identifier '(' identifier ( ',' identifier )* ')'
                       | expr

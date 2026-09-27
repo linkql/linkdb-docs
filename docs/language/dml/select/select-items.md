@@ -27,12 +27,18 @@ with double colon notation — `collection::field`.
 Selects all columns and fields from all tables and collections in the query. Cannot
 be combined with `DISTINCT`.
 
+When the query uses a `NATURAL` join, a `USING` join, or a bare shorthand join, each
+merged join column is returned once, ahead of the other columns. See
+[Merged Columns](joins.md#merged-columns). A subquery, CTE, or view that selects `*`
+exposes all of its columns to the query that uses it.
+
 ```sql
 SELECT * FROM users;
 ```
 
 ### Table Wildcard
-Selects all columns from a specific table.
+Selects all columns from a specific table. Unlike `*`, it never merges columns: every
+column of the table is returned, including the ones a `NATURAL` or `USING` join merges.
 
 ```sql
 SELECT users.* FROM users;

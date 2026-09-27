@@ -30,10 +30,37 @@ set operations remove duplicate rows. Use `ALL` to retain duplicates.
 :   Keeps duplicate rows. Without `ALL`, duplicates are removed.
 
 ## Notes
-- The two queries must return the same number of columns with compatible types.
+- The two queries must return the same number of columns with compatible types. A
+  different number of columns is an error. The result's column names come from the
+  first query. (Compatibility of column types is not checked yet.)
 - Multiple set operators can be chained in a single statement.
 - `INTERSECT` binds more tightly than `UNION` and `EXCEPT`.
 - `ORDER BY` and `LIMIT` apply to the combined result of all set operations.
+- Either side can be wrapped in parentheses. A parenthesized query keeps its own
+  `ORDER BY` and `LIMIT`, and a parenthesized set operation can be an operand of
+  another.
+
+## ORDER BY on a Set Operation
+An `ORDER BY` after the last query sorts the combined result, so it can only refer to
+that result's columns, by name. The names come from the first query, so an alias given
+there works. It cannot use a table-qualified name or an expression, and a name that
+appears twice in the result is ambiguous.
+
+```sql
+SELECT username AS name FROM users_a
+UNION
+SELECT username FROM users_b
+ORDER BY name;
+```
+
+To sort or limit one side before combining, parenthesize it and give it its own
+`ORDER BY` and `LIMIT`.
+
+```sql
+(SELECT username FROM users_a ORDER BY username LIMIT 5)
+UNION ALL
+(SELECT username FROM users_b ORDER BY username LIMIT 5);
+```
 
 ## Examples
 

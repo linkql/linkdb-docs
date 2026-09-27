@@ -64,6 +64,10 @@ Named windows can be defined in the `WINDOW` clause and referenced by name in
 - Aggregate functions can also be used as window functions with `OVER`.
 - `NULLS FIRST` and `NULLS LAST` control null ordering within `ORDER BY` in the
   window specification.
+- `OVER name` must refer to a window defined in the `WINDOW` clause of the same
+  `SELECT`. A name that is not defined there is an error.
+- A subquery cannot use the named windows of the query around it. Define the window in
+  the subquery itself.
 
 ## Examples
 

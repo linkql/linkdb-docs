@@ -1,5 +1,5 @@
 # SELECT
-Retrieves data from one or more tables or collections.
+Retrieves data from one or more tables, collections, or views.
 
 ```grammar title="Grammar"
 select_stmt         ::= with_clause? intersect_stmt ( ( UNION | EXCEPT ) ALL? intersect_stmt )*
@@ -49,12 +49,11 @@ from_item           ::= LATERAL? identifier ( AS? identifier )?
                       | UNNEST '(' expr ( ',' expr )* ')'
                           ( WITH ORDINALITY )? ( AS? identifier )?
 
-traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition
+traditional_join    ::= NATURAL? join_type? JOIN from_item join_condition?
 
-shorthand_join      ::= identifier
-                      | join_type identifier
-                      | join_type identifier '(' identifier (',' identifier)* ')'
-                      | join_type identifier '(' identifier (',' identifier)* ')' ON shorthand_condition
+shorthand_join      ::= join_type? identifier
+                      | join_type? identifier '(' identifier (',' identifier)* ')'
+                      | join_type? identifier '(' identifier (',' identifier)* ')' ON shorthand_condition
 
 shorthand_condition ::= identifier '(' identifier ( ',' identifier )* ')'
                       | expr
@@ -76,7 +75,7 @@ for_clause          ::= FOR ( UPDATE | NO KEY UPDATE | SHARE | KEY SHARE )
 ```
 
 ## Description
-`SELECT` retrieves rows from one or more tables or collections. Results can be filtered,
+`SELECT` retrieves rows from one or more tables, collections, or views. Results can be filtered,
 grouped, ordered, and limited. LinkQL extends standard SQL `SELECT` with shorthand join
 syntax, `LET` blocks for named subqueries, `FOR` loops for row level operations, and
 support for querying both tables and collections in a single statement.
@@ -88,7 +87,7 @@ with double colon notation — `collection::field`.
 *Click for more info*
 
 - [SELECT ITEMS](select-items.md) - specifies source columns to retrieve from your FROM clause
-- [FROM](from.md) — specifies the source tables and collections, including join syntax
+- [FROM](from.md) — specifies the source tables, collections, and views, including join syntax
 - [JOIN](joins.md) — joins tables and collections together
 - [WHERE](where.md) — filters rows based on a condition
 - [GROUP BY / HAVING](grouping.md) — groups rows and filters groups

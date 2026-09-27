@@ -74,7 +74,7 @@ Stores JSON in a decomposed **binary** format. Individual keys are indexable and
 ```sql
 SELECT users::metadata['ip'] AS ip_address
 FROM users
-WHERE metadata['ip'] = '192.168.1.1'
+WHERE metadata['ip'] = '192.168.1.1';
 ```
 !!! tip
 
