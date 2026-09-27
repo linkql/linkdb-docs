@@ -20,7 +20,8 @@ full join syntax and behavior.
 
 ### Table or Collection
 A direct reference to a table or collection by name. An optional alias can be assigned
-with or without the `AS` keyword.
+with or without the `AS` keyword. Once a table has an alias it is referred to by that
+alias only: with `FROM users AS u`, write `u.username`, not `users.username`.
 
 ```sql
 SELECT users.username FROM users;
