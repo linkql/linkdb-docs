@@ -1973,6 +1973,19 @@
 
 
 <h1 id="python-api">Python API</h1>
+<p>LinkDB does not yet have a public, embeddable Python API — there is no
+<code>connect()</code>, <code>Connection</code>, or result object you can <code>import</code> and call from
+your own code.</p>
+<p>Today the only way to use LinkDB from Python is the <a href="../cli/">CLI</a>,
+an interactive REPL process. Internally the CLI drives the engine through
+<code>LinkDBState</code> in <code>src/linkdb/cli/state.py</code>, but that class is a CLI
+implementation detail, not a supported public interface: its shape can
+change without notice and it is not exposed as part of the <code>linkdb</code> package.</p>
+<p>A real public API — connect to a database, execute a statement, get results
+back, matching the shape implied by this section's page titles (<a href="connection/">Connection</a>,
+<a href="query_execution/">Query Execution</a>, <a href="results/">Results</a>) — is wanted
+and planned for a future effort, but nothing has been designed or built
+yet. These pages will get real content once that work exists.</p>
 
 
 
