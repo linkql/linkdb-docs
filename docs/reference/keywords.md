@@ -462,4 +462,4 @@ SELECT "from"."select" FROM "from";
 ---
 
 ## See Also
-[Grammar](grammar.md), [Error Codes](error_codes.md), [Data Types](../data_types.md)
+[Grammar](grammar.md), [Errors](error_codes.md), [Data Types](../data_types.md)
