@@ -2035,8 +2035,14 @@ that defines it.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><code>MATERIALIZED</code></dt>
-<dd>Accepted by the grammar, but not yet implemented. <code>ALTER MATERIALIZED
-VIEW</code> raises an error at execution time instead of altering anything.</dd>
+<dd>Accepted by the grammar, but <code>ALTER MATERIALIZED VIEW</code> itself is not yet
+implemented: it raises <code>ExecutorError: Materialized views not yet
+supported</code> at execution time instead of altering anything, regardless of
+which <code>alter_view_cmd</code> is given. This is narrower than materialized
+views' overall support — <code>CREATE MATERIALIZED VIEW</code> and
+<a href="../../../utility/#refresh-materialized-view"><code>REFRESH MATERIALIZED VIEW</code></a>
+do work; see <a href="../../create/create-view/">CREATE VIEW</a>'s <code>MATERIALIZED</code>
+parameter for the full picture.</dd>
 <dt><code>identifier</code> (first)</dt>
 <dd>The current name of the view.</dd>
 <dt><code>RENAME TO identifier</code></dt>

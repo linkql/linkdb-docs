@@ -2032,8 +2032,14 @@ collections, and their data are not affected.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><code>MATERIALIZED</code></dt>
-<dd>Accepted by the grammar, but not yet implemented. <code>DROP MATERIALIZED
-VIEW</code> raises an error at execution time instead of dropping anything.</dd>
+<dd>Accepted by the grammar, but <code>DROP MATERIALIZED VIEW</code> itself is not yet
+implemented: it raises <code>ExecutorError: Materialized views not yet
+supported</code> at execution time instead of dropping anything. This is
+narrower than materialized views' overall support — <code>CREATE MATERIALIZED
+VIEW</code> and
+<a href="../../../utility/#refresh-materialized-view"><code>REFRESH MATERIALIZED VIEW</code></a>
+do work; see <a href="../../create/create-view/">CREATE VIEW</a>'s <code>MATERIALIZED</code>
+parameter for the full picture.</dd>
 <dt><code>IF EXISTS</code></dt>
 <dd>If specified, does not throw an error if the view does not exist. A notice is
 issued instead.</dd>

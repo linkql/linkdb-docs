@@ -2150,12 +2150,22 @@
 <h2 id="description">Description</h2>
 <p>Utility commands provide maintenance and inspection operations for LinkDB. They
 include analyzing query plans and inspecting metadata for tables, collections,
-views, indexes, and the database, along with <code>REFRESH MATERIALIZED VIEW</code> (not
-yet implemented).</p>
+views, indexes, and the database, along with <code>REFRESH MATERIALIZED VIEW</code>.</p>
 <h2 id="refresh-materialized-view">REFRESH MATERIALIZED VIEW</h2>
-<p>Accepted by the grammar, but not yet implemented — materialized views
-themselves don't exist yet (see <a href="../ddl/create/create-view/">CREATE VIEW</a>).
-<code>REFRESH MATERIALIZED VIEW</code> raises an error at execution time.</p>
+<p>Re-runs a materialized view's defining query and overwrites its stored
+snapshot with the new result rows (see <a href="../ddl/create/create-view/">CREATE VIEW</a>'s
+<code>MATERIALIZED</code> parameter for how that snapshot is first populated). Issued
+inside an open transaction, the overwrite is undone by a subsequent
+<code>ROLLBACK</code> like any other write.</p>
+<p>Naming a view that isn't materialized raises <code>ExecutorError: View '&lt;name&gt;'
+is not a materialized view</code>.</p>
+<p>Materialized-view support is still partial: <code>REFRESH</code> updates the stored
+snapshot correctly, but there is no way yet to query that snapshot back
+(<code>SELECT ... FROM</code> a materialized view raises
+<code>AnalyzerError: Unsupported statement type: AnalyzedSelectStatement</code>), and
+<a href="../ddl/alter/alter-view/"><code>ALTER MATERIALIZED VIEW</code></a>/
+<a href="../ddl/drop/drop-view/"><code>DROP MATERIALIZED VIEW</code></a> are not yet implemented
+either.</p>
 <div class="language-sql highlight"><span class="filename">Refresh a materialized view</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">REFRESH</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_stats</span><span class="p">;</span>
 </span></code></pre></div>
 <h2 id="explain">EXPLAIN</h2>

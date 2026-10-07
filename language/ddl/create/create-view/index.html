@@ -2029,17 +2029,33 @@
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p><code>CREATE VIEW</code> defines a named query that can be referenced like a table or
-collection. A view stores the query definition and computes its result each time
-it is used.</p>
+collection. A plain view stores only the query definition and recomputes its
+result every time it is read. <code>CREATE MATERIALIZED VIEW</code> instead runs the
+query immediately and stores its result as a snapshot — see the
+<code>MATERIALIZED</code> parameter below for exactly what that does and doesn't
+support today.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><code>OR REPLACE</code></dt>
 <dd>If a view with the same name already exists, replace it with the new
 definition. Cannot be combined with <code>IF NOT EXISTS</code>.</dd>
 <dt><code>MATERIALIZED</code></dt>
-<dd>Accepted by the grammar, but not yet implemented. <code>CREATE MATERIALIZED
-VIEW</code> raises an error at execution time instead of creating anything; use
-plain <code>CREATE VIEW</code> instead.</dd>
+<dd>
+<p>Creates a materialized view. The defining query runs immediately and its
+result rows are stored under the view's name, instead of being
+recomputed on every read. Use
+<a href="../../../utility/#refresh-materialized-view"><code>REFRESH MATERIALIZED VIEW</code></a>
+to re-run the query later and overwrite the stored snapshot.</p>
+<p>The rest of materialized-view support is still partial: reading a
+materialized view back is not yet implemented (<code>SELECT ... FROM</code> it
+raises <code>AnalyzerError: Unsupported statement type:
+AnalyzedSelectStatement</code> instead of returning the stored rows), and so
+are <a href="../../alter/alter-view/"><code>ALTER MATERIALIZED VIEW</code></a> and
+<a href="../../drop/drop-view/"><code>DROP MATERIALIZED VIEW</code></a> (both raise
+<code>ExecutorError: Materialized views not yet supported</code>). In practice, a
+materialized view can be created and refreshed today, but not queried,
+redefined, renamed, or dropped.</p>
+</dd>
 <dt><code>IF NOT EXISTS</code></dt>
 <dd>If specified, does not throw an error if a view with the same name already
 exists. A notice is issued instead. Cannot be combined with <code>OR REPLACE</code>.</dd>
@@ -2072,8 +2088,12 @@ exists. A notice is issued instead. Cannot be combined with <code>OR REPLACE</co
 </span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
 </span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="p">;</span>
 </span></code></pre></div>
+<div class="language-sql highlight"><span class="filename">Create a materialized view</span><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_stats</span><span class="w"> </span><span class="k">AS</span>
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="p">;</span>
+</span></code></pre></div>
 <h2 id="see-also">See Also</h2>
-<p><a href="../../drop/drop-view/">DROP VIEW</a>, <a href="../../alter/alter-view/">ALTER VIEW</a></p>
+<p><a href="../../drop/drop-view/">DROP VIEW</a>, <a href="../../alter/alter-view/">ALTER VIEW</a>,
+<a href="../../../utility/#refresh-materialized-view">REFRESH MATERIALIZED VIEW</a></p>
 <hr />
 <p><a href="../">← Back to CREATE INDEX / VIEW / TABLE / COLLECTION / DATABASE</a></p>
 
