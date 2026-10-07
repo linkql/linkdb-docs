@@ -12,8 +12,14 @@ collections, and their data are not affected.
 ## Parameters
 
 `MATERIALIZED`
-:   Accepted by the grammar, but not yet implemented. `DROP MATERIALIZED
-    VIEW` raises an error at execution time instead of dropping anything.
+:   Accepted by the grammar, but `DROP MATERIALIZED VIEW` itself is not yet
+    implemented: it raises `ExecutorError: Materialized views not yet
+    supported` at execution time instead of dropping anything. This is
+    narrower than materialized views' overall support — `CREATE MATERIALIZED
+    VIEW` and
+    [`REFRESH MATERIALIZED VIEW`](../../utility.md#refresh-materialized-view)
+    do work; see [CREATE VIEW](../create/create-view.md)'s `MATERIALIZED`
+    parameter for the full picture.
 
 `IF EXISTS`
 :   If specified, does not throw an error if the view does not exist. A notice is

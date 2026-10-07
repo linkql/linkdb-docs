@@ -15,8 +15,14 @@ that defines it.
 ## Parameters
 
 `MATERIALIZED`
-:   Accepted by the grammar, but not yet implemented. `ALTER MATERIALIZED
-    VIEW` raises an error at execution time instead of altering anything.
+:   Accepted by the grammar, but `ALTER MATERIALIZED VIEW` itself is not yet
+    implemented: it raises `ExecutorError: Materialized views not yet
+    supported` at execution time instead of altering anything, regardless of
+    which `alter_view_cmd` is given. This is narrower than materialized
+    views' overall support — `CREATE MATERIALIZED VIEW` and
+    [`REFRESH MATERIALIZED VIEW`](../../utility.md#refresh-materialized-view)
+    do work; see [CREATE VIEW](../create/create-view.md)'s `MATERIALIZED`
+    parameter for the full picture.
 
 `identifier` (first)
 :   The current name of the view.

@@ -16,13 +16,25 @@ info_stmt           ::= INFO ( TABLE | COLLECTION | VIEW | INDEX | DATABASE ) id
 ## Description
 Utility commands provide maintenance and inspection operations for LinkDB. They
 include analyzing query plans and inspecting metadata for tables, collections,
-views, indexes, and the database, along with `REFRESH MATERIALIZED VIEW` (not
-yet implemented).
+views, indexes, and the database, along with `REFRESH MATERIALIZED VIEW`.
 
 ## REFRESH MATERIALIZED VIEW
-Accepted by the grammar, but not yet implemented — materialized views
-themselves don't exist yet (see [CREATE VIEW](ddl/create/create-view.md)).
-`REFRESH MATERIALIZED VIEW` raises an error at execution time.
+Re-runs a materialized view's defining query and overwrites its stored
+snapshot with the new result rows (see [CREATE VIEW](ddl/create/create-view.md)'s
+`MATERIALIZED` parameter for how that snapshot is first populated). Issued
+inside an open transaction, the overwrite is undone by a subsequent
+`ROLLBACK` like any other write.
+
+Naming a view that isn't materialized raises `ExecutorError: View '<name>'
+is not a materialized view`.
+
+Materialized-view support is still partial: `REFRESH` updates the stored
+snapshot correctly, but there is no way yet to query that snapshot back
+(`SELECT ... FROM` a materialized view raises
+`AnalyzerError: Unsupported statement type: AnalyzedSelectStatement`), and
+[`ALTER MATERIALIZED VIEW`](ddl/alter/alter-view.md)/
+[`DROP MATERIALIZED VIEW`](ddl/drop/drop-view.md) are not yet implemented
+either.
 
 ```sql title="Refresh a materialized view"
 REFRESH MATERIALIZED VIEW user_stats;
