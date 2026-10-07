@@ -450,6 +450,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -466,6 +484,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install from source
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1965,6 +2024,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install from source
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1981,6 +2070,53 @@
 
 
 <h1 id="installation">Installation</h1>
+<p>LinkDB is MVP-stage software. It is <strong>not</strong> published to PyPI — there is an
+unrelated package already named <code>linkdb</code> on PyPI (a CLI bookmark manager),
+so <code>pip install linkdb</code> will install the wrong thing. For now, install from
+source.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Python 3.12 or later (<code>requires-python = "&gt;=3.12"</code>).</li>
+<li>Git, with submodule support (used below).</li>
+</ul>
+<h2 id="install-from-source">Install from source</h2>
+<p>LinkDB's engine is split across several packages — <code>linkdb-core</code>,
+<code>linkdb-lexer</code>, <code>linkdb-parser</code>, <code>linkdb-analyzer</code>, <code>linkdb-planner</code>,
+<code>linkdb-executor</code>, <code>linkdb-catalog</code>, and <code>linkdb-storage</code> — each developed
+in its own Git repository and pulled into the main <a href="https://github.com/linkql/linkdb"><code>linkdb</code>
+repo</a> as a submodule under <code>src/linkdb/</code>.
+None of these are on PyPI either, so they need to be installed as editable
+checkouts alongside the main package.</p>
+<ol>
+<li>
+<p>Clone the repository with its submodules:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/linkql/linkdb.git
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>linkdb
+</span></code></pre></div>
+<p>If you already cloned without <code>--recurse-submodules</code>, fetch the
+submodules afterward:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+</span></code></pre></div>
+</li>
+<li>
+<p>Create and activate a virtual environment:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</span></code></pre></div>
+</li>
+<li>
+<p>Install the project's <code>requirements.txt</code>, which editable-installs every
+   engine package plus the main <code>linkdb</code> package in one step:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span></code></pre></div>
+</li>
+</ol>
+<p>This puts a <code>linkdb</code> console script on your <code>PATH</code> — it's the
+<code>[project.scripts]</code> entry <code>linkdb = "linkdb.cli.repl:main"</code> from
+<code>pyproject.toml</code>. Run it to confirm the install:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>linkdb
+</span></code></pre></div>
+<p>See <a href="../cli/">CLI</a> for what to do once it's running.</p>
 
 
 

@@ -1955,6 +1955,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to go next
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project status
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1971,6 +2001,31 @@
 
 
 <h1 id="linkdb">LinkDB</h1>
+<p><strong>LinkDB</strong> is the database system that <a href="../language/">LinkQL</a> is the
+query language for: an engine that manages relational tables and
+schemaless/semi-schemaless collections in a single, unified store, plus the
+<code>linkdb</code> command-line client used to talk to it.</p>
+<p>LinkDB ships as a set of independently-versioned Python packages under
+<code>src/linkdb/</code> — a lexer, parser, semantic analyzer, planner, executor,
+catalog, and storage layer — wired together behind one <code>linkdb</code> CLI entry
+point. There is no server process and no network protocol yet: the CLI
+loads the engine in-process and talks directly to on-disk (or in-memory)
+storage.</p>
+<h2 id="where-to-go-next">Where to go next</h2>
+<ul>
+<li><strong><a href="installation/">Installation</a></strong> — install from source and get the
+  <code>linkdb</code> command on your <code>PATH</code>.</li>
+<li><strong><a href="cli/">CLI</a></strong> — launch the CLI, connect to a database, and learn
+  the backslash-command/statement input model.</li>
+<li><strong><a href="../language/">Language</a></strong> — the LinkQL reference: data types,
+  DDL/DML syntax, transactions, functions, and more.</li>
+</ul>
+<h2 id="project-status">Project status</h2>
+<p>LinkDB is MVP-stage software under active development. There is no public
+Python API yet — the CLI is the only supported way to use it today (see
+<a href="api/">Python API</a> for what's planned). Expect gaps and rough edges;
+the <a href="../language/">Language</a> and <a href="cli/">CLI</a> reference pages
+call out anywhere documented syntax isn't implemented yet.</p>
 
 
 
