@@ -37,14 +37,12 @@ real, on-disk database. To work with persistent data, create a database with
 `<name>=#` and every statement reads from and writes to that database's
 on-disk storage under `~/.linkdb/databases/<name>/`.
 
-!!! warning "Statements don't execute until you switch pipeline mode"
-    The CLI starts in `parser` pipeline mode, not `executor` — see
-    [Commands → Execution](commands.md#execution). Out of the box, typing a
-    statement only prints its parsed syntax tree; nothing is planned,
-    analyzed, or run against the default database. Run `\p executor` (or
-    `\p[ipeline] executor`) once per session to make statements actually
-    execute. This is current, unpolished first-run behavior, not a
-    deliberate "safe mode."
+Statements execute immediately — the session starts in `executor`
+[pipeline mode](commands.md#execution), the last of five stages a
+statement can be made to stop at. Switching to an earlier stage (`\p
+lexer`/`parser`/`analyzer`/`planner`) is a debugging tool for inspecting
+how a statement gets lexed, parsed, analyzed, or planned without actually
+running it — see [Commands → Execution](commands.md#execution).
 
 ## Interaction model
 

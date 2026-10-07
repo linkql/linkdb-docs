@@ -124,23 +124,22 @@ name.
 ### `\p[ipeline] <mode>`
 Changes which pipeline stage a dispatched statement stops at, or shows the
 current mode if no `<mode>` is given. One of `lexer`, `parser`, `analyzer`,
-`planner`, or `executor` (case-insensitive); anything else errors.
+`planner`, or `executor` (case-insensitive); anything else errors. The
+session starts in `executor` mode — statements execute immediately unless
+you deliberately switch to an earlier stage.
 
-!!! warning "The session starts in `parser` mode, not `executor`"
-    This is the CLI's single most surprising default: fresh out of the box,
-    typed statements only get lexed and parsed, then printed as a syntax
-    tree — nothing runs. Run `\p executor` once per session to make
-    statements actually execute against the current connection (or the
-    zero-config default). Every mode below `executor` is read-only by
-    construction — it stops before anything capable of a side effect runs.
+Every mode below `executor` is read-only by construction: it stops before
+anything capable of a side effect runs, which makes `\p` useful for
+inspecting how a statement gets lexed, parsed, analyzed, or planned
+without actually running it.
 
 | Mode       | What a dispatched statement does                                                    |
 |------------|----------------------------------------------------------------------------------------|
 | `lexer`    | Tokenized, then the token stream is printed as a table (`Line`/`Column`/`Token Type`/`Lexeme`/`Literal`). |
-| `parser`   | Parsed, then the resulting syntax tree is printed. **The default.**                   |
+| `parser`   | Parsed, then the resulting syntax tree is printed.                                     |
 | `analyzer` | Parsed and analyzed (names resolved, types checked against the catalog), then the analyzed tree is printed. |
 | `planner`  | Parsed, analyzed, and planned, then the resulting plan tree is printed.                |
-| `executor` | Parsed, analyzed, planned, and actually executed. A `SELECT` (or a write with `RETURNING`) renders as a table; `EXPLAIN`/`EXPLAIN ANALYZE` prints a plan tree; a plain write prints an affected-row-count notice; DDL confirmations print as a notice. `CREATE`/`ALTER`/`DROP`/`TRUNCATE DATABASE` (see [below](#database-ddl-statements)) only take effect in this mode — lower modes show their analyzed/planned shape with no filesystem side effect. |
+| `executor` | Parsed, analyzed, planned, and actually executed. **The default.** A `SELECT` (or a write with `RETURNING`) renders as a table; `EXPLAIN`/`EXPLAIN ANALYZE` prints a plan tree; a plain write prints an affected-row-count notice; DDL confirmations print as a notice. `CREATE`/`ALTER`/`DROP`/`TRUNCATE DATABASE` (see [below](#database-ddl-statements)) only take effect in this mode — lower modes show their analyzed/planned shape with no filesystem side effect. |
 
 ## Formatting
 
@@ -163,9 +162,9 @@ matches `psql`'s `\x`). Requires `<mode>`; omitting it is an error (use
 ### `\i <file_path>`
 Reads `<file_path>` (conventionally `.sql` or `.lql`) and runs every
 statement in it through the same dispatch path typed input uses, respecting
-whatever [pipeline mode](#execution) is currently set — including the
-`parser`-mode default above, so a plain `\i script.lql` with no prior `\p
-executor` only prints parse trees for the whole file.
+whatever [pipeline mode](#execution) is currently set — the `executor`
+default, unless you've switched to an earlier stage, in which case `\i`
+only prints that stage's output for the whole file instead of running it.
 
 - Errors (file not found, unreadable, etc.) raise before anything runs.
 - Statements are split the same way typed multi-line input is: lines
