@@ -1957,6 +1957,75 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#launching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zero-config-default-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero-config default database
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interaction-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interaction model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interaction model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-statement-batches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-statement batches
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1973,6 +2042,74 @@
 
 
 <h1 id="cli">CLI</h1>
+<p>An interactive, <code>psql</code>-like terminal for LinkDB.</p>
+<h2 id="launching">Launching</h2>
+<p>Installing the <code>linkdb</code> package puts a <code>linkdb</code> console script on your
+<code>PATH</code> (it points at <code>linkdb.cli.repl:main</code>). Run it with no arguments:</p>
+<div class="language-sh highlight"><span class="filename">Launch the CLI</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>linkdb
+</span></code></pre></div>
+<p>You'll see a welcome banner followed by a prompt:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌────────────────────────────┐
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│      LinkDB CLI v0.1.0      │
+</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>└────────────────────────────┘
+</span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>      Type \? for help, \q to quit.
+</span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="True-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>linkdb=#
+</span></code></pre></div>
+<h2 id="zero-config-default-database">Zero-config default database</h2>
+<p>The CLI never requires you to connect to anything before you start typing
+statements. Before you run <code>\c</code> for the first time (or after <code>\disc[onnect]</code>),
+the prompt reads <code>linkdb=#</code> and every statement you type runs against an
+empty, <strong>in-memory</strong> database — no files are read or written, and nothing
+you create survives after you quit.</p>
+<p>This default stack exists purely so you can experiment (try a <code>SELECT</code>,
+sketch out a <code>CREATE TABLE</code>) without first having to create or connect to a
+real, on-disk database. To work with persistent data, create a database with
+<code>CREATE DATABASE &lt;name&gt;;</code> and connect to it with <code>\c &lt;name&gt;</code> — see
+<a href="commands/">Commands</a> for both. Once connected, the prompt changes to
+<code>&lt;name&gt;=#</code> and every statement reads from and writes to that database's
+on-disk storage under <code>~/.linkdb/databases/&lt;name&gt;/</code>.</p>
+<p>Statements execute immediately — the session starts in <code>executor</code>
+<a href="commands/#execution">pipeline mode</a>, the last of five stages a
+statement can be made to stop at. Switching to an earlier stage (<code>\p
+lexer</code>/<code>parser</code>/<code>analyzer</code>/<code>planner</code>) is a debugging tool for inspecting
+how a statement gets lexed, parsed, analyzed, or planned without actually
+running it — see <a href="commands/#execution">Commands → Execution</a>.</p>
+<h2 id="interaction-model">Interaction model</h2>
+<p>The CLI reads from standard input in two kinds of input:</p>
+<ul>
+<li><strong>Backslash commands</strong> — a line whose first non-whitespace character is
+  <code>\</code>, e.g. <code>\c mydb</code> or <code>\dt</code>. These run immediately, one line at a time;
+  they're never split across lines and never need a trailing <code>;</code>. See
+  <a href="commands/">Commands</a> for the full list, or type <code>\?</code> at the prompt.</li>
+<li><strong>LinkQL statements</strong> — everything else. These are buffered line by line
+  until a line ends with <code>;</code>, at which point everything buffered since the
+  last statement boundary is dispatched together. This lets you write a
+  statement across several lines:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>linkdb=# CREATE TABLE users (
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>-#     id INT AUTOINCREMENT,
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>-#     username VARCHAR(50)
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>-# );
+</span></code></pre></div>
+<p>The prompt itself reflects this: it reads <code>=#</code> while the input buffer is
+empty and <code>-#</code> while a statement is still being accumulated, matching the
+connection-name/<code>linkdb</code> prefix either way.</p>
+<h3 id="multi-statement-batches">Multi-statement batches</h3>
+<p>Typing more than one <code>;</code>-terminated statement on the <strong>same</strong> line (e.g.
+<code>INSERT ...; INSERT ...;</code>) dispatches them together as one batch — unlike a
+single statement spread <em>across</em> several lines (like the <code>CREATE TABLE</code>
+above), which is still just one statement once its closing <code>;</code> arrives. A
+batch of more than one top-level statement is automatically wrapped in an
+implicit transaction — see
+<a href="commands/#implicit-transaction-wrapping-of-multi-statement-batches">Commands → Implicit transaction wrapping of multi-statement batches</a>
+for exactly when that wrap applies, and <a href="../../language/transactions/">Transactions</a>
+for what a transaction guarantees.</p>
+<h2 id="help">Help</h2>
+<p><code>\?</code> prints every backslash command grouped by category, piped through a
+pager. <code>\? &lt;command&gt;</code> (e.g. <code>\? connect</code>) prints help for just that one
+command. See <a href="commands/">Commands</a> for the same list laid out as a
+reference page.</p>
 
 
 

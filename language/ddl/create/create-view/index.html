@@ -2023,23 +2023,23 @@
 
 
 <h1 id="create-view">CREATE VIEW</h1>
-<p>Creates a new view or materialized view.</p>
+<p>Creates a new view.</p>
 <div class="language-ebnf highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">create_view_stmt    </span><span class="err">::</span><span class="o">=</span> <span class="k">CREATE </span><span class="p">(</span> <span class="k">OR REPLACE </span><span class="p">)</span><span class="ni">? ( MATERIALIZED )?</span> <span class="k">VIEW </span><span class="p">(</span> <span class="k">IF NOT EXISTS </span><span class="p">)</span><span class="err">?</span> <span class="k">identifier</span>
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                        <span class="k">AS select_stmt</span>
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p><code>CREATE VIEW</code> defines a named query that can be referenced like a table or
 collection. A view stores the query definition and computes its result each time
-it is used. A materialized view stores the query result on creation and may be
-refreshed separately.</p>
+it is used.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><code>OR REPLACE</code></dt>
 <dd>If a view with the same name already exists, replace it with the new
 definition. Cannot be combined with <code>IF NOT EXISTS</code>.</dd>
 <dt><code>MATERIALIZED</code></dt>
-<dd>Creates a materialized view that persists the query result. Materialized views
-must be refreshed explicitly; see related DDL for refresh behavior.</dd>
+<dd>Accepted by the grammar, but not yet implemented. <code>CREATE MATERIALIZED
+VIEW</code> raises an error at execution time instead of creating anything; use
+plain <code>CREATE VIEW</code> instead.</dd>
 <dt><code>IF NOT EXISTS</code></dt>
 <dd>If specified, does not throw an error if a view with the same name already
 exists. A notice is issued instead. Cannot be combined with <code>OR REPLACE</code>.</dd>
@@ -2051,9 +2051,7 @@ exists. A notice is issued instead. Cannot be combined with <code>OR REPLACE</co
 <h2 id="notes">Notes</h2>
 <ul>
 <li>Views can query both tables and collections, including joins between them.</li>
-<li><code>CREATE OR REPLACE VIEW</code> and <code>CREATE OR REPLACE MATERIALIZED VIEW</code> replace an
-  existing view or materialized view with the same name.</li>
-<li>Materialized views store a snapshot of the query result at creation time.</li>
+<li><code>CREATE OR REPLACE VIEW</code> replaces an existing view with the same name.</li>
 <li>A view can be read anywhere a table can: in <code>FROM</code> and joins, in the <code>USING</code> clause of
   <code>DELETE</code> and the <code>FROM</code> clause of <code>UPDATE</code>, as a <code>MERGE</code> source, and as a <code>FOR</code> source.
   It is read-only: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>MERGE</code> cannot target a view.</li>
@@ -2070,15 +2068,9 @@ exists. A notice is issued instead. Cannot be combined with <code>OR REPLACE</co
 <div class="language-sql highlight"><span class="filename">Create or replace a view</span><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">active_users</span><span class="w"> </span><span class="k">AS</span>
 </span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Create a materialized view</span><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_stats</span><span class="w"> </span><span class="k">AS</span>
-</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="p">;</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Create a view over a table and collection join</span><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_posts</span><span class="w"> </span><span class="k">AS</span>
-</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
-</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="p">;</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Create or replace a materialized view</span><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_stats</span><span class="w"> </span><span class="k">AS</span>
-</span><span id="True-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Create a view over a table and collection join</span><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_posts</span><span class="w"> </span><span class="k">AS</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">content</span>
+</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts</span><span class="p">::</span><span class="n">user_id</span><span class="p">;</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
 <p><a href="../../drop/drop-view/">DROP VIEW</a>, <a href="../../alter/alter-view/">ALTER VIEW</a></p>

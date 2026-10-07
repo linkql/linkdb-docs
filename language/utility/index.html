@@ -2149,10 +2149,13 @@
 </span></code></pre></div>
 <h2 id="description">Description</h2>
 <p>Utility commands provide maintenance and inspection operations for LinkDB. They
-include refreshing materialized views, analyzing query plans, and inspecting
-metadata for tables, collections, views, indexes, and the database.</p>
+include analyzing query plans and inspecting metadata for tables, collections,
+views, indexes, and the database, along with <code>REFRESH MATERIALIZED VIEW</code> (not
+yet implemented).</p>
 <h2 id="refresh-materialized-view">REFRESH MATERIALIZED VIEW</h2>
-<p>Updates the contents of a materialized view.</p>
+<p>Accepted by the grammar, but not yet implemented — materialized views
+themselves don't exist yet (see <a href="../ddl/create/create-view/">CREATE VIEW</a>).
+<code>REFRESH MATERIALIZED VIEW</code> raises an error at execution time.</p>
 <div class="language-sql highlight"><span class="filename">Refresh a materialized view</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">REFRESH</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_stats</span><span class="p">;</span>
 </span></code></pre></div>
 <h2 id="explain">EXPLAIN</h2>

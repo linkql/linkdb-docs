@@ -2023,7 +2023,7 @@
 
 
 <h1 id="alter-view">ALTER VIEW</h1>
-<p>Modifies an existing view or materialized view.</p>
+<p>Modifies an existing view.</p>
 <div class="language-ebnf highlight"><span class="filename">Grammar</span><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">alter_view_stmt     </span><span class="err">::</span><span class="o">=</span> <span class="k">ALTER </span><span class="p">(</span> <span class="k">MATERIALIZED </span><span class="p">)</span><span class="err">?</span> <span class="k">VIEW identifier alter_view_cmd</span>
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">alter_view_cmd      </span><span class="err">::=</span> <span class="k">RENAME TO identifier</span>
@@ -2035,7 +2035,8 @@ that defines it.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><code>MATERIALIZED</code></dt>
-<dd>Specifies that the view being altered is a materialized view.</dd>
+<dd>Accepted by the grammar, but not yet implemented. <code>ALTER MATERIALIZED
+VIEW</code> raises an error at execution time instead of altering anything.</dd>
 <dt><code>identifier</code> (first)</dt>
 <dd>The current name of the view.</dd>
 <dt><code>RENAME TO identifier</code></dt>
@@ -2045,8 +2046,7 @@ that defines it.</p>
 </dl>
 <h2 id="notes">Notes</h2>
 <ul>
-<li>Renaming a view does not change its underlying query definition or, for
-  materialized views, the stored data.</li>
+<li>Renaming a view does not change its underlying query definition.</li>
 <li>The new name must not already be in use by another view in the database.</li>
 <li><code>AS select_stmt</code> keeps the view's name and replaces its definition. The new query is
   checked in the same way as the query of a <code>CREATE VIEW</code> statement.</li>
@@ -2054,10 +2054,8 @@ that defines it.</p>
 <h2 id="examples">Examples</h2>
 <div class="language-sql highlight"><span class="filename">Rename a view</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">active_users</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">enabled_users</span><span class="p">;</span>
 </span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Rename a materialized view</span><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">user_stats</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">user_status_stats</span><span class="p">;</span>
-</span></code></pre></div>
-<div class="language-sql highlight"><span class="filename">Replace a view&#x27;s query</span><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">active_users</span><span class="w"> </span><span class="k">AS</span>
-</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
+<div class="language-sql highlight"><span class="filename">Replace a view&#x27;s query</span><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">active_users</span><span class="w"> </span><span class="k">AS</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
 <p><a href="../../create/create-view.md">CREATE VIEW</a>, <a href="../../drop/drop-view.md">DROP VIEW</a></p>
