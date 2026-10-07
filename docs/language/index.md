@@ -21,4 +21,4 @@ LinkQL lets you join tables and collections in a single query. Foreign key refer
 - **[Transactions](transactions.md)** — Transaction behavior and syntax
 - **[JSON Querying](json.md)** — JSON functions, path access, and manipulation
 - **[Functions](functions.md)** — Built-in functions available in LinkQL
-- **[Utility Commands](utility.md)** — Refreshing materialized views, explaining queries, and inspecting metadata
+- **[Utility Commands](utility.md)** — Explaining queries and inspecting metadata

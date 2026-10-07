@@ -1,5 +1,5 @@
 # ALTER VIEW
-Modifies an existing view or materialized view.
+Modifies an existing view.
 
 ```ebnf title="Grammar"
 alter_view_stmt     ::= ALTER ( MATERIALIZED )? VIEW identifier alter_view_cmd
@@ -15,7 +15,8 @@ that defines it.
 ## Parameters
 
 `MATERIALIZED`
-:   Specifies that the view being altered is a materialized view.
+:   Accepted by the grammar, but not yet implemented. `ALTER MATERIALIZED
+    VIEW` raises an error at execution time instead of altering anything.
 
 `identifier` (first)
 :   The current name of the view.
@@ -27,8 +28,7 @@ that defines it.
 :   Replaces the query that defines the view with a new `SELECT` statement.
 
 ## Notes
-- Renaming a view does not change its underlying query definition or, for
-  materialized views, the stored data.
+- Renaming a view does not change its underlying query definition.
 - The new name must not already be in use by another view in the database.
 - `AS select_stmt` keeps the view's name and replaces its definition. The new query is
   checked in the same way as the query of a `CREATE VIEW` statement.
@@ -37,10 +37,6 @@ that defines it.
 
 ```sql title="Rename a view"
 ALTER VIEW active_users RENAME TO enabled_users;
-```
-
-```sql title="Rename a materialized view"
-ALTER MATERIALIZED VIEW user_stats RENAME TO user_status_stats;
 ```
 
 ```sql title="Replace a view's query"

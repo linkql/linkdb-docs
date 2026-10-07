@@ -15,11 +15,14 @@ info_stmt           ::= INFO ( TABLE | COLLECTION | VIEW | INDEX | DATABASE ) id
 
 ## Description
 Utility commands provide maintenance and inspection operations for LinkDB. They
-include refreshing materialized views, analyzing query plans, and inspecting
-metadata for tables, collections, views, indexes, and the database.
+include analyzing query plans and inspecting metadata for tables, collections,
+views, indexes, and the database, along with `REFRESH MATERIALIZED VIEW` (not
+yet implemented).
 
 ## REFRESH MATERIALIZED VIEW
-Updates the contents of a materialized view.
+Accepted by the grammar, but not yet implemented — materialized views
+themselves don't exist yet (see [CREATE VIEW](ddl/create/create-view.md)).
+`REFRESH MATERIALIZED VIEW` raises an error at execution time.
 
 ```sql title="Refresh a materialized view"
 REFRESH MATERIALIZED VIEW user_stats;

@@ -6,7 +6,7 @@ The `CREATE` statement defines new objects within Link. The following objects ca
 - [CREATE TABLE](create/create-table.md) — creates a new relational table with a predefined schema
 - [CREATE COLLECTION](create/create-collection.md) — creates a new document collection
 - [CREATE INDEX](create/create-index.md) — creates an index on a table or collection
-- [CREATE VIEW](create/create-view.md) — creates a view or materialized view
+- [CREATE VIEW](create/create-view.md) — creates a view
 
 ```sql title="Examples"
 CREATE DATABASE my_database;
