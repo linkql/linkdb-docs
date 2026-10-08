@@ -2018,7 +2018,7 @@
   <span class="md-ellipsis">
     
   
-    Error Codes
+    Errors
   
 
     
@@ -2196,7 +2196,7 @@ restrict which unmatched rows are skipped.</dd>
 <dd>Returns values from the merged rows. Can return <code>*</code> for all columns or
 specific expressions with optional aliases. <code>*</code> returns every column of the target
 followed by the columns of the source. For a collection, <code>*</code> and <code>collection::*</code>
-also return free fields.</dd>
+also return free fields. Expressions can include scalar subqueries.</dd>
 </dl>
 <h2 id="notes">Notes</h2>
 <ul>
@@ -2207,6 +2207,8 @@ also return free fields.</dd>
 <li><code>MERGE</code> is not supported inside <code>FOR</code> loop bodies.</li>
 <li><code>MERGE</code> can be used inside a <code>LET</code> block as a valid DML statement.</li>
 <li>The source dataset is evaluated once before any inserts or updates are applied.</li>
+<li>A subquery source can reference CTEs from the statement's <code>WITH</code> clause and <code>LET</code>
+  bindings defined before the statement.</li>
 <li><code>RETURNING</code> returns values from rows that were inserted, updated, or deleted.</li>
 </ul>
 <h2 id="examples">Examples</h2>

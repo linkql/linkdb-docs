@@ -2040,7 +2040,7 @@
   <span class="md-ellipsis">
     
   
-    Error Codes
+    Errors
   
 
     
@@ -2249,7 +2249,8 @@ the table or collection are updated.</dd>
 specific expressions with optional aliases. <code>*</code> returns every column of the target
 followed by the columns of any <code>FROM</code> tables, with <code>NATURAL</code> and <code>USING</code> join
 columns merged into one. <code>table.*</code> returns the columns of one table. For a
-collection, <code>*</code> and <code>collection::*</code> also return free fields.</dd>
+collection, <code>*</code> and <code>collection::*</code> also return free fields. Expressions can include
+scalar subqueries.</dd>
 <dt><code>CONFIRM string_literal</code></dt>
 <dd>A confirmation string that must match the name of the table or collection being
 updated. Required when <code>CONFIRM_BULK_OPERATIONS</code> is enabled on the database and no
