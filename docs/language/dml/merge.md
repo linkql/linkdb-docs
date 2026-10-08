@@ -72,7 +72,7 @@ The `RETURNING` clause optionally returns values from the affected rows.
 :   Returns values from the merged rows. Can return `*` for all columns or
     specific expressions with optional aliases. `*` returns every column of the target
     followed by the columns of the source. For a collection, `*` and `collection::*`
-    also return free fields.
+    also return free fields. Expressions can include scalar subqueries.
 
 ## Notes
 - The target must be a table or collection. A view cannot be modified.
@@ -82,6 +82,8 @@ The `RETURNING` clause optionally returns values from the affected rows.
 - `MERGE` is not supported inside `FOR` loop bodies.
 - `MERGE` can be used inside a `LET` block as a valid DML statement.
 - The source dataset is evaluated once before any inserts or updates are applied.
+- A subquery source can reference CTEs from the statement's `WITH` clause and `LET`
+  bindings defined before the statement.
 - `RETURNING` returns values from rows that were inserted, updated, or deleted.
 
 ## Examples

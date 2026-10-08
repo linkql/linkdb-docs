@@ -48,6 +48,15 @@ GROUP BY users.username
 ORDER BY order_count DESC;
 ```
 
+### Ordering by a Subquery
+An `ORDER BY` item can be a scalar subquery, including a correlated one.
+
+```sql
+SELECT nums.n
+FROM nums
+ORDER BY (SELECT vals.v FROM vals WHERE vals.k = nums.n);
+```
+
 ### ORDER BY with Set Operations
 After a set operation (`UNION`, `INTERSECT`, `EXCEPT`), `ORDER BY` sorts the combined
 result, so it may only name that result's columns — from the first query — rather than

@@ -107,7 +107,7 @@ constraint. The conflicting row can be silently skipped or updated with new valu
 `RETURNING return_item`
 :   Returns values from the inserted rows. Can return `*` for all columns or
     specific expressions with optional aliases. For a collection, `*` and
-    `collection::*` also return free fields.
+    `collection::*` also return free fields. Expressions can include scalar subqueries.
 
 ## Notes
 - The target must be a table or collection. A view cannot be modified.

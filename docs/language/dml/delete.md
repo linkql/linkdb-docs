@@ -52,7 +52,8 @@ fields.
     specific expressions with optional aliases. `*` returns every column of the target
     followed by the columns of any `USING` tables, with `NATURAL` and `USING` join
     columns merged into one. `table.*` returns the columns of one table. For a
-    collection, `*` and `collection::*` also return free fields.
+    collection, `*` and `collection::*` also return free fields. Expressions can include
+    scalar subqueries.
 
 ## Database Settings
 

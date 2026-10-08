@@ -61,6 +61,8 @@ into the block. A failure inside the loop causes the entire block to roll back.
 - A `FOR` loop inside a block transaction is absorbed into the block's atomicity.
 - Use `LET` to define a named subquery before the loop and reference it by name
   as the source.
+- A subquery source can reference `LET` bindings defined before the loop, just like
+  any other subquery.
 
 ## Examples
 

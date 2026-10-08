@@ -78,7 +78,8 @@ which rows to update.
     specific expressions with optional aliases. `*` returns every column of the target
     followed by the columns of any `FROM` tables, with `NATURAL` and `USING` join
     columns merged into one. `table.*` returns the columns of one table. For a
-    collection, `*` and `collection::*` also return free fields.
+    collection, `*` and `collection::*` also return free fields. Expressions can include
+    scalar subqueries.
 
 `CONFIRM string_literal`
 :   A confirmation string that must match the name of the table or collection being
