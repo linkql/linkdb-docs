@@ -25,7 +25,7 @@ comparison      ::= additive ( operator additive )?
                   | additive operator ( ANY | SOME | ALL ) '(' select_stmt ')'
                   | EXISTS '(' select_stmt ')'
 
-operator        ::= '=' | '!=' | '<' | '<=' | '>' | '>='
+operator        ::= '=' | '!=' | '<>' | '<' | '<=' | '>' | '>='
 
 additive        ::= multiplicative ( ( '+' | '-' | '||' ) multiplicative )*
 

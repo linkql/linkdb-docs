@@ -505,7 +505,7 @@ comparison          ::= additive ( operator additive )?
                       | additive NOT? ILIKE string_literal ( ESCAPE string_literal )?
                       | additive operator ( ANY | SOME | ALL ) '(' select_stmt ')'
 
-operator            ::= '=' | '!=' | '<' | '<=' | '>' | '>='
+operator            ::= '=' | '!=' | '<>' | '<' | '<=' | '>' | '>='
 
 additive            ::= multiplicative ( ( '+' | '-' | '||' ) multiplicative )*
 
