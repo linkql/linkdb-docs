@@ -121,7 +121,7 @@ SELECT users.username FROM users ORDER BY users.created_at DESC OFFSET 20 ROWS F
 ## Notes
 - `ASC` is the default sort order and can be omitted.
 - Multiple `ORDER BY` expressions are evaluated left to right.
-- `OFFSET` requires `LIMIT` to be specified.
+- `OFFSET` can be used on its own, without `LIMIT`.
 - `NULL` values sort last in ascending order and first in descending order.
 - `MISSING` values are excluded before sorting.
 - `LIMIT` and `OFFSET` are applied after all other clauses.
