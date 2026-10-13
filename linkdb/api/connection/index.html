@@ -654,6 +654,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connection
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -670,6 +688,114 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        connect()
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing databases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_database()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        drop_database()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-named-databases-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where named databases live
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1967,6 +2093,103 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        connect()
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing databases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_database()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        drop_database()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-named-databases-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where named databases live
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1983,9 +2206,141 @@
 
 
 <h1 id="connection">Connection</h1>
-<p>Not built yet. There is no public <code>Connection</code> type or <code>connect()</code> function
-in the <code>linkdb</code> package — see <a href="../">Python API</a> for what exists today
-(the CLI only) and what's planned.</p>
+<p>A <code>Connection</code> is one open database. Get one from <code>connect()</code>.</p>
+<h2 id="connect"><code>connect()</code></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;:memory:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Connection</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target</code></td>
+<td>What to open (see below). Defaults to <code>":memory:"</code>. Accepts <code>str</code> or <code>os.PathLike</code>.</td>
+</tr>
+<tr>
+<td><code>create</code></td>
+<td>Create the database if it doesn't exist. Defaults to <code>False</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>target</code> can be:</p>
+<ul>
+<li><strong>A bare name</strong> such as <code>"demo"</code> — the database stored at
+  <code>~/.linkdb/databases/demo</code>. See <a href="#where-named-databases-live">Where named databases
+  live</a> to change that folder.</li>
+<li><strong>A path</strong> — anything that starts with <code>.</code> or <code>~</code>, or contains a path
+  separator (<code>"./demo"</code>, <code>"/data/demo"</code>, <code>"~/demo"</code>). The path is the database
+  directory itself. The database's name is the last path component.</li>
+<li><strong><code>":memory:"</code></strong> — a throwaway in-memory database. Nothing is written to
+  disk, and each in-memory connection is independent of every other.</li>
+</ul>
+<p>If the database doesn't exist, <code>connect()</code> raises <code>LinkDBConnectionError</code>
+unless you pass <code>create=True</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">conn</span> <span class="o">=</span> <span class="n">linkdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># ~/.linkdb/databases/demo</span>
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">conn</span> <span class="o">=</span> <span class="n">linkdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;./demo&quot;</span><span class="p">)</span>              <span class="c1"># a database in the current folder</span>
+</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">conn</span> <span class="o">=</span> <span class="n">linkdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>                      <span class="c1"># in-memory</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Unlike the <a href="../../cli/commands/#connection">CLI</a>, <code>connect()</code> does not
+search the current folder for a bare name. Write <code>"./demo"</code> to open a
+database there.</p>
+</div>
+<h2 id="connection_1"><code>Connection</code></h2>
+<p>A connection autocommits: each statement is applied and saved as soon as it
+runs, unless you have opened a transaction with <code>BEGIN</code> (see
+<a href="#transactions">Transactions</a>). On-disk data and schema changes are written
+after every statement.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>execute(sql, params=None)</code></td>
+<td>Run one statement. See <a href="../query_execution/#execute">Query Execution</a>.</td>
+</tr>
+<tr>
+<td><code>executescript(sql)</code></td>
+<td>Run several statements. See <a href="../query_execution/#executescript">Query Execution</a>.</td>
+</tr>
+<tr>
+<td><code>cursor()</code></td>
+<td>Return a <a href="../query_execution/#cursors"><code>Cursor</code></a>.</td>
+</tr>
+<tr>
+<td><code>close()</code></td>
+<td>Close the connection. Safe to call more than once.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>The database name: the bare name, the last path component, or <code>":memory:"</code>.</td>
+</tr>
+<tr>
+<td><code>closed</code></td>
+<td><code>True</code> once the connection is closed.</td>
+</tr>
+<tr>
+<td><code>in_transaction</code></td>
+<td><code>True</code> while a <code>BEGIN</code> is open. Raises <code>LinkDBConnectionError</code> on a closed connection.</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>Connection</code> is a context manager. Leaving the <code>with</code> block calls
+<code>close()</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">with</span> <span class="n">linkdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT 1&quot;</span><span class="p">)</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># conn is closed here</span>
+</span></code></pre></div>
+<p>Using a closed connection raises <code>LinkDBConnectionError</code>.</p>
+<h3 id="transactions">Transactions</h3>
+<p>Send the transaction statements through <code>execute()</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;BEGIN&quot;</span><span class="p">)</span>
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM users&quot;</span><span class="p">)</span>
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">in_transaction</span><span class="p">)</span>   <span class="c1"># True</span>
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ROLLBACK&quot;</span><span class="p">)</span>     <span class="c1"># the delete is undone</span>
+</span></code></pre></div>
+<p>There are no <code>commit()</code> or <code>rollback()</code> methods. <code>close()</code> rolls back a
+transaction that is still open. See <a href="../../../language/transactions/">Transactions</a>
+for what the language guarantees.</p>
+<h2 id="managing-databases">Managing databases</h2>
+<p>These helpers create and delete on-disk databases without opening one. They
+do the same work as the <code>CREATE DATABASE</code> and <code>DROP DATABASE</code> statements.</p>
+<h3 id="create_database"><code>create_database()</code></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">create_database</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</span></code></pre></div>
+<p>Creates an empty database from a bare name or a directory path. Raises
+<code>LinkDBError</code> if it already exists, unless <code>if_not_exists=True</code>, and if
+<code>target</code> is <code>":memory:"</code>.</p>
+<h3 id="drop_database"><code>drop_database()</code></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">drop_database</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">confirm</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</span></code></pre></div>
+<p>Deletes the database <code>name</code> and all of its data. <code>name</code> must be a bare name,
+not a path. <code>confirm</code> is required and must repeat the name
+(case-insensitively), as the <code>CONFIRM</code> clause of <code>DROP DATABASE</code> does. Raises
+<code>LinkDBError</code> if the confirmation doesn't match or the database doesn't exist,
+unless <code>if_exists=True</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">drop_database</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">,</span> <span class="n">confirm</span><span class="o">=</span><span class="s2">&quot;demo&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Close any connection to the database before dropping it.</p>
+<h2 id="where-named-databases-live">Where named databases live</h2>
+<p>Bare-name databases live under <code>~/.linkdb/databases</code>. To use a different
+folder for this process:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">set_default_database_root</span><span class="p">(</span><span class="s2">&quot;/data/linkdb&quot;</span><span class="p">)</span>
+</span><span id="True-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">set_default_database_root</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>   <span class="c1"># back to ~/.linkdb/databases</span>
+</span></code></pre></div>
+<p>The setting applies to <code>connect()</code>, <code>create_database()</code>, <code>drop_database()</code>,
+and to <code>CREATE DATABASE</code> / <code>DROP DATABASE</code> statements you run. It does not
+affect paths. The CLI's <code>--root</code> option does the same thing; see
+<a href="../../cli/#choosing-where-databases-live">CLI</a>.</p>
 
 
 

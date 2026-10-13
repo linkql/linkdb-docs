@@ -1957,6 +1957,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#whats-exported" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's exported
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1973,19 +2014,148 @@
 
 
 <h1 id="python-api">Python API</h1>
-<p>LinkDB does not yet have a public, embeddable Python API — there is no
-<code>connect()</code>, <code>Connection</code>, or result object you can <code>import</code> and call from
-your own code.</p>
-<p>Today the only way to use LinkDB from Python is the <a href="../cli/">CLI</a>,
-an interactive REPL process. Internally the CLI drives the engine through
-<code>LinkDBState</code> in <code>src/linkdb/cli/state.py</code>, but that class is a CLI
-implementation detail, not a supported public interface: its shape can
-change without notice and it is not exposed as part of the <code>linkdb</code> package.</p>
-<p>A real public API — connect to a database, execute a statement, get results
-back, matching the shape implied by this section's page titles (<a href="connection/">Connection</a>,
-<a href="query_execution/">Query Execution</a>, <a href="results/">Results</a>) — is wanted
-and planned for a future effort, but nothing has been designed or built
-yet. These pages will get real content once that work exists.</p>
+<p>LinkDB can be embedded in your own Python code. The <code>linkdb</code> package exports
+a small, synchronous API: open a <a href="connection/">connection</a>, <a href="query_execution/">execute
+statements</a> on it, and read the <a href="results/">results</a>.
+The engine runs in-process — there is no server to start.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">linkdb</span>
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">create_database</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">with</span> <span class="n">linkdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="s2">        CREATE TABLE IF NOT EXISTS users (</span>
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="s2">            user_id  BIGINT PRIMARY KEY AUTOINCREMENT(1, 1),</span>
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="s2">            username VARCHAR(50) NOT NULL</span>
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="s2">        )</span>
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO users (username) VALUES (?)&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;john&quot;</span><span class="p">])</span>
+</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO users (username) VALUES (:name)&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;jane&quot;</span><span class="p">})</span>
+</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT user_id, username FROM users ORDER BY user_id&quot;</span><span class="p">)</span>
+</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>  <span class="c1"># [&#39;user_id&#39;, &#39;username&#39;]</span>
+</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>     <span class="c1"># [{&#39;user_id&#39;: 1, &#39;username&#39;: &#39;john&#39;}, {&#39;user_id&#39;: 2, &#39;username&#39;: &#39;jane&#39;}]</span>
+</span><span id="True-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="True-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">linkdb</span><span class="o">.</span><span class="n">drop_database</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">,</span> <span class="n">confirm</span><span class="o">=</span><span class="s2">&quot;demo&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Install the package first — see <a href="../installation/">Installation</a>. The
+distribution is named <code>linkdbms</code>, but you import it as <code>linkdb</code>.</p>
+<h2 id="whats-exported">What's exported</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Kind</th>
+<th>Page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>connect()</code></td>
+<td>function</td>
+<td><a href="connection/#connect">Connection</a></td>
+</tr>
+<tr>
+<td><code>Connection</code></td>
+<td>class</td>
+<td><a href="connection/#connection">Connection</a></td>
+</tr>
+<tr>
+<td><code>create_database()</code></td>
+<td>function</td>
+<td><a href="connection/#managing-databases">Connection</a></td>
+</tr>
+<tr>
+<td><code>drop_database()</code></td>
+<td>function</td>
+<td><a href="connection/#managing-databases">Connection</a></td>
+</tr>
+<tr>
+<td><code>set_default_database_root()</code></td>
+<td>function</td>
+<td><a href="connection/#where-named-databases-live">Connection</a></td>
+</tr>
+<tr>
+<td><code>Cursor</code></td>
+<td>class</td>
+<td><a href="query_execution/#cursors">Query Execution</a></td>
+</tr>
+<tr>
+<td><code>Result</code></td>
+<td>dataclass</td>
+<td><a href="results/">Results</a></td>
+</tr>
+<tr>
+<td><code>LinkDBError</code></td>
+<td>exception</td>
+<td><a href="#errors">Errors</a></td>
+</tr>
+<tr>
+<td><code>LinkDBConnectionError</code></td>
+<td>exception</td>
+<td><a href="#errors">Errors</a></td>
+</tr>
+<tr>
+<td><code>LinkQLSyntaxError</code></td>
+<td>exception</td>
+<td><a href="#errors">Errors</a></td>
+</tr>
+</tbody>
+</table>
+<p>The names load on first use rather than at <code>import linkdb</code>, so importing the
+package is cheap.</p>
+<h2 id="errors">Errors</h2>
+<p>Every error the API raises is a <code>LinkDBError</code>, so one <code>except</code> clause covers
+all of them:</p>
+<table>
+<thead>
+<tr>
+<th>Exception</th>
+<th>Raised when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LinkDBConnectionError</code></td>
+<td>A database can't be opened, or a closed connection or cursor is used.</td>
+</tr>
+<tr>
+<td><code>LinkQLSyntaxError</code></td>
+<td>A statement can't be lexed or parsed. Carries <code>line</code>, <code>column</code>, <code>lexeme</code>, and <code>source</code>.</td>
+</tr>
+<tr>
+<td><code>LinkDBError</code></td>
+<td>Anything else — wrong number of statements for <code>execute()</code>, a parameter mismatch, or a failure in the analyzer, planner, executor, or storage layers (these raise subclasses such as <code>AnalyzerError</code>).</td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">try</span><span class="p">:</span>
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELEKT 1&quot;</span><span class="p">)</span>
+</span><span id="True-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">except</span> <span class="n">linkdb</span><span class="o">.</span><span class="n">LinkQLSyntaxError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+</span><span id="True-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">column</span><span class="p">)</span>  <span class="c1"># 1 1</span>
+</span><span id="True-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Unexpected keyword SELEKT at line 1, column 1
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a> --&gt; Line 1, Column 1
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  |
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>1 | SELEKT 1
+</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  | ^^^^^^
+</span></code></pre></div>
+<p><code>error.message</code> is the bare text; <code>str(error)</code> adds the position and the
+offending source line, the same detail the <a href="../cli/">CLI</a> prints. The
+full exception hierarchy is on the <a href="../../reference/error_codes/">Errors</a>
+reference page.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>The API is synchronous only.</li>
+<li>Rows are dicts. There are no tuple rows, streaming results, or cursor
+  context managers.</li>
+<li>There are no <code>commit()</code> or <code>rollback()</code> methods; transactions are driven
+  with the <code>BEGIN</code>, <code>COMMIT</code>, and <code>ROLLBACK</code> statements. See
+  <a href="connection/#transactions">Connection → Transactions</a>.</li>
+<li>Two connections to the same on-disk database in one process are not
+  coordinated, so write from only one at a time.</li>
+</ul>
 
 
 

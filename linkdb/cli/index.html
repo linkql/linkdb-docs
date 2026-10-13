@@ -1986,6 +1986,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#choosing-where-databases-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing where databases live
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#interaction-model" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2068,13 +2079,39 @@ real, on-disk database. To work with persistent data, create a database with
 <code>CREATE DATABASE &lt;name&gt;;</code> and connect to it with <code>\c &lt;name&gt;</code> — see
 <a href="commands/">Commands</a> for both. Once connected, the prompt changes to
 <code>&lt;name&gt;=#</code> and every statement reads from and writes to that database's
-on-disk storage under <code>~/.linkdb/databases/&lt;name&gt;/</code>.</p>
+on-disk storage under <code>~/.linkdb/databases/&lt;name&gt;/</code> (or in the current
+folder or <code>--root</code>; see <a href="#choosing-where-databases-live">below</a>).</p>
 <p>Statements execute immediately — the session starts in <code>executor</code>
 <a href="commands/#execution">pipeline mode</a>, the last of five stages a
 statement can be made to stop at. Switching to an earlier stage (<code>\p
 lexer</code>/<code>parser</code>/<code>analyzer</code>/<code>planner</code>) is a debugging tool for inspecting
 how a statement gets lexed, parsed, analyzed, or planned without actually
 running it — see <a href="commands/#execution">Commands → Execution</a>.</p>
+<h2 id="choosing-where-databases-live">Choosing where databases live</h2>
+<p>By default, databases live under <code>~/.linkdb/databases/</code>. Two things change
+what <code>\c</code> and <code>\l</code> can see:</p>
+<ul>
+<li>
+<p><strong><code>--root PATH</code></strong> — use <code>PATH</code> as the folder that holds your databases
+  instead of <code>~/.linkdb/databases</code>. <code>CREATE DATABASE</code> and <code>DROP DATABASE</code>
+  use it too.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>linkdb<span class="w"> </span>--root<span class="w"> </span>./my-databases
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>The current folder</strong> — a database that sits directly inside the folder
+  you launched <code>linkdb</code> from is always available, alongside those under the
+  root. A folder only counts as a database if it contains a <code>system</code>
+  subfolder, because the current folder usually holds plenty of folders that
+  aren't databases. If the same name exists in both places, the databases
+  root wins.</p>
+</li>
+</ul>
+<p>Database statements (<code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, and <code>TRUNCATE DATABASE</code>)
+always act on the databases root, never on the current folder.</p>
+<p>The <a href="../api/">Python API</a> does the same job with
+<a href="../api/connection/#where-named-databases-live"><code>set_default_database_root()</code></a>.
+It does not search the current folder.</p>
 <h2 id="interaction-model">Interaction model</h2>
 <p>The CLI reads from standard input in two kinds of input:</p>
 <ul>
@@ -2087,10 +2124,10 @@ running it — see <a href="commands/#execution">Commands → Execution</a>.</p>
   last statement boundary is dispatched together. This lets you write a
   statement across several lines:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>linkdb=# CREATE TABLE users (
-</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>-#     id INT AUTOINCREMENT,
-</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>-#     username VARCHAR(50)
-</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>-# );
+<div class="language-text highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>linkdb=# CREATE TABLE users (
+</span><span id="True-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>-#     id INT AUTOINCREMENT,
+</span><span id="True-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>-#     username VARCHAR(50)
+</span><span id="True-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>-# );
 </span></code></pre></div>
 <p>The prompt itself reflects this: it reads <code>=#</code> while the input buffer is
 empty and <code>-#</code> while a statement is still being accumulated, matching the

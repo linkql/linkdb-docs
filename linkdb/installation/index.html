@@ -512,10 +512,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#install-a-release-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install a release wheel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-from-source" class="md-nav__link">
     <span class="md-ellipsis">
       
         Install from source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check the install
       
     </span>
   </a>
@@ -2042,10 +2064,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#install-a-release-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install a release wheel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-from-source" class="md-nav__link">
     <span class="md-ellipsis">
       
         Install from source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check the install
       
     </span>
   </a>
@@ -2072,13 +2116,31 @@
 <h1 id="installation">Installation</h1>
 <p>LinkDB is MVP-stage software. It is <strong>not</strong> published to PyPI — there is an
 unrelated package already named <code>linkdb</code> on PyPI (a CLI bookmark manager),
-so <code>pip install linkdb</code> will install the wrong thing. For now, install from
-source.</p>
+so <code>pip install linkdb</code> will install the wrong thing. Install a release
+wheel, or install from source.</p>
+<p>The distribution is named <strong><code>linkdbms</code></strong>, but you import it and run it as
+<code>linkdb</code>.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>Python 3.12 or later (<code>requires-python = "&gt;=3.12"</code>).</li>
-<li>Git, with submodule support (used below).</li>
+<li>Git, with submodule support (only for installing from source).</li>
 </ul>
+<h2 id="install-a-release-wheel">Install a release wheel</h2>
+<p>A wheel is a single file that bundles the CLI, the Python API, and every
+engine package, so there are no other packages or submodules to install.
+Use a fresh virtual environment:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">        </span><span class="c1"># .venv\Scripts\activate on Windows</span>
+</span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pip<span class="w"> </span>install<span class="w"> </span>./linkdbms-&lt;version&gt;-py3-none-any.whl
+</span></code></pre></div>
+<p>Releases are attached to GitHub releases on
+<a href="https://github.com/linkql/linkdb"><code>linkql/linkdb</code></a>. To build a wheel
+yourself from a full checkout (submodules included):</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>build
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>-m<span class="w"> </span>build<span class="w"> </span>--wheel
+</span></code></pre></div>
+<p>The wheel appears in <code>dist/</code>. To upgrade, install the newer wheel with
+<code>pip install --upgrade</code>.</p>
 <h2 id="install-from-source">Install from source</h2>
 <p>LinkDB's engine is split across several packages — <code>linkdb-core</code>,
 <code>linkdb-lexer</code>, <code>linkdb-parser</code>, <code>linkdb-analyzer</code>, <code>linkdb-planner</code>,
@@ -2090,33 +2152,38 @@ checkouts alongside the main package.</p>
 <ol>
 <li>
 <p>Clone the repository with its submodules:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/linkql/linkdb.git
-</span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>linkdb
+<div class="language-sh highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/linkql/linkdb.git
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>linkdb
 </span></code></pre></div>
 <p>If you already cloned without <code>--recurse-submodules</code>, fetch the
 submodules afterward:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+<div class="language-sh highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
 </span></code></pre></div>
 </li>
 <li>
 <p>Create and activate a virtual environment:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<div class="language-sh highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 </span></code></pre></div>
 </li>
 <li>
 <p>Install the project's <code>requirements.txt</code>, which editable-installs every
    engine package plus the main <code>linkdb</code> package in one step:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<div class="language-sh highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </span></code></pre></div>
 </li>
 </ol>
-<p>This puts a <code>linkdb</code> console script on your <code>PATH</code> — it's the
+<h2 id="check-the-install">Check the install</h2>
+<p>Either route puts a <code>linkdb</code> console script on your <code>PATH</code> — it's the
 <code>[project.scripts]</code> entry <code>linkdb = "linkdb.cli.repl:main"</code> from
 <code>pyproject.toml</code>. Run it to confirm the install:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>linkdb
+<div class="language-sh highlight"><pre><span></span><code><span id="True-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>linkdb
 </span></code></pre></div>
-<p>See <a href="../cli/">CLI</a> for what to do once it's running.</p>
+<p><code>\q</code> leaves the CLI. To check the Python API:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="True-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import linkdb; print(linkdb.connect().execute(&#39;SELECT 1&#39;).rows)&quot;</span>
+</span></code></pre></div>
+<p>See <a href="../cli/">CLI</a> for what to do once the CLI is running, or <a href="../api/">Python
+API</a> to use LinkDB from your own code.</p>
 
 
 

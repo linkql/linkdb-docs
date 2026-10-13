@@ -2739,7 +2739,10 @@ equivalent). Unknown names raise an error rather than printing nothing.</p>
 <p>Connects to an already-existing database.</p>
 <ul>
 <li><code>&lt;database_name&gt;</code> is required and is a logical name, never a path — it
-  resolves to a fixed directory, <code>~/.linkdb/databases/&lt;database_name&gt;/</code>.</li>
+  resolves to <code>~/.linkdb/databases/&lt;database_name&gt;/</code> (or the folder given
+  with <a href="../#choosing-where-databases-live"><code>--root</code></a>). If there is no
+  such directory, a database of that name directly inside the current folder
+  is used instead.</li>
 <li><strong>Never auto-creates.</strong> If no directory exists under that name, this
   errors (<code>Database '&lt;name&gt;' does not exist.</code>) rather than creating one —
   use <a href="#database-ddl-statements"><code>CREATE DATABASE</code></a> first.</li>
@@ -2761,7 +2764,8 @@ in-memory default (see <a href="../#zero-config-default-database">CLI</a>).</p>
   reason as <code>\c</code> above.</li>
 </ul>
 <h3 id="list"><code>\l[ist]</code></h3>
-<p>Lists every database under <code>~/.linkdb/databases/</code> (an absent root directory
+<p>Lists every database under <code>~/.linkdb/databases/</code> (or the <code>--root</code> folder),
+plus those directly inside the current folder (an absent root directory
 means zero databases, not an error):</p>
 <table>
 <thead>
@@ -2897,7 +2901,7 @@ only prints that stage's output for the whole file instead of running it.</p>
 exactly like any other — not backslash commands — but they're documented
 here because of <em>where</em> they run: the CLI intercepts all four and executes
 them itself, as plain filesystem operations against
-<code>~/.linkdb/databases/</code>, before they would otherwise reach <code>Planner</code>/
+<code>~/.linkdb/databases/</code> (or the <code>--root</code> folder), before they would otherwise reach <code>Planner</code>/
 <code>Executor</code>. <code>linkdb_executor</code> itself still refuses to execute these four
 statement types (by design — see ADR 0007 in its own docs); only the CLI
 knows how to act on them, and only once <a href="#execution">pipeline mode</a> has

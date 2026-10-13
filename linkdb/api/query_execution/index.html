@@ -682,6 +682,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Execution
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -698,6 +716,75 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#execute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        execute()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="execute()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executescript()
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cursors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cursors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1967,6 +2054,64 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#execute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        execute()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="execute()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executescript()
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cursors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cursors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1983,9 +2128,125 @@
 
 
 <h1 id="query-execution">Query Execution</h1>
-<p>Not built yet. There is no public API method for executing a statement
-against a database from Python — see <a href="../">Python API</a> for what
-exists today (the CLI only) and what's planned.</p>
+<p>Run <a href="../../../language/">LinkQL</a> statements with <code>Connection.execute()</code>,
+<code>Connection.executescript()</code>, or a <a href="#cursors"><code>Cursor</code></a>.</p>
+<h2 id="execute"><code>execute()</code></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span>
+</span></code></pre></div>
+<p>Runs <strong>exactly one</strong> statement and returns its <a href="../results/"><code>Result</code></a>. The
+trailing <code>;</code> is optional. Passing zero or several statements raises
+<code>LinkDBError</code>; use <a href="#executescript"><code>executescript()</code></a> for several.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO users (username) VALUES (&#39;john&#39;)&quot;</span><span class="p">)</span>
+</span><span id="True-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT username FROM users&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="parameters">Parameters</h3>
+<p>Pass values separately instead of building the SQL string yourself.</p>
+<ul>
+<li><code>?</code> placeholders take a <strong>sequence</strong>, filled in order.</li>
+<li><code>:name</code> placeholders take a <strong>dict</strong>.</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="True-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO users (username) VALUES (?)&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;john&quot;</span><span class="p">])</span>
+</span><span id="True-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO users (username) VALUES (:name)&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;jane&quot;</span><span class="p">})</span>
+</span><span id="True-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span><span id="True-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="s2">&quot;SELECT username FROM users WHERE user_id &gt; :min AND active = :active&quot;</span><span class="p">,</span>
+</span><span id="True-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="p">{</span><span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;active&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+</span><span id="True-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>Rules:</p>
+<ul>
+<li>Supported value types are <code>None</code> (becomes <code>NULL</code>), <code>bool</code>, <code>int</code>, <code>float</code>,
+  and <code>str</code>. Anything else raises <code>LinkDBError</code>, as does a non-finite float
+  (<code>nan</code>, <code>inf</code>).</li>
+<li>Values are never pasted into the SQL text, so a string containing quotes or
+  keywords is always treated as plain data.</li>
+<li>A placeholder stands for a value, not a name. You can't parameterize a
+  table or column name.</li>
+<li>Placeholders inside string literals, quoted identifiers, and comments are
+  left alone, as is the <code>::</code> operator.</li>
+<li>A <code>?</code> directly after an expression is the shorthand <code>CASE</code> operator, not a
+  placeholder.</li>
+<li>These raise <code>LinkDBError</code>: placeholders with no parameters, a sequence
+  whose length doesn't match the number of <code>?</code> placeholders, a dict used with
+  <code>?</code> (or a sequence used with <code>:name</code>), and a <code>:name</code> missing from the dict.
+  Unused keys in a dict are ignored.</li>
+</ul>
+<h2 id="executescript"><code>executescript()</code></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="True-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">conn</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Result</span><span class="p">]</span>
+</span></code></pre></div>
+<p>Runs several statements in order and returns one <code>Result</code> per statement. It
+takes no parameters.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="True-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="s2">    CREATE TABLE tags (tag_id BIGINT PRIMARY KEY, label VARCHAR(20));</span>
+</span><span id="True-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="s2">    INSERT INTO tags (tag_id, label) VALUES (1, &#39;a&#39;);</span>
+</span><span id="True-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s2">    SELECT label FROM tags;</span>
+</span><span id="True-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="True-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>   <span class="c1"># [{&#39;label&#39;: &#39;a&#39;}]</span>
+</span></code></pre></div>
+<p>The statements are <strong>not</strong> wrapped in a transaction. If one fails, the
+statements before it stay applied unless you opened a transaction yourself
+with <code>BEGIN</code>. (The CLI behaves differently: it wraps a multi-statement batch
+in an implicit transaction. See
+<a href="../../cli/commands/#implicit-transaction-wrapping-of-multi-statement-batches">Commands</a>.)</p>
+<h2 id="cursors">Cursors</h2>
+<p><code>conn.cursor()</code> returns a <code>Cursor</code>, a <a href="https://peps.python.org/pep-0249/">PEP 249</a>-style
+wrapper that holds the rows of the last statement and hands them out
+gradually. Rows are dicts, as everywhere else in the API.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span><span id="True-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT username FROM users WHERE username = ?&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;john&quot;</span><span class="p">])</span>
+</span><span id="True-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="s2">&quot;username&quot;</span><span class="p">])</span>   <span class="c1"># john</span>
+</span><span id="True-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="True-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT username FROM users ORDER BY user_id&quot;</span><span class="p">)</span>
+</span><span id="True-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cur</span><span class="p">:</span>
+</span><span id="True-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">])</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>execute(sql, params=None)</code></td>
+<td>Run one statement, replacing any earlier rows. Returns <code>None</code>.</td>
+</tr>
+<tr>
+<td><code>fetchone()</code></td>
+<td>The next row, or <code>None</code> when there are no more.</td>
+</tr>
+<tr>
+<td><code>fetchmany(size=None)</code></td>
+<td>Up to <code>size</code> rows. Defaults to <code>arraysize</code>, which is <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>fetchall()</code></td>
+<td>All remaining rows.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>A tuple of 7-item tuples, one per column, with the column name first and <code>None</code> for the rest. <code>None</code> if the statement returned no columns.</td>
+</tr>
+<tr>
+<td><code>rowcount</code></td>
+<td>The statement's <a href="../results/#fields"><code>row_count</code></a>, or <code>-1</code> if it has none.</td>
+</tr>
+<tr>
+<td><code>connection</code></td>
+<td>The <code>Connection</code> it came from.</td>
+</tr>
+<tr>
+<td><code>arraysize</code></td>
+<td>Default size for <code>fetchmany()</code>.</td>
+</tr>
+<tr>
+<td><code>close()</code></td>
+<td>Close the cursor. Further <code>execute()</code> calls raise <code>LinkDBConnectionError</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>A cursor is also iterable, yielding the remaining rows. It runs one
+statement at a time and has no <code>executemany()</code>.</p>
 
 
 

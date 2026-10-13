@@ -1999,6 +1999,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#linkdbconnectionerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LinkDBConnectionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linkqlsyntaxerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LinkQLSyntaxError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lexererror" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2218,6 +2240,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#linkdbconnectionerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LinkDBConnectionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linkqlsyntaxerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LinkQLSyntaxError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lexererror" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2392,17 +2436,20 @@ lexeme.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="True-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>LinkDBError            base class; also raised directly for CLI-layer errors
 </span><span id="True-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                        (unknown REPL command, bad database admin arguments,
 </span><span id="True-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                        no active connection, etc.)
-</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── LexerError          tokenizing failure
-</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── ParserError         syntax error while parsing a statement
-</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── PlannerError        query planning failure
-</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── ExecutorError       statement execution failure
-</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── GeneratorError      SQL/plan generation failure
-</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── AnalyzerError       semantic analysis failure
-</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── StorageError        data store read/write failure
-</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>└── CatalogError        catalog operation failure
-</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    ├── ObjectNotFoundError     referenced table/collection/view/index missing
-</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    ├── DuplicateObjectError    object with that name already exists
-</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    └── ConstraintNotFoundError referenced constraint missing
+</span><span id="True-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── LinkDBConnectionError   Python API: database can&#39;t be opened, or a closed
+</span><span id="True-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│                           connection/cursor was used
+</span><span id="True-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── LinkQLSyntaxError   Python API: a statement failed to lex or parse
+</span><span id="True-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── LexerError          tokenizing failure
+</span><span id="True-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── ParserError         syntax error while parsing a statement
+</span><span id="True-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── PlannerError        query planning failure
+</span><span id="True-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── ExecutorError       statement execution failure
+</span><span id="True-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── GeneratorError      SQL/plan generation failure
+</span><span id="True-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── AnalyzerError       semantic analysis failure
+</span><span id="True-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── StorageError        data store read/write failure
+</span><span id="True-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>└── CatalogError        catalog operation failure
+</span><span id="True-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    ├── ObjectNotFoundError     referenced table/collection/view/index missing
+</span><span id="True-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    ├── DuplicateObjectError    object with that name already exists
+</span><span id="True-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    └── ConstraintNotFoundError referenced constraint missing
 </span></code></pre></div>
 <h2 id="reference">Reference</h2>
 <h3 id="linkdberror"><code>LinkDBError</code></h3>
@@ -2411,6 +2458,20 @@ lexeme.</p>
 an unknown <code>\</code>-command, a missing argument to a command, a <code>CREATE</code>/<code>ALTER</code>/
 <code>DROP</code> <code>DATABASE</code> naming conflict, or no active connection to disconnect.</p>
 <p>Carries: <code>message</code>.</p>
+<h3 id="linkdbconnectionerror"><code>LinkDBConnectionError</code></h3>
+<p>Raised by the <a href="../../linkdb/api/">Python API</a> when <code>connect()</code> can't
+open a database (it doesn't exist and <code>create=True</code> wasn't given, or the
+target is empty), and when a closed <code>Connection</code> or <code>Cursor</code> is used.
+Defined in <code>linkdb.errors</code> and exported as <code>linkdb.LinkDBConnectionError</code>.</p>
+<p>Carries: <code>message</code>.</p>
+<h3 id="linkqlsyntaxerror"><code>LinkQLSyntaxError</code></h3>
+<p>Raised by the <a href="../../linkdb/api/">Python API</a> in place of <code>LexerError</code>
+and <code>ParserError</code>, so callers catch one class for any statement that can't
+be lexed or parsed. Defined in <code>linkdb.errors</code> and exported as
+<code>linkdb.LinkQLSyntaxError</code>.</p>
+<p>Carries: <code>message</code>, <code>line</code>, <code>column</code>, <code>lexeme</code>, and <code>source</code> (the text the
+lexer saw, or <code>None</code>). <code>str()</code> appends the line, column, and the offending
+source line with a caret, matching the CLI's output.</p>
 <h3 id="lexererror"><code>LexerError</code></h3>
 <p>Raised when the lexer can't tokenize the source — e.g. an unterminated
 string or an unexpected character.</p>
