@@ -2287,6 +2287,7 @@
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>A string compared with a <code>UUID</code> value is read as a <code>UUID</code>, so <code>WHERE _id = '550e8400-e29b-41d4-a716-446655440000'</code> works. A string that is not a valid UUID raises an error instead of matching nothing.</p>
 <p>For performance sensitive use-cases, always specify <code>size</code> and <code>d</code> for <code>DECIMAL</code> types. Unspecified <code>DECIMAL</code> types use arbitrary precision which trades storage efficiency and compute speed for exactness.</p>
 </div>
 <h2 id="structured-types">Structured Types</h2>

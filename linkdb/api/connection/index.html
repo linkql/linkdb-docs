@@ -793,6 +793,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#generating-uuids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating UUIDs
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2188,6 +2199,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#generating-uuids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating UUIDs
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2341,6 +2363,14 @@ folder for this process:</p>
 and to <code>CREATE DATABASE</code> / <code>DROP DATABASE</code> statements you run. It does not
 affect paths. The CLI's <code>--root</code> option does the same thing; see
 <a href="../../cli/#choosing-where-databases-live">CLI</a>.</p>
+<h2 id="generating-uuids">Generating UUIDs</h2>
+<p><code>gen_uuid()</code> returns a new random <code>uuid.UUID</code>, the same kind <code>GEN_UUID()</code> and the
+<code>_id</code> default produce. Use it when you need the id before the insert, or want to
+set a <code>UUID</code> column yourself instead of letting it be generated:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="True-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">order_id</span> <span class="o">=</span> <span class="n">linkdb</span><span class="o">.</span><span class="n">gen_uuid</span><span class="p">()</span>
+</span><span id="True-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO orders (_id, total) VALUES (?, ?)&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">order_id</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+</span><span id="True-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO order_items (order_id, sku) VALUES (?, ?)&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">order_id</span><span class="p">,</span> <span class="s2">&quot;A1&quot;</span><span class="p">])</span>
+</span></code></pre></div>
 
 
 

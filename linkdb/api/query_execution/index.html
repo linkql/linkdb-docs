@@ -2155,8 +2155,8 @@ trailing <code>;</code> is optional. Passing zero or several statements raises
 <p>Rules:</p>
 <ul>
 <li>Supported value types are <code>None</code> (becomes <code>NULL</code>), <code>bool</code>, <code>int</code>, <code>float</code>,
-  and <code>str</code>. Anything else raises <code>LinkDBError</code>, as does a non-finite float
-  (<code>nan</code>, <code>inf</code>).</li>
+  <code>str</code>, and <code>uuid.UUID</code>. Anything else raises <code>LinkDBError</code>, as does a
+  non-finite float (<code>nan</code>, <code>inf</code>). A <code>uuid.UUID</code> is bound as <code>CAST('...' AS UUID)</code>.</li>
 <li>Values are never pasted into the SQL text, so a string containing quotes or
   keywords is always treated as plain data.</li>
 <li>A placeholder stands for a value, not a name. You can't parameterize a
