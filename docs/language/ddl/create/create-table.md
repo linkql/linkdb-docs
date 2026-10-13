@@ -146,6 +146,9 @@ reference_action        ::= CASCADE
 - Use [`DROP TABLE`](../drop/drop-table.md) to remove a table.
 - Use [`ALTER TABLE`](../alter/alter-table.md) to modify an existing table.
 - Foreign key references are validated at commit time, not inline.
+- A foreign key column must have a type compatible with the column it references. Integer types
+  (`TINYINT`, `SMALLINT`, `INT`, `BIGINT`) are interchangeable, as are `VARCHAR` and `TEXT`; any other
+  mismatch (for example `BIGINT` referencing a `UUID` `_id`) is rejected when the table is created or altered.
 
 ## Examples
 
