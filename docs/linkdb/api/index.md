@@ -38,6 +38,7 @@ distribution is named `linkdbms`, but you import it as `linkdb`.
 | `Connection` | class | [Connection](connection.md#connection) |
 | `create_database()` | function | [Connection](connection.md#managing-databases) |
 | `drop_database()` | function | [Connection](connection.md#managing-databases) |
+| `gen_uuid()` | function | [Connection](connection.md#generating-uuids) |
 | `set_default_database_root()` | function | [Connection](connection.md#where-named-databases-live) |
 | `Cursor` | class | [Query Execution](query_execution.md#cursors) |
 | `Result` | dataclass | [Results](results.md) |

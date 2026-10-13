@@ -54,6 +54,8 @@ data_type ::= INT
 
 !!! note
 
+    A string compared with a `UUID` value is read as a `UUID`, so `WHERE _id = '550e8400-e29b-41d4-a716-446655440000'` works. A string that is not a valid UUID raises an error instead of matching nothing.
+
     For performance sensitive use-cases, always specify `size` and `d` for `DECIMAL` types. Unspecified `DECIMAL` types use arbitrary precision which trades storage efficiency and compute speed for exactness.
 
 ## Structured Types

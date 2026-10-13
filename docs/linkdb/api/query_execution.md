@@ -37,8 +37,8 @@ conn.execute(
 Rules:
 
 - Supported value types are `None` (becomes `NULL`), `bool`, `int`, `float`,
-  and `str`. Anything else raises `LinkDBError`, as does a non-finite float
-  (`nan`, `inf`).
+  `str`, and `uuid.UUID`. Anything else raises `LinkDBError`, as does a
+  non-finite float (`nan`, `inf`). A `uuid.UUID` is bound as `CAST('...' AS UUID)`.
 - Values are never pasted into the SQL text, so a string containing quotes or
   keywords is always treated as plain data.
 - A placeholder stands for a value, not a name. You can't parameterize a

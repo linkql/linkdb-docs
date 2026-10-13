@@ -128,3 +128,15 @@ The setting applies to `connect()`, `create_database()`, `drop_database()`,
 and to `CREATE DATABASE` / `DROP DATABASE` statements you run. It does not
 affect paths. The CLI's `--root` option does the same thing; see
 [CLI](../cli/index.md#choosing-where-databases-live).
+
+## Generating UUIDs
+
+`gen_uuid()` returns a new random `uuid.UUID`, the same kind `GEN_UUID()` and the
+`_id` default produce. Use it when you need the id before the insert, or want to
+set a `UUID` column yourself instead of letting it be generated:
+
+```python
+order_id = linkdb.gen_uuid()
+conn.execute("INSERT INTO orders (_id, total) VALUES (?, ?)", [order_id, 40])
+conn.execute("INSERT INTO order_items (order_id, sku) VALUES (?, ?)", [order_id, "A1"])
+```
