@@ -2164,6 +2164,9 @@ transaction rather than immediately.</dd>
 <li>Use <a href="../../drop/drop-table/"><code>DROP TABLE</code></a> to remove a table.</li>
 <li>Use <a href="../../alter/alter-table/"><code>ALTER TABLE</code></a> to modify an existing table.</li>
 <li>Foreign key references are validated at commit time, not inline.</li>
+<li>A foreign key column must have a type compatible with the column it references. Integer types
+  (<code>TINYINT</code>, <code>SMALLINT</code>, <code>INT</code>, <code>BIGINT</code>) are interchangeable, as are <code>VARCHAR</code> and <code>TEXT</code>; any other
+  mismatch (for example <code>BIGINT</code> referencing a <code>UUID</code> <code>_id</code>) is rejected when the table is created or altered.</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <div class="language-sql highlight"><span class="filename">Basic table creation</span><pre><span></span><code><span id="True-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span>
