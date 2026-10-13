@@ -18,6 +18,9 @@ lexeme.
 LinkDBError            base class; also raised directly for CLI-layer errors
                         (unknown REPL command, bad database admin arguments,
                         no active connection, etc.)
+├── LinkDBConnectionError   Python API: database can't be opened, or a closed
+│                           connection/cursor was used
+├── LinkQLSyntaxError   Python API: a statement failed to lex or parse
 ├── LexerError          tokenizing failure
 ├── ParserError         syntax error while parsing a statement
 ├── PlannerError        query planning failure
@@ -41,6 +44,26 @@ an unknown `\`-command, a missing argument to a command, a `CREATE`/`ALTER`/
 `DROP` `DATABASE` naming conflict, or no active connection to disconnect.
 
 Carries: `message`.
+
+### `LinkDBConnectionError`
+
+Raised by the [Python API](../linkdb/api/index.md) when `connect()` can't
+open a database (it doesn't exist and `create=True` wasn't given, or the
+target is empty), and when a closed `Connection` or `Cursor` is used.
+Defined in `linkdb.errors` and exported as `linkdb.LinkDBConnectionError`.
+
+Carries: `message`.
+
+### `LinkQLSyntaxError`
+
+Raised by the [Python API](../linkdb/api/index.md) in place of `LexerError`
+and `ParserError`, so callers catch one class for any statement that can't
+be lexed or parsed. Defined in `linkdb.errors` and exported as
+`linkdb.LinkQLSyntaxError`.
+
+Carries: `message`, `line`, `column`, `lexeme`, and `source` (the text the
+lexer saw, or `None`). `str()` appends the line, column, and the offending
+source line with a caret, matching the CLI's output.
 
 ### `LexerError`
 

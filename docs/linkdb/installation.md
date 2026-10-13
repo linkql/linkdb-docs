@@ -2,13 +2,40 @@
 
 LinkDB is MVP-stage software. It is **not** published to PyPI — there is an
 unrelated package already named `linkdb` on PyPI (a CLI bookmark manager),
-so `pip install linkdb` will install the wrong thing. For now, install from
-source.
+so `pip install linkdb` will install the wrong thing. Install a release
+wheel, or install from source.
+
+The distribution is named **`linkdbms`**, but you import it and run it as
+`linkdb`.
 
 ## Requirements
 
 - Python 3.12 or later (`requires-python = ">=3.12"`).
-- Git, with submodule support (used below).
+- Git, with submodule support (only for installing from source).
+
+## Install a release wheel
+
+A wheel is a single file that bundles the CLI, the Python API, and every
+engine package, so there are no other packages or submodules to install.
+Use a fresh virtual environment:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate        # .venv\Scripts\activate on Windows
+pip install ./linkdbms-<version>-py3-none-any.whl
+```
+
+Releases are attached to GitHub releases on
+[`linkql/linkdb`](https://github.com/linkql/linkdb). To build a wheel
+yourself from a full checkout (submodules included):
+
+```sh
+python -m pip install build
+python -m build --wheel
+```
+
+The wheel appears in `dist/`. To upgrade, install the newer wheel with
+`pip install --upgrade`.
 
 ## Install from source
 
@@ -48,7 +75,9 @@ checkouts alongside the main package.
     pip install -r requirements.txt
     ```
 
-This puts a `linkdb` console script on your `PATH` — it's the
+## Check the install
+
+Either route puts a `linkdb` console script on your `PATH` — it's the
 `[project.scripts]` entry `linkdb = "linkdb.cli.repl:main"` from
 `pyproject.toml`. Run it to confirm the install:
 
@@ -56,4 +85,11 @@ This puts a `linkdb` console script on your `PATH` — it's the
 linkdb
 ```
 
-See [CLI](cli/index.md) for what to do once it's running.
+`\q` leaves the CLI. To check the Python API:
+
+```sh
+python -c "import linkdb; print(linkdb.connect().execute('SELECT 1').rows)"
+```
+
+See [CLI](cli/index.md) for what to do once the CLI is running, or [Python
+API](api/index.md) to use LinkDB from your own code.

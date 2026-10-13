@@ -35,7 +35,8 @@ real, on-disk database. To work with persistent data, create a database with
 `CREATE DATABASE <name>;` and connect to it with `\c <name>` — see
 [Commands](commands.md) for both. Once connected, the prompt changes to
 `<name>=#` and every statement reads from and writes to that database's
-on-disk storage under `~/.linkdb/databases/<name>/`.
+on-disk storage under `~/.linkdb/databases/<name>/` (or in the current
+folder or `--root`; see [below](#choosing-where-databases-live)).
 
 Statements execute immediately — the session starts in `executor`
 [pipeline mode](commands.md#execution), the last of five stages a
@@ -43,6 +44,33 @@ statement can be made to stop at. Switching to an earlier stage (`\p
 lexer`/`parser`/`analyzer`/`planner`) is a debugging tool for inspecting
 how a statement gets lexed, parsed, analyzed, or planned without actually
 running it — see [Commands → Execution](commands.md#execution).
+
+## Choosing where databases live
+
+By default, databases live under `~/.linkdb/databases/`. Two things change
+what `\c` and `\l` can see:
+
+- **`--root PATH`** — use `PATH` as the folder that holds your databases
+  instead of `~/.linkdb/databases`. `CREATE DATABASE` and `DROP DATABASE`
+  use it too.
+
+    ```sh
+    linkdb --root ./my-databases
+    ```
+
+- **The current folder** — a database that sits directly inside the folder
+  you launched `linkdb` from is always available, alongside those under the
+  root. A folder only counts as a database if it contains a `system`
+  subfolder, because the current folder usually holds plenty of folders that
+  aren't databases. If the same name exists in both places, the databases
+  root wins.
+
+Database statements (`CREATE`, `ALTER`, `DROP`, and `TRUNCATE DATABASE`)
+always act on the databases root, never on the current folder.
+
+The [Python API](../api/index.md) does the same job with
+[`set_default_database_root()`](../api/connection.md#where-named-databases-live).
+It does not search the current folder.
 
 ## Interaction model
 

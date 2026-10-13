@@ -46,7 +46,10 @@ equivalent). Unknown names raise an error rather than printing nothing.
 Connects to an already-existing database.
 
 - `<database_name>` is required and is a logical name, never a path — it
-  resolves to a fixed directory, `~/.linkdb/databases/<database_name>/`.
+  resolves to `~/.linkdb/databases/<database_name>/` (or the folder given
+  with [`--root`](index.md#choosing-where-databases-live)). If there is no
+  such directory, a database of that name directly inside the current folder
+  is used instead.
 - **Never auto-creates.** If no directory exists under that name, this
   errors (`Database '<name>' does not exist.`) rather than creating one —
   use [`CREATE DATABASE`](#database-ddl-statements) first.
@@ -68,7 +71,8 @@ in-memory default (see [CLI](index.md#zero-config-default-database)).
   reason as `\c` above.
 
 ### `\l[ist]`
-Lists every database under `~/.linkdb/databases/` (an absent root directory
+Lists every database under `~/.linkdb/databases/` (or the `--root` folder),
+plus those directly inside the current folder (an absent root directory
 means zero databases, not an error):
 
 | Name     | Current |
@@ -181,7 +185,7 @@ only prints that stage's output for the whole file instead of running it.
 exactly like any other — not backslash commands — but they're documented
 here because of *where* they run: the CLI intercepts all four and executes
 them itself, as plain filesystem operations against
-`~/.linkdb/databases/`, before they would otherwise reach `Planner`/
+`~/.linkdb/databases/` (or the `--root` folder), before they would otherwise reach `Planner`/
 `Executor`. `linkdb_executor` itself still refuses to execute these four
 statement types (by design — see ADR 0007 in its own docs); only the CLI
 knows how to act on them, and only once [pipeline mode](#execution) has
