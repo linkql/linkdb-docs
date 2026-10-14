@@ -2475,6 +2475,9 @@ field. The engine resolves a type for each value:</p>
 </span><span id="True-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1">-- Column reference</span>
 </span><span id="True-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">UNPACK</span><span class="p">(</span><span class="k">source</span><span class="p">.</span><span class="n">metadata</span><span class="p">)</span>
 </span></code></pre></div>
+<p>The argument can be a JSON object or text holding one, so a string parameter works
+too: <code>UNPACK(?)</code>. Text that is not valid JSON, or is JSON but not an object, returns an
+error.</p>
 <p><code>UNPACK()</code> with no arguments is INSERT only — it takes the last value in the <code>VALUES</code>
 list as the JSON object to unpack. See <a href="../dml/insert/">INSERT</a> for details.</p>
 <h2 id="notes">Notes</h2>

@@ -2322,6 +2322,11 @@
 </span><span id="True-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1">-- Foreign key on a nexted array is not valid</span>
 </span><span id="True-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">nested_ids</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">(</span><span class="nb">INT</span><span class="p">))</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="c1">-- ERROR</span>
 </span></code></pre></div>
+<p>A foreign key on an array is checked for <strong>each element</strong>, so every element must match a
+row in the referenced table. An empty array, a <code>NULL</code> array, and a <code>NULL</code> element all pass.
+Deleting a referenced row is blocked while any array still holds its key. Array foreign
+keys support only <code>ON DELETE</code> and <code>ON UPDATE</code> of <code>RESTRICT</code> (the default) or <code>NO ACTION</code>;
+<code>CASCADE</code>, <code>SET NULL</code>, and <code>SET DEFAULT</code> return an error.</p>
 
 
 

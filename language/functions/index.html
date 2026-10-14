@@ -2405,7 +2405,8 @@ for <code>NOW()</code> and is converted to <code>NOW()</code> by the parser.</dd
 <dl>
 <dt><code>CAST(value AS type)</code></dt>
 <dd>Converts <code>value</code> to the specified <a href="../data_types/">data type</a>. Returns an error
-if the value cannot be cast to the target type.</dd>
+if the value cannot be cast to the target type.
+Casting text to <code>JSON</code> or <code>JSONB</code> parses it, and invalid JSON text is an error.</dd>
 </dl>
 <div class="language-sql highlight"><pre><span></span><code><span id="True-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">users</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </span><span id="True-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>

@@ -2192,7 +2192,9 @@ free fields cannot be included.</dd>
 <p>Declares free fields to include in the insert. Only valid on collections. Three
 forms are supported:</p>
 <ul>
-<li><strong>Named list</strong> <code>( field, ... )</code> — use when the free field names are known upfront</li>
+<li><strong>Named list</strong> <code>( field, ... )</code> — use when the free field names are known upfront.
+  Each <code>VALUES</code> row lists the free field values after the column values, in the same
+  order as the names: <code>INSERT INTO posts (content) WITH FREE (mood) VALUES ('hi', 'calm')</code></li>
 <li><strong><code>UNPACK( expr )</code></strong> — pass a JSON literal or column reference to unpack as free
   fields. The engine resolves a type for each key in the JSON object. See
   <a href="../../functions.md">Functions</a> for full <code>UNPACK()</code> behavior.</li>
