@@ -51,6 +51,15 @@ Selects all defined and free fields from a specific collection.
 SELECT posts::* FROM posts;
 ```
 
+### Free Field Reference
+Selects a free field from a collection using `::`. Any name is accepted, since free fields
+are not declared. A document without the field returns `NULL` in the select list, and the
+field can be tested with `IS MISSING` or `IS NOT MISSING` in `WHERE`.
+
+```sql
+SELECT p::ram_gb FROM products AS p WHERE p::ram_gb IS NOT MISSING;
+```
+
 ### Column Reference
 Selects a specific column from a table using dot notation.
 
