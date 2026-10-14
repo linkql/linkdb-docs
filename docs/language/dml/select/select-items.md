@@ -51,6 +51,11 @@ Selects all defined and free fields from a specific collection.
 SELECT posts::* FROM posts;
 ```
 
+Defined fields come first, followed by the free fields found in the returned documents,
+in the order they first appear. A document without a particular free field returns `NULL`
+for it. The free fields are discovered when the query runs, so a subquery or view over
+`collection::*` can't reference them by name.
+
 ### Free Field Reference
 Selects a free field from a collection using `::`. Any name is accepted, since free fields
 are not declared. A document without the field returns `NULL` in the select list, and the
