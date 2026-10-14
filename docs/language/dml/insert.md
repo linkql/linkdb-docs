@@ -60,7 +60,9 @@ constraint. The conflicting row can be silently skipped or updated with new valu
 :   Declares free fields to include in the insert. Only valid on collections. Three
     forms are supported:
 
-    - **Named list** `( field, ... )` — use when the free field names are known upfront
+    - **Named list** `( field, ... )` — use when the free field names are known upfront.
+      Each `VALUES` row lists the free field values after the column values, in the same
+      order as the names: `INSERT INTO posts (content) WITH FREE (mood) VALUES ('hi', 'calm')`
     - **`UNPACK( expr )`** — pass a JSON literal or column reference to unpack as free
       fields. The engine resolves a type for each key in the JSON object. See
       [Functions](../../functions.md) for full `UNPACK()` behavior.

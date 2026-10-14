@@ -141,6 +141,10 @@ UNPACK('{"mood": "happy", "weather": "sunny"}')
 UNPACK(source.metadata)
 ```
 
+The argument can be a JSON object or text holding one, so a string parameter works
+too: `UNPACK(?)`. Text that is not valid JSON, or is JSON but not an object, returns an
+error.
+
 `UNPACK()` with no arguments is INSERT only — it takes the last value in the `VALUES`
 list as the JSON object to unpack. See [INSERT](dml/insert.md) for details.
 

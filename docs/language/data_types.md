@@ -98,3 +98,9 @@ friend_ids ARRAY(INT) REFERENCES users(user_id)
 -- Foreign key on a nexted array is not valid
 nested_ids ARRAY(ARRAY(INT)) REFERENCES users(user_id) -- ERROR
 ```
+
+A foreign key on an array is checked for **each element**, so every element must match a
+row in the referenced table. An empty array, a `NULL` array, and a `NULL` element all pass.
+Deleting a referenced row is blocked while any array still holds its key. Array foreign
+keys support only `ON DELETE` and `ON UPDATE` of `RESTRICT` (the default) or `NO ACTION`;
+`CASCADE`, `SET NULL`, and `SET DEFAULT` return an error.

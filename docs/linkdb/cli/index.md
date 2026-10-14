@@ -14,7 +14,7 @@ You'll see a welcome banner followed by a prompt:
 
 ```text
 ┌────────────────────────────┐
-│      LinkDB CLI v0.1.0      │
+│      LinkDB CLI v0.1.1      │
 └────────────────────────────┘
       Type \? for help, \q to quit.
 

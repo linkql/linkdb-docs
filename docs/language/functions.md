@@ -208,6 +208,7 @@ SELECT YEAR(users.created_at) AS year FROM users;
 `CAST(value AS type)`
 :   Converts `value` to the specified [data type](data_types.md). Returns an error
     if the value cannot be cast to the target type.
+    Casting text to `JSON` or `JSONB` parses it, and invalid JSON text is an error.
 
 ```sql
 SELECT CAST(users.age AS FLOAT) AS age FROM users;
